@@ -1,0 +1,250 @@
+<%= content_tag :div, "Verifique os possíveis erros no formulário!", class: "alert alert-danger"  if resource.errors.messages.to_a.any? %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+
+  <% if @padrinho %>
+    <%= hidden_field_tag "cliente_user[padrinho_id]", @padrinho.id %>
+    <%= hidden_field_tag "#{resource.class.name.underscore}[city_ids][]", @padrinho.cities[0].id %>
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Você foi indicado por: <span id="nome-indicacor"><%= @padrinho.nome %></span></h3>
+      </div>
+    </div>
+  <% else %>
+    <div class="row">
+      <div class="col-xs-12">
+        <hr/>
+        <h3 id="nome-indicacor">Sem indicação</h3>
+        <hr/>
+      </div>
+    </div>
+  <% end %>
+
+  <% if resource.new_record? %>
+    <div class="row cadastro-pessoa-fisica-juridica">
+      <div class="<%= get_class_control_form(resource, 'juridica_fisica') %> col-xs-12">
+        <div class="form-group radio-buttons-inline">
+          <%= f.label :tipo_pessoa, 'Tipo de Pessoa', class: 'control-label' %>
+
+          <span class="radio">
+            <label for="cliente_user_juridica_fisica_f">
+              <%= f.radio_button :juridica_fisica, 'F', required: true %>
+              Física
+            </label>
+          </span>
+
+          <span class="radio">
+            <label for="cliente_user_juridica_fisica_j">
+              <%= f.radio_button :juridica_fisica, 'J', required: true %>
+              Jurídica
+            </label>
+          </span>
+
+          <span class="help-block"><%= resource.errors.messages[:juridica_fisica].uniq.join %></span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="<%= get_class_control_form(resource, 'nome') %> col-xs-12">
+      <%= f.label :nome, resource.fisica? ? 'Nome Completo' : 'Nome Fantasia', class: 'control-label' %>
+      <%= f.text_field :nome, class: 'form-control', required: true, autofocus: true %>
+      <span class="help-block"><%= resource.errors.messages[:nome].uniq.join %></span>
+    </div>
+  </div>
+
+  <% if resource.new_record? || resource.juridica? %>
+    <div class="row">
+      <div class="<%= get_class_control_form(resource, 'razao_social') %> col-xs-12">
+        <%= f.label :razao_social, 'Razão Social', class: 'control-label' %>
+        <%= f.text_field :razao_social, class: 'form-control', required: true %>
+        <span class="help-block"><%= resource.errors.messages[:razao_social].uniq.join %></span>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="form-group">
+      <% if resource.id %>
+        <div class="col-xs-12">
+          <%= f.label :plano_readonly, "Plano de Adesão", class: 'control-label' %><br>
+          <%= text_field_tag :plano_readonly, resource.plano_adesao.descricao , disabled: true, class: "form-control" %>
+        </div>
+      <% else %>
+        <div class="<%= get_class_control_form(resource, 'plano_adesao') %> col-xs-12">
+          <%= f.label :plano_adesao, "Plano" %>
+          <%= f.select :plano_adesao_id, @planos.collect {|plano| [plano.descricao, plano.id]}, {}, class: "form-control", required: true %>
+          <span class="help-block" id="help-plano-adesao"><%= resource.errors.messages[:plano_adesao].uniq.join %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="<%= get_class_control_form(resource, 'email') %> col-xs-12">
+      <%= f.label :email, 'E-Mail', class: 'control-label' %>
+      <%= f.email_field :email, class: 'form-control', required: true, value: resource.email.blank? && indicante ? indicante[:email] : resource.email %>
+      <span class="help-block"><%= resource.errors.messages[:email].uniq.join %></span>
+      <%= content_tag :span, "Aguardando confirmação do E-Mail: #{resource.unconfirmed_email}" if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="<%= get_class_control_form(resource, 'password') %> col-xs-6">
+      <%= f.label :password, 'Senha (6 dígitos)', class: 'control-label' %>
+      <%= f.password_field :password, class: 'form-control', required: !resource.id, pattern: "\\d{6}"  %>
+      <span class="help-block"><%= resource.errors.messages[:password].uniq.join ", " %></span>
+      <%= content_tag :span, "Deixe a senha em branco para manter a anterior" if resource.id %>
+    </div>
+    <div class="<%= get_class_control_form(resource, 'password_confirmation') %> col-xs-6">
+      <%= f.label :password_confirmation, 'Confirmação da Senha', class: 'control-label' %>
+      <%= f.password_field :password_confirmation, class: 'form-control', required: !resource.id, pattern: "\\d{6}"  %>
+      <span class="help-block"><%= resource.errors.messages[:password_confirmation].uniq.join %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="<%= get_class_control_form(resource, 'cpf_cnpj') %> col-xs-12">
+      <%= f.label :cpf_cnpj, resource.fisica? ? 'CPF' : 'CNPJ', class: 'control-label' %>
+      <%= f.text_field :cpf_cnpj, class: 'form-control', required: true, data: {mask: resource.fisica? ? 'cpf' : 'cnpj'} %>
+      <span class="help-block"><%= resource.errors.messages[:cpf_cnpj].uniq.join %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group">
+      <% if resource.id || @padrinho %>
+        <div class="col-xs-12">
+          <%= f.label :cities_read_only, "Cidade de Consumo", class: 'control-label' %><br>
+          <%= text_field_tag :cities_read_only, @padrinho ? @padrinho.cities[0].full_name : resource.cities[0].full_name, disabled: true, class: "form-control" %>
+        </div>
+      <% else %>
+        <div class="<%= get_class_control_form(resource, 'cities') %> col-xs-12">
+          <%= f.label :cities, "Cidade de Consumo", class: 'control-label' %>
+          <%= select_tag "#{resource.class.name.underscore}[city_ids][]", options_from_collection_for_select(@cities, :id, :full_name, resource.city_ids.to_a.any? ? resource.city_ids : current_cidade.id), include_blank: true, class: "form-control" %>
+          <span class="help-block"><%= resource.errors.messages[:cities].to_a.join %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if resource.new_record? || resource.fisica? %>
+    <legend>Informações Adicionais</legend>
+    <div class="row">
+      <div class="<%= get_class_control_form(resource, 'sexo') %> col-sm-4">
+        <%= f.label :sexo, "Sexo", class: 'control-label' %>
+        <%= f.select :sexo, ["Masculino", "Feminino"], {}, class: 'form-control', required: true %>
+        <span class="help-block"><%= resource.errors.messages[:sexo].uniq.join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(resource, 'estado_civil') %> col-sm-4">
+        <%= f.label :estado_civil, "Estado Civil", class: 'control-label' %>
+        <%= f.select :estado_civil, ["Solteiro(a)", "Casado(a)", "Divorciado(a)", "Separado(a)", "Viúvo(a)"], {}, class: 'form-control', required: true %>
+        <span class="help-block"><%= resource.errors.messages[:estado_civil].uniq.join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(resource, 'data_nascimento') %> col-sm-4">
+        <%= f.label :data_nascimento, "Data de Nascimento", class: 'control-label' %>
+        <%= f.text_field :data_nascimento, class: 'form-control', required: true, data: {mask: "data"}, value: resource.data_nascimento.to_s_br  %>
+        <span class="help-block"><%= resource.errors.messages[:data_nascimento].uniq.join %></span>
+      </div>
+    </div>
+  <% end %>
+
+  <legend>Endereço</legend>
+
+  <div class="row">
+    <div class="<%= get_class_control_form(resource, 'cep') %> col-md-3">
+      <%= f.label :cep, 'CEP', class: 'control-label' %>
+      <%= f.text_field :cep, class: 'form-control', data: {mask: "cep"} %>
+      <span class="help-block">
+        <a href="http://www.buscacep.correios.com.br/" target="_blank" tabindex="-1">Não sabe o seu cep?</a>
+        <%= resource.errors.messages[:cep].uniq.join %>
+      </span>
+    </div>
+
+    <div class="<%= get_class_control_form(resource, 'cidade') %> col-md-9">
+      <%= f.label :cidade, 'Cidade', class: 'control-label' %>
+      <%= f.text_field :cidade, class: 'form-control', required: true , readonly: true, tabindex: -1 %>
+      <span class="help-block"><%= resource.errors.messages[:cidade].uniq.join %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="<%= get_class_control_form(resource, 'logradouro') %> col-sm-9">
+      <%= f.label :logradouro, 'Logradouro', class: 'control-label' %>
+      <%= f.text_field :logradouro, class: 'form-control', required: true %>
+      <span class="help-block"><%= resource.errors.messages[:logradouro].uniq.join %></span>
+    </div>
+
+    <div class="<%= get_class_control_form(resource, 'numero') %> col-sm-3">
+      <%= f.label :numero, 'Número', class: 'control-label' %>
+      <%= f.text_field :numero, class: 'form-control', required: true %>
+      <span class="help-block"><%= resource.errors.messages[:numero].uniq.join %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="<%= get_class_control_form(resource, 'bairro') %> col-xs-6">
+      <%= f.label :bairro, 'Bairro', class: 'control-label' %>
+      <%= f.text_field :bairro, class: 'form-control', required: true %>
+      <span class="help-block"><%= resource.errors.messages[:bairro].uniq.join %></span>
+    </div>
+
+    <div class="<%= get_class_control_form(resource, 'complemento') %> col-xs-6">
+      <%= f.label :complemento, 'Complemento', class: 'control-label' %>
+      <%= f.text_field :complemento, class: 'form-control' %>
+      <span class="help-block"><%= resource.errors.messages[:complemento].uniq.join %></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="<%= get_class_control_form(resource, 'celular') %> col-xs-6">
+      <%= f.label :celular, 'Celular', class: 'control-label' %>
+      <%= link_to "?", "#", data: {toggle: "tooltip", placement: "left", "original-title" => "Será enviado um SMS sempre que for registrada uma transação em seu nome"}, tabindex: -1 %>
+      <%= f.text_field :celular, class: 'form-control', data: {mask: "telefone"}, required: true %>
+      <span class="help-block"><%= resource.errors.messages[:celular].uniq.join %></span>
+    </div>
+
+    <div class="<%= get_class_control_form(resource, 'telefone') %> col-xs-6">
+      <%= f.label :telefone, 'Telefone', class: 'control-label' %>
+      <%= f.text_field :telefone, class: 'form-control', data: {mask: "telefone8"} %>
+      <span class="help-block"><%= resource.errors.messages[:telefone].uniq.join %></span>
+    </div>
+  </div>
+
+
+  <% if resource.id %>
+    <div class="row">
+      <div class="<%= get_class_control_form(resource, 'current_password') %> col-xs-12">
+        <%= f.label :current_password, 'Senha Atual', class: 'control-label' %>
+        <%= f.password_field :current_password, class: 'form-control', required: true  %>
+        <span class="help-block">
+          Precisamos saber sua senha atual para confirmar as alterações
+        </span>
+      </div>,
+    </div>
+
+    <div><%= f.submit "Atualizar Cadastro", class: "btn btn-primary" %></div>
+  <% else %>
+    <div><%= f.submit "Cadastrar", class: "btn btn-primary" %></div>
+  <% end %>
+<% end %>
+<br />
+
+<%= content_for :script do %>
+  <script>
+    $(function() {
+      var planos = <%= raw @planos.to_a.inject({}) { |out, plano| out[plano.id.to_s] = plano; out }.to_json %>;
+      $("#cliente_user_plano_adesao_id").on("change", function() {
+        var plano = planos[$(this).val()];
+        var content = [];
+        if (plano) {
+          content.push($("<div>").text("Valor Anuidade: R$ " + plano.vlr_anuidade.toFixed(2).replace(".", ",")));
+          content.push($("<div>").text("O plano poderá ser alterado na renovação da anuidade"));
+        }
+        $("#help-plano-adesao").html(content);
+      });
+    });
+  </script>
+<% end %>

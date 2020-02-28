@@ -1,0 +1,54 @@
+<h1>Transações <small><%= current_operador.nome %></small></h1>
+<%= breadcrumb %>
+
+<div class="actions">
+  <div class="row">
+    <%= form_tag nil, method: :get do %>
+      <div class="col-md-3">
+        <%= text_field_tag :q, @filter, placeholder: "Filtro de Pesquisa (Nome, CPF, Código)", class:  "form-control" %>
+      </div>
+      <div class="col-md-9">
+        <button class="btn btn-primary" type="submit">Pesquisar</button>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= paginate @transacoes %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Tipo</th>
+      <th>Pagamento</th>
+      <th>Documento</th>
+      <th>Data</th>
+      <th>Valor</th>
+      <th>Cliente</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transacoes.each do |transacao| %>
+      <tr class="<%= tr_class transacao %>">
+        <td><%= transacao.id %></td>
+        <td><%= Transacao.formas[transacao.forma_pagamento.to_sym] %></td>
+        <td><%= transacao.tipo_pagamento ? Transacao.tipos[transacao.tipo_pagamento.to_sym] : "" %></td>
+        <td><%= transacao.documento %></td>
+        <td><%= transacao.created_at.to_s_br %></td>
+        <td><%= Dinheiro.new(transacao.vlr_gasto).real_formatado %></td>
+        <td><%= transacao.cliente_user.nome %></td>
+        <td>
+          <%= link_to "Cancelar", cancelar_transacao_path(transacao), data: { remote: true, cancelar: true }, class: "text-danger" if exibir_cancelamento?(transacao) %>
+          <%= content_tag :span, transacao.motivo if transacao.cancelada %>
+          <%= content_tag :span, "Não pode ser cancelada" if !transacao.cancelada && !exibir_cancelamento?(transacao) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div id="modal">
+</div>

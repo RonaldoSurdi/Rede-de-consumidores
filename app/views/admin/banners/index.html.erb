@@ -1,0 +1,47 @@
+<h1>Banners <small>Gerenciamento</small></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="actions">
+  <div class="row">
+    <%= form_tag nil, method: :get do %>
+      <div class="col-md-3">
+        <%= text_field_tag :q, @filter, placeholder: "Filtro de Pesquisa", class:  "form-control" %>
+      </div>
+      <div class="col-md-9">
+        <button class="btn btn-primary" type="submit">Pesquisar</button>
+        <%= link_to 'Novo Banner', new_banner_path, class: 'btn btn-success btn-sm pull-right' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= paginate @banners %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+    <th>#</th>
+      <th>Descrição</th>
+      <th>URL</th>
+      <th>Data Inicial</th>
+      <th>Data Final</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @banners.each do |banner| %>
+      <tr>
+        <td><%= link_to banner.id, banner %></td>
+        <td><%= banner.descricao %></td>
+        <td><%= banner.url %></td>
+        <td><%= banner.data_inicial.to_s_br %></td>
+        <td><%= banner.data_final.to_s_br %></td>
+        <td><%= link_to t('Edit'), edit_banner_path(banner) %></td>
+        <td><%= link_to t('Destroy'), banner, method: :delete, data: { confirm: 'Você confirma a exclusão?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

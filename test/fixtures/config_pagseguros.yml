@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  franquia_user_id: 
+  email: MyString
+  token: MyString
+
+two:
+  franquia_user_id: 
+  email: MyString
+  token: MyString

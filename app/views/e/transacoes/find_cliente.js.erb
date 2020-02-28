@@ -1,0 +1,9 @@
+<% if @erros.to_a.any? %>
+  $("#transacao_cliente_user_numero_cartao").val("");
+  $("#cliente").val("<%= @erros.join %>");
+<% else %>
+  $("#transacao_cliente_user_numero_cartao").val("<%= @cliente.numero_cartao_formatado %>");
+  $("#cliente").val("<%= @cliente.nome %>");
+  $("#saldo").text("<%= Dinheiro.new(@cliente.saldo).real_formatado %>");
+<% end %>
+$("[value=cartao]").click();

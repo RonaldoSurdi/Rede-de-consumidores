@@ -1,0 +1,40 @@
+<h1>Alteração de Senha</h1>
+
+<%= messages %>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@user, url: password_path(0), method: :patch) do |f| %>
+
+      <div class="row">
+        <div class="col-md-6 get_class_control_form(@user, 'current_password') %>">
+          <%= f.label :current_password, 'Senha Atual', class: 'control-label' %>
+          <%= f.password_field :current_password, class: 'form-control', autofocus: true, required: true, name: :current_password %>
+          <span class="help-block"><%= @user.errors.messages[:current_password].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 get_class_control_form(@user, 'password') %>">
+          <%= f.label :password, 'Nova Senha', class: 'control-label' %>
+          <%= f.password_field :password, class: 'form-control', required: true %>
+          <span class="help-block"><%= @user.errors.messages[:password].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 get_class_control_form(@user, 'password_confirmation') %>">
+          <%= f.label :password_confirmation, 'Confirmação da Nova Senha', class: 'control-label' %>
+          <%= f.password_field :password_confirmation, class: 'form-control', required: true  %>
+          <span class="help-block"><%= @user.errors.messages[:password_confirmation].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <%= submit_tag 'Gravar', class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

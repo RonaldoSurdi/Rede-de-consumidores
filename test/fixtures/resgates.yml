@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cliente_user_id: 
+  premio_id: 
+  enviado: false
+
+two:
+  cliente_user_id: 
+  premio_id: 
+  enviado: false

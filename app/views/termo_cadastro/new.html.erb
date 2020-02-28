@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h1 class="titulo txtDourado" style="font-size: 25px; text-align: center">Regulamento do Consumidor para o Programa ConsumerCard</h1>
+      <%= render partial: "termo" %>
+    </div>
+  </div>
+  <% unless params[:publico] %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+        <br>
+        <%= link_to "Não concordo com o Regulamento", termo_cadastro_path(0), method: :delete, class: "btn btn-danger" %>
+        <%= link_to "Concordo e Aceito o Regulamento", termo_cadastro_index_path, method: :post, class: "btn btn-primary" %>
+        <br><br>
+        <br>
+      </div>
+    </div>
+  <% end %>
+</div>

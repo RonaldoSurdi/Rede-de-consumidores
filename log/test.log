@@ -1,0 +1,179 @@
+  [1m[36m (40.8ms)[0m  [1mCREATE TABLE `activities` (`id` int(11) auto_increment PRIMARY KEY, `trackable_id` int(11), `trackable_type` varchar(255), `owner_id` int(11), `owner_type` varchar(255), `key` varchar(255), `parameters` text, `recipient_id` int(11), `recipient_type` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (17.9ms)[0m  CREATE INDEX `index_activities_on_owner_id_and_owner_type` USING btree ON `activities` (`owner_id`, `owner_type`) 
+  [1m[36m (19.4ms)[0m  [1mCREATE INDEX `index_activities_on_recipient_id_and_recipient_type` USING btree ON `activities` (`recipient_id`, `recipient_type`) [0m
+  [1m[35m (20.2ms)[0m  CREATE INDEX `index_activities_on_trackable_id_and_trackable_type` USING btree ON `activities` (`trackable_id`, `trackable_type`) 
+  [1m[36m (25.3ms)[0m  [1mCREATE TABLE `banners` (`id` int(11) auto_increment PRIMARY KEY, `data_inicial` date, `data_final` date, `url` varchar(255), `descricao` varchar(255), `file_file_name` varchar(255), `file_content_type` varchar(255), `file_file_size` int(11), `file_updated_at` datetime, `user_id` int(11), `tipo` varchar(255)) ENGINE=InnoDB[0m
+  [1m[35m (18.2ms)[0m  CREATE INDEX `index_banners_on_user_id` USING btree ON `banners` (`user_id`) 
+  [1m[36m (27.3ms)[0m  [1mCREATE TABLE `cities` (`id` int(11) auto_increment PRIMARY KEY, `description` varchar(255), `uf` varchar(255), `created_at` datetime, `updated_at` datetime, `slug` varchar(255)) ENGINE=InnoDB[0m
+  [1m[35m (17.5ms)[0m  CREATE UNIQUE INDEX `index_cities_on_slug` USING btree ON `cities` (`slug`) 
+  [1m[36m (23.5ms)[0m  [1mCREATE TABLE `cities_users` (`city_id` int(11), `user_id` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (20.4ms)[0m  CREATE INDEX `index_cities_users_on_city_id` USING btree ON `cities_users` (`city_id`) 
+  [1m[36m (20.9ms)[0m  [1mCREATE INDEX `index_cities_users_on_user_id` USING btree ON `cities_users` (`user_id`) [0m
+  [1m[35m (41.1ms)[0m  CREATE TABLE `config_boletos` (`id` int(11) auto_increment PRIMARY KEY, `banco` varchar(255), `convenio` varchar(255), `agencia` varchar(255), `conta_corrente` varchar(255), `dias_vencimento` int(11), `instrucoes` text, `user_id` int(11), `created_at` datetime, `updated_at` datetime, `posto` varchar(255), `byte_geracao` varchar(255)) ENGINE=InnoDB
+  [1m[36m (19.4ms)[0m  [1mCREATE INDEX `index_config_boletos_on_user_id` USING btree ON `config_boletos` (`user_id`) [0m
+  [1m[35m (23.1ms)[0m  CREATE TABLE `config_pagseguros` (`id` int(11) auto_increment PRIMARY KEY, `franquia_user_id` int(11), `email` varchar(255), `token` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB
+  [1m[36m (14.1ms)[0m  [1mCREATE INDEX `index_config_pagseguros_on_franquia_user_id` USING btree ON `config_pagseguros` (`franquia_user_id`) [0m
+  [1m[35m (33.1ms)[0m  CREATE TABLE `friendly_id_slugs` (`id` int(11) auto_increment PRIMARY KEY, `slug` varchar(255) NOT NULL, `sluggable_id` int(11) NOT NULL, `sluggable_type` varchar(50), `scope` varchar(255), `created_at` datetime) ENGINE=InnoDB
+  [1m[36m (22.3ms)[0m  [1mCREATE UNIQUE INDEX `index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope` USING btree ON `friendly_id_slugs` (`slug`, `sluggable_type`, `scope`) [0m
+  [1m[35m (22.1ms)[0m  CREATE INDEX `index_friendly_id_slugs_on_slug_and_sluggable_type` USING btree ON `friendly_id_slugs` (`slug`, `sluggable_type`) 
+  [1m[36m (16.9ms)[0m  [1mCREATE INDEX `index_friendly_id_slugs_on_sluggable_id` USING btree ON `friendly_id_slugs` (`sluggable_id`) [0m
+  [1m[35m (26.7ms)[0m  CREATE INDEX `index_friendly_id_slugs_on_sluggable_type` USING btree ON `friendly_id_slugs` (`sluggable_type`) 
+  [1m[36m (38.2ms)[0m  [1mCREATE TABLE `movimentos` (`id` int(11) auto_increment PRIMARY KEY, `data` date, `vlr` decimal(15,6), `user_id` int(11), `descricao` varchar(255), `created_at` datetime, `updated_at` datetime, `transacao_id` int(11), `fechamento_mes_base` int(11), `fechamento_ano_base` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (20.8ms)[0m  CREATE INDEX `index_movimentos_on_data` USING btree ON `movimentos` (`data`) 
+  [1m[36m (28.9ms)[0m  [1mCREATE INDEX `index_movimentos_on_transacao_id` USING btree ON `movimentos` (`transacao_id`) [0m
+  [1m[35m (31.8ms)[0m  CREATE INDEX `index_movimentos_on_user_id` USING btree ON `movimentos` (`user_id`) 
+  [1m[36m (22.4ms)[0m  [1mCREATE TABLE `operadores` (`id` int(11) auto_increment PRIMARY KEY, `nome` varchar(255), `estabelecimento_user_id` int(11), `created_at` datetime, `updated_at` datetime, `email` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `eliminado` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (15.4ms)[0m  CREATE UNIQUE INDEX `index_operadores_on_email` USING btree ON `operadores` (`email`) 
+  [1m[36m (16.8ms)[0m  [1mCREATE INDEX `index_operadores_on_estabelecimento_user_id` USING btree ON `operadores` (`estabelecimento_user_id`) [0m
+  [1m[35m (19.9ms)[0m  CREATE TABLE `pagamentos` (`id` int(11) auto_increment PRIMARY KEY, `valor` decimal(15,6), `status` varchar(255), `origem_id` int(11), `destino_id` int(11), `created_at` datetime, `updated_at` datetime, `data_vencimento` date, `tipo_pagamento` varchar(255), `url_pagseguro` varchar(255), `nosso_numero` varchar(255), `planos_adesao_id` int(11), `categoria` varchar(255), `recebido` tinyint(1)) ENGINE=InnoDB
+  [1m[36m (24.2ms)[0m  [1mCREATE INDEX `index_pagamentos_on_destino_id` USING btree ON `pagamentos` (`destino_id`) [0m
+  [1m[35m (16.2ms)[0m  CREATE INDEX `index_pagamentos_on_origem_id` USING btree ON `pagamentos` (`origem_id`) 
+  [1m[36m (16.7ms)[0m  [1mCREATE INDEX `index_pagamentos_on_planos_adesao_id` USING btree ON `pagamentos` (`planos_adesao_id`) [0m
+  [1m[35m (22.0ms)[0m  CREATE TABLE `parametrizacoes` (`id` int(11) auto_increment PRIMARY KEY, `created_at` datetime, `updated_at` datetime, `percentual_cliente` float, `percentual_franquia` float, `percentual_indicado` float, `vlr_minimo_bonus_indicacao` float, `percentual_administracao` float, `vlr_consumo_medio_para_resgate_premios` float, `prazo_entrega_premio` int(11), `valor_cartao` float) ENGINE=InnoDB
+  [1m[36m (24.9ms)[0m  [1mCREATE TABLE `planos_adesoes` (`id` int(11) auto_increment PRIMARY KEY, `vlr_anuidade` float, `vlr_indicado` float, `descricao` varchar(255), `created_at` datetime, `updated_at` datetime, `quantidade_indicacoes` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (35.5ms)[0m  CREATE TABLE `premios` (`id` int(11) auto_increment PRIMARY KEY, `tipo_usuario_id` int(11), `descricao` varchar(255), `descricao_completa` text, `created_at` datetime, `updated_at` datetime, `imagem_file_name` varchar(255), `imagem_content_type` varchar(255), `imagem_file_size` int(11), `imagem_updated_at` datetime) ENGINE=InnoDB
+  [1m[36m (17.6ms)[0m  [1mCREATE INDEX `index_premios_on_tipo_usuario_id` USING btree ON `premios` (`tipo_usuario_id`) [0m
+  [1m[35m (24.3ms)[0m  CREATE TABLE `resgates` (`id` int(11) auto_increment PRIMARY KEY, `cliente_user_id` int(11), `premio_id` int(11), `enviado` tinyint(1), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB
+  [1m[36m (18.0ms)[0m  [1mCREATE INDEX `index_resgates_on_cliente_user_id` USING btree ON `resgates` (`cliente_user_id`) [0m
+  [1m[35m (22.1ms)[0m  CREATE INDEX `index_resgates_on_premio_id` USING btree ON `resgates` (`premio_id`) 
+  [1m[36m (27.0ms)[0m  [1mCREATE TABLE `tipo_usuarios` (`id` int(11) auto_increment PRIMARY KEY, `descricao` varchar(255), `quantidade_indicacoes` int(11), `created_at` datetime, `updated_at` datetime, `imagem_file_name` varchar(255), `imagem_content_type` varchar(255), `imagem_file_size` int(11), `imagem_updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (22.0ms)[0m  CREATE TABLE `transacoes` (`id` int(11) auto_increment PRIMARY KEY, `forma_pagamento` varchar(255), `vlr_gasto` decimal(15,6), `cliente_user_id` int(11), `operador_id` int(11), `created_at` datetime, `updated_at` datetime, `cancelada` tinyint(1), `motivo` varchar(255), `documento` varchar(255), `valor_franquia` decimal(15,6), `valor_padrinho` decimal(15,6), `tipo_pagamento` varchar(255), `percentual_bonus_real` float) ENGINE=InnoDB
+  [1m[36m (17.9ms)[0m  [1mCREATE INDEX `index_transacoes_on_cancelada` USING btree ON `transacoes` (`cancelada`) [0m
+  [1m[35m (16.0ms)[0m  CREATE INDEX `index_transacoes_on_cliente_user_id` USING btree ON `transacoes` (`cliente_user_id`) 
+  [1m[36m (18.2ms)[0m  [1mCREATE INDEX `index_transacoes_on_created_at` USING btree ON `transacoes` (`created_at`) [0m
+  [1m[35m (21.2ms)[0m  CREATE INDEX `index_transacoes_on_forma_pagamento` USING btree ON `transacoes` (`forma_pagamento`) 
+  [1m[36m (18.9ms)[0m  [1mCREATE INDEX `index_transacoes_on_operador_id` USING btree ON `transacoes` (`operador_id`) [0m
+  [1m[35m (18.9ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `email` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime, `remember_created_at` datetime, `sign_in_count` int(11) DEFAULT 0 NOT NULL, `current_sign_in_at` datetime, `last_sign_in_at` datetime, `current_sign_in_ip` varchar(255), `last_sign_in_ip` varchar(255), `created_at` datetime, `updated_at` datetime, `juridica_fisica` varchar(255), `cpf_cnpj` varchar(255), `nome` varchar(255), `logradouro` varchar(255), `bairro` varchar(255), `complemento` varchar(255), `numero` varchar(255), `telefone` varchar(255), `celular` varchar(255), `type` varchar(255), `confirmation_token` varchar(255), `confirmed_at` datetime, `confirmation_sent_at` datetime, `unconfirmed_email` varchar(255), `cep` varchar(255), `percentual_bonus_real` float, `plano_adesao_id` int(11), `cliente_user_indicador_id` int(11), `numero_cartao` varchar(255), `padrinho_id` int(11), `taxa_publicidade` float, `cartao_emitido` tinyint(1) DEFAULT 0, `cidade` varchar(255), `descricao` varchar(255), `logo_file_name` varchar(255), `logo_content_type` varchar(255), `logo_file_size` int(11), `logo_updated_at` datetime, `data_nascimento` date, `estado_civil` varchar(255), `sexo` varchar(255), `url` varchar(255), `quantidade_indicacoes` int(11), `percentual_bonus_outras_formas` float, `observacao` varchar(255), `importado` tinyint(1) DEFAULT 0 NOT NULL, `razao_social` varchar(255)) ENGINE=InnoDB
+  [1m[36m (15.3ms)[0m  [1mCREATE INDEX `index_users_on_cliente_user_indicador_id` USING btree ON `users` (`cliente_user_indicador_id`) [0m
+  [1m[35m (18.0ms)[0m  CREATE UNIQUE INDEX `index_users_on_confirmation_token` USING btree ON `users` (`confirmation_token`) 
+  [1m[36m (17.6ms)[0m  [1mCREATE UNIQUE INDEX `index_users_on_cpf_cnpj` USING btree ON `users` (`cpf_cnpj`) [0m
+  [1m[35m (17.9ms)[0m  CREATE UNIQUE INDEX `index_users_on_email` USING btree ON `users` (`email`) 
+  [1m[36m (17.1ms)[0m  [1mCREATE INDEX `index_users_on_nome` USING btree ON `users` (`nome`) [0m
+  [1m[35m (20.3ms)[0m  CREATE UNIQUE INDEX `index_users_on_numero_cartao` USING btree ON `users` (`numero_cartao`) 
+  [1m[36m (20.1ms)[0m  [1mCREATE INDEX `index_users_on_padrinho_id` USING btree ON `users` (`padrinho_id`) [0m
+  [1m[35m (19.0ms)[0m  CREATE INDEX `index_users_on_plano_adesao_id` USING btree ON `users` (`plano_adesao_id`) 
+  [1m[36m (18.8ms)[0m  [1mCREATE UNIQUE INDEX `index_users_on_reset_password_token` USING btree ON `users` (`reset_password_token`) [0m
+  [1m[35m (18.7ms)[0m  CREATE INDEX `index_users_on_type` USING btree ON `users` (`type`) 
+  [1m[36m (70.4ms)[0m  [1mALTER TABLE `banners` ADD CONSTRAINT `banners_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(id)[0m
+  [1m[35m (62.1ms)[0m  ALTER TABLE `cities_users` ADD CONSTRAINT `cities_users_city_id_fk` FOREIGN KEY (`city_id`) REFERENCES `cities`(id)
+  [1m[36m (61.0ms)[0m  [1mALTER TABLE `cities_users` ADD CONSTRAINT `cities_users_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(id)[0m
+  [1m[35m (57.1ms)[0m  ALTER TABLE `config_boletos` ADD CONSTRAINT `config_boletos_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(id)
+  [1m[36m (68.4ms)[0m  [1mALTER TABLE `config_pagseguros` ADD CONSTRAINT `config_pagseguros_franquia_user_id_fk` FOREIGN KEY (`franquia_user_id`) REFERENCES `users`(id)[0m
+  [1m[35m (72.7ms)[0m  ALTER TABLE `movimentos` ADD CONSTRAINT `movimentos_transacao_id_fk` FOREIGN KEY (`transacao_id`) REFERENCES `transacoes`(id)
+  [1m[36m (68.9ms)[0m  [1mALTER TABLE `movimentos` ADD CONSTRAINT `movimentos_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(id)[0m
+  [1m[35m (55.7ms)[0m  ALTER TABLE `operadores` ADD CONSTRAINT `operadores_estabelecimento_user_id_fk` FOREIGN KEY (`estabelecimento_user_id`) REFERENCES `users`(id)
+  [1m[36m (58.4ms)[0m  [1mALTER TABLE `pagamentos` ADD CONSTRAINT `pagamentos_planos_adesao_id_fk` FOREIGN KEY (`planos_adesao_id`) REFERENCES `planos_adesoes`(id)[0m
+  [1m[35m (85.8ms)[0m  ALTER TABLE `pagamentos` ADD CONSTRAINT `pagamentos_destino_id_fk` FOREIGN KEY (`destino_id`) REFERENCES `users`(id)
+  [1m[36m (86.9ms)[0m  [1mALTER TABLE `pagamentos` ADD CONSTRAINT `pagamentos_origem_id_fk` FOREIGN KEY (`origem_id`) REFERENCES `users`(id)[0m
+  [1m[35m (72.1ms)[0m  ALTER TABLE `premios` ADD CONSTRAINT `premios_tipo_usuario_id_fk` FOREIGN KEY (`tipo_usuario_id`) REFERENCES `tipo_usuarios`(id)
+  [1m[36m (62.0ms)[0m  [1mALTER TABLE `resgates` ADD CONSTRAINT `resgates_premio_id_fk` FOREIGN KEY (`premio_id`) REFERENCES `premios`(id)[0m
+  [1m[35m (64.3ms)[0m  ALTER TABLE `resgates` ADD CONSTRAINT `resgates_cliente_user_id_fk` FOREIGN KEY (`cliente_user_id`) REFERENCES `users`(id)
+  [1m[36m (75.4ms)[0m  [1mALTER TABLE `transacoes` ADD CONSTRAINT `transacoes_operador_id_fk` FOREIGN KEY (`operador_id`) REFERENCES `operadores`(id)[0m
+  [1m[35m (66.4ms)[0m  ALTER TABLE `transacoes` ADD CONSTRAINT `transacoes_cliente_user_id_fk` FOREIGN KEY (`cliente_user_id`) REFERENCES `users`(id)
+  [1m[36m (83.9ms)[0m  [1mALTER TABLE `users` ADD CONSTRAINT `users_plano_adesao_id_fk` FOREIGN KEY (`plano_adesao_id`) REFERENCES `planos_adesoes`(id)[0m
+  [1m[35m (100.7ms)[0m  ALTER TABLE `users` ADD CONSTRAINT `users_padrinho_id_fk` FOREIGN KEY (`padrinho_id`) REFERENCES `users`(id)
+  [1m[36m (21.0ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (35.5ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36m (0.4ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (3.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150728130835')
+  [1m[36m (9.1ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131231152045')[0m
+  [1m[35m (3.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140127111707')
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131219183400')[0m
+  [1m[35m (3.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140106030148')
+  [1m[36m (3.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131204174053')[0m
+  [1m[35m (2.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140502194616')
+  [1m[36m (2.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140217125731')[0m
+  [1m[35m (2.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131218164051')
+  [1m[36m (2.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131205015710')[0m
+  [1m[35m (2.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140602183918')
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140307011152')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131230174455')
+  [1m[36m (2.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140104151731')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140105214718')
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140217145210')[0m
+  [1m[35m (3.0ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140106004752')
+  [1m[36m (3.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131127184921')[0m
+  [1m[35m (2.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140307165600')
+  [1m[36m (2.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140217141912')[0m
+  [1m[35m (4.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140306185911')
+  [1m[36m (4.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140115142355')[0m
+  [1m[35m (2.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140307121844')
+  [1m[36m (2.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131217203228')[0m
+  [1m[35m (3.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131211001751')
+  [1m[36m (2.9ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131205195953')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140107010620')
+  [1m[36m (6.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131212223315')[0m
+  [1m[35m (2.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131213161205')
+  [1m[36m (4.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131230231420')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140306181904')
+  [1m[36m (3.5ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140107010325')[0m
+  [1m[35m (2.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140128023142')
+  [1m[36m (2.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140106151000')[0m
+  [1m[35m (2.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140128172955')
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140106144023')[0m
+  [1m[35m (2.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140404142424')
+  [1m[36m (2.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131211024446')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150710181417')
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131203182020')[0m
+  [1m[35m (2.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140307121454')
+  [1m[36m (3.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131204173711')[0m
+  [1m[35m (2.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131211183414')
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131218232314')[0m
+  [1m[35m (2.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131206014214')
+  [1m[36m (4.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140107010753')[0m
+  [1m[35m (3.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131212225707')
+  [1m[36m (3.1ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131218171038')[0m
+  [1m[35m (3.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140114155612')
+  [1m[36m (3.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140306181929')[0m
+  [1m[35m (2.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140405133122')
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140404173203')[0m
+  [1m[35m (2.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131213214444')
+  [1m[36m (18.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140602203416')[0m
+  [1m[35m (3.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131218163859')
+  [1m[36m (2.5ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131231145254')[0m
+  [1m[35m (5.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140217125545')
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131218174222')[0m
+  [1m[35m (2.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140306185754')
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131217211948')[0m
+  [1m[35m (2.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131231011029')
+  [1m[36m (3.0ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131230162258')[0m
+  [1m[35m (2.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131211184430')
+  [1m[36m (2.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140114162240')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131211171147')
+  [1m[36m (2.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140217145303')[0m
+  [1m[35m (2.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140117135425')
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140104150252')[0m
+  [1m[35m (3.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131210202526')
+  [1m[36m (3.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140128023604')[0m
+  [1m[35m (2.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140306211333')
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140115135329')[0m
+  [1m[35m (2.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140307205604')
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131218222334')[0m
+  [1m[35m (2.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131231125207')
+  [1m[36m (2.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140105221449')[0m
+  [1m[35m (2.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131231154805')
+  [1m[36m (2.5ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140106144313')[0m
+  [1m[35m (2.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140106144122')
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140404171303')[0m
+  [1m[35m (2.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140104164121')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mAdminUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`type` IN ('AdminUser') ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM `users` WHERE `users`.`email` = BINARY 'admin@consumercard.net' LIMIT 1
+  [1m[36mUser Exists (33.7ms)[0m  [1mSELECT 1 AS one FROM `users` WHERE `users`.`cpf_cnpj` = BINARY '19515763000101' LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO `users` (`cpf_cnpj`, `created_at`, `email`, `encrypted_password`, `nome`, `type`, `updated_at`) VALUES ('19515763000101', '2018-08-25 06:14:42', 'admin@consumercard.net', '$2a$04$f1S9073LHoTAW5PCykK3xeTqJvnKEY95a7I5PKz4u0VnxLlmKQsbK', 'Rede ConsumerCard', 'AdminUser', '2018-08-25 06:14:42')
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `activities` (`created_at`, `key`, `parameters`, `trackable_id`, `trackable_type`, `updated_at`) VALUES ('2018-08-25 06:14:43', 'admin_user.create', '--- {}\n', 1, 'User', '2018-08-25 06:14:43')[0m
+  [1m[35m (4.5ms)[0m  COMMIT
+  [1m[36mParametrizacao Load (0.2ms)[0m  [1mSELECT `parametrizacoes`.* FROM `parametrizacoes` ORDER BY `parametrizacoes`.`id` ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `parametrizacoes` (`created_at`, `percentual_administracao`, `percentual_cliente`, `percentual_franquia`, `percentual_indicado`, `updated_at`, `vlr_minimo_bonus_indicacao`) VALUES ('2018-08-25 06:14:43', 10.0, 90.0, 2.0, 8.0, '2018-08-25 06:14:43', 10.0)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `activities` (`created_at`, `key`, `parameters`, `trackable_id`, `trackable_type`, `updated_at`) VALUES ('2018-08-25 06:14:43', 'parametrizacao.create', '--- {}\n', 1, 'Parametrizacao', '2018-08-25 06:14:43')
+  [1m[36m (3.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `planos_adesoes` (`created_at`, `descricao`, `quantidade_indicacoes`, `updated_at`, `vlr_anuidade`, `vlr_indicado`) VALUES ('2018-08-25 06:14:43', 'ConsumerCard', 1, '2018-08-25 06:14:43', 100.0, 30.0)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `activities` (`created_at`, `key`, `parameters`, `trackable_id`, `trackable_type`, `updated_at`) VALUES ('2018-08-25 06:14:43', 'planos_adesao.create', '--- {}\n', 1, 'PlanosAdesao', '2018-08-25 06:14:43')
+  [1m[36m (4.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO `planos_adesoes` (`created_at`, `descricao`, `quantidade_indicacoes`, `updated_at`, `vlr_anuidade`, `vlr_indicado`) VALUES ('2018-08-25 06:14:43', 'ConsumerCard Advanced', 2, '2018-08-25 06:14:43', 130.0, 40.0)[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO `activities` (`created_at`, `key`, `parameters`, `trackable_id`, `trackable_type`, `updated_at`) VALUES ('2018-08-25 06:14:43', 'planos_adesao.create', '--- {}\n', 2, 'PlanosAdesao', '2018-08-25 06:14:43')
+  [1m[36m (4.5ms)[0m  [1mCOMMIT[0m

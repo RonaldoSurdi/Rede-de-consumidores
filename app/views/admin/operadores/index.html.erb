@@ -1,0 +1,43 @@
+<h1>Operadores <small>Gerenciamento</small></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="actions">
+  <div class="row">
+    <%= form_tag nil, method: :get do %>
+      <div class="col-md-3">
+        <%= text_field_tag :q, @filter, placeholder: "Filtro de Pesquisa", class:  "form-control" %>
+      </div>
+      <div class="col-md-9">
+        <button class="btn btn-primary" type="submit">Pesquisar</button>
+        <%= link_to 'Novo Operador', new_operador_path, class: 'btn btn-success btn-sm pull-right' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= paginate @operadores %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+    <th>#</th>
+      <th>Nome</th>
+      <th>Login</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @operadores.each do |operador| %>
+      <tr>
+        <td><%= link_to operador.id, operador %></td>
+        <td><%= operador.nome %></td>
+        <td><%= operador.email %></td>
+        <td><%= link_to t('Edit'), edit_operador_path(operador) %></td>
+        <td><%= link_to t('Destroy'), operador, method: :delete, data: { confirm: 'Você confirma a exclusão?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

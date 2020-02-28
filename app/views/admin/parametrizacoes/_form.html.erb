@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@parametrizacao) do |f| %>
+        <div class="row">
+            <div class="<%= get_class_control_form(@parametrizacao, 'percentual_cliente') %> col-sm-6">
+              <%= f.label :percentual_cliente, 'Percentual do Bônus para o Cliente', class: 'control-label' %><br>
+              <%= f.text_field :percentual_cliente, value: number_with_precision(@parametrizacao.percentual_cliente, precision: 2), class: 'form-control', autofocus: true, required: true, data: {percentual: true}  %>
+              <span class="help-block"><%= @parametrizacao.errors.messages[:percentual_cliente].join %></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="<%= get_class_control_form(@parametrizacao, 'percentual_franquia') %> col-sm-6">
+              <%= f.label :percentual_franquia, 'Percentual do Bônus para a Franquia', class: 'control-label' %><br>
+              <%= f.text_field :percentual_franquia, value: number_with_precision(@parametrizacao.percentual_franquia, precision: 2), class: 'form-control', required: true, data: {percentual: true}  %>
+              <span class="help-block"><%= @parametrizacao.errors.messages[:percentual_franquia].join %></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="<%= get_class_control_form(@parametrizacao, 'percentual_indicado') %> col-sm-6">
+              <%= f.label :percentual_indicado, 'Percentual do Bônus para o Indicador', class: 'control-label' %><br>
+              <%= f.text_field :percentual_indicado, value: number_with_precision(@parametrizacao.percentual_indicado, precision: 2), class: 'form-control', required: true, data: {percentual: true}  %>
+              <span class="help-block"><%= @parametrizacao.errors.messages[:percentual_indicado].join %></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="<%= get_class_control_form(@parametrizacao, 'percentual_administracao') %> col-sm-6">
+              <%= f.label :percentual_administracao, 'Percentual sobre o Faturamento da Franquia destinado para a Administração', class: 'control-label' %><br>
+              <%= f.text_field :percentual_administracao, value: number_with_precision(@parametrizacao.percentual_administracao, precision: 2), class: 'form-control', required: true, data: {percentual: true}  %>
+              <span class="help-block"><%= @parametrizacao.errors.messages[:percentual_administracao].join %></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="<%= get_class_control_form(@parametrizacao, 'vlr_minimo_bonus_indicacao') %> col-sm-6">
+              <%= f.label :vlr_minimo_bonus_indicacao, 'Valor de consumo mensal mínimo para o cliente receber bônus de indicação', class: 'control-label' %><br>
+              <%= f.text_field :vlr_minimo_bonus_indicacao, value: number_with_precision(@parametrizacao.vlr_minimo_bonus_indicacao, precision: 2), class: 'form-control', required: true, data: {monetario: true}  %>
+              <span class="help-block"><%= @parametrizacao.errors.messages[:vlr_minimo_bonus_indicacao].join %></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="<%= get_class_control_form(@parametrizacao, 'vlr_consumo_medio_para_resgate_premios') %> col-sm-6">
+              <%= f.label :vlr_consumo_medio_para_resgate_premios, 'Valor de consumo médio mensal nos últimos 180 dias para poder solicitar prêmios', class: 'control-label' %><br>
+              <%= f.text_field :vlr_consumo_medio_para_resgate_premios, value: number_with_precision(@parametrizacao.vlr_consumo_medio_para_resgate_premios, precision: 2), class: 'form-control', required: true, data: {monetario: true}  %>
+              <span class="help-block"><%= @parametrizacao.errors.messages[:vlr_consumo_medio_para_resgate_premios].join %></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="<%= get_class_control_form(@parametrizacao, 'prazo_entrega_premio') %> col-sm-6">
+              <%= f.label :prazo_entrega_premio, 'Prazo de entrega do prêmio em dias', class: 'control-label' %><br>
+              <%= f.number_field :prazo_entrega_premio, class: 'form-control', required: true  %>
+              <span class="help-block"><%= @parametrizacao.errors.messages[:prazo_entrega_premio].join %></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="<%= get_class_control_form(@parametrizacao, 'valor_cartao') %> col-sm-6">
+              <%= f.label :valor_cartao, 'Valor do cartão', class: 'control-label' %><br>
+              <%= f.text_field :valor_cartao, value: number_with_precision(@parametrizacao.valor_cartao, precision: 2), class: 'form-control', required: true, data: {monetario: true}  %>
+              <span class="help-block"><%= @parametrizacao.errors.messages[:valor_cartao].join %></span>
+            </div>
+        </div>
+
+        <%= f.submit 'Gravar', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

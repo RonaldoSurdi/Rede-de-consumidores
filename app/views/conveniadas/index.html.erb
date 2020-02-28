@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h1 class="txtDourado titulo">Empresas Conveniadas</h1>
+    </div>
+  </div>
+  <br />
+
+    <% @empresas.each_with_index do |empresa, i|   %>
+      <% if i % 3 == 0 %>
+        <% if i != 0 %>
+          </div>
+        <% end %>
+        <div class="row">
+      <% end %>
+
+      <div class="col-md-4">
+        <span class="num pull-left"><%=i+1%></span>
+        <div style="margin-top: 12px; padding-left: 30px;">
+          <div class="thumbnail">
+            <div class="container-logo">
+              <%= image_tag empresa.logo.url(:medium), class: "img-responsive logo", title: empresa.descricao, alt: empresa.nome %>
+            </div>
+            <div class="caption">
+              <address>
+                <strong><%= empresa.nome %></strong><br>
+                <%= empresa.logradouro + ", " + empresa.numero + " " + empresa.complemento %><br/>
+                <%= current_cidade.full_name + ", " + empresa.cep  %><br/>
+                <%= content_tag :span, " ", class: "glyphicon glyphicon-phone" unless empresa.telefone.blank? %>
+                <%= content_tag :span, "#{empresa.telefone}" unless empresa.telefone.blank? %><br/>
+                <%= content_tag :a, " ", href: "mailto:#{empresa.email}", target: "_blank", class: "glyphicon glyphicon-envelope email" unless empresa.email.blank? %>
+                <%= content_tag :a, "#{empresa.email}", href: "mailto:#{empresa.email}", target: "_blank", class: "email" unless empresa.email.blank? %><br/>
+                <%= content_tag :a, " ", href: empresa.url, target: "_blank", class: "glyphicon glyphicon-globe url" unless empresa.url.blank? %>
+                <%= content_tag :a, empresa.url, href: empresa.url, target: "_blank", class: "url" unless empresa.url.blank? %><br/>
+              </address>
+              <table class="bonus">
+                <thead>
+                  <tr>
+                    <th colspan="2" align="center">Compra em Dinheiro</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="proprio">Bônus de Compra Própria</td>
+                    <td class="percentual"><%= number_to_percentage bonus_cliente(empresa), precision: 2 %></td>
+                  </tr>
+                  <tr>
+                    <td class="indicado" style="width: 90%">Bônus de Compra de Indicado*</td>
+                    <td class="percentual"><%= number_to_percentage bonus_indicacao(empresa), precision: 2 %></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><p class="asterisco"><small>*Considera-se também este percentual de bônus para compras que forem pagas através de resgate de créditos.</small></p></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="bonus" style="margin-top: 0">
+                <thead>
+                  <tr>
+                    <th colspan="2" align="center">Demais Formas de Pagamento</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="proprio">Bônus de Compra Própria</td>
+                    <td class="percentual"><%= number_to_percentage bonus_cliente_outros(empresa), precision: 2 %></td>
+                  </tr>
+                  <tr>
+                    <td class="indicado">Bônus de Compra de Indicado</td>
+                    <td class="percentual"><%= number_to_percentage bonus_indicacao_outros(empresa), precision: 2 %></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <% unless empresa.observacao.blank? %>
+                <p class="observacao text-justify">
+                  <span>Obs: </span> <%= empresa.observacao %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>

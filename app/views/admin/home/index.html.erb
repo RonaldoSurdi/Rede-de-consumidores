@@ -1,0 +1,7 @@
+<h1>ConsumerCard <small>Gerenciamento</small></h1>
+
+<%= messages %>
+
+<%= content_tag :div, message_config_boleto, class: 'alert alert-danger' if message_config_boleto %>
+<%= content_tag :div, message_config_pagseguro, class: 'alert alert-danger' if message_config_pagseguro %>
+

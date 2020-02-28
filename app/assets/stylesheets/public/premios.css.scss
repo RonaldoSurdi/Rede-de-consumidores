@@ -1,0 +1,35 @@
+.premiacoes {
+  .content-premios {
+    h2 {
+      padding: 0 0 10px;
+      line-height: 20px;
+    }
+
+    small {
+      font-size: 14px;
+      color: #5a5b5f;
+      padding: 0;
+    }
+
+    .saiba-mais {
+      text-decoration: none;
+      color: #862125;
+    }
+
+    .saiba-mais:hover {
+      color: #862125;
+    }
+
+    p {
+      margin-bottom: 2px;
+    }
+
+    .thumbnail img {
+      max-height: 200px;
+    }
+
+    .container-img {
+      min-height: 200px;
+    }
+  }
+}

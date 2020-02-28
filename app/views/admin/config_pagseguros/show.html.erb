@@ -1,0 +1,19 @@
+<h1>Configurações <small>Pagamento com PagSeguro</small></h1>
+
+<%= messages %>
+
+<p>
+  <strong>E-Mail:</strong>
+  <%= @config.email %>
+</p>
+
+
+<p>
+  <strong>Token:</strong>
+  <%= @config.token %>
+</p>
+
+
+<%= link_to "Auditoria", auditorium_path("ConfigPagseguro", codigo: @config.id, descricao: "Configurações PagSeguro") %> |
+<%= link_to 'Editar', edit_config_pagseguro_path(@config) if @config.id %>
+<%= link_to 'Editar', new_config_pagseguro_path unless @config.id %>

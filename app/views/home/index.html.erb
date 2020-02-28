@@ -1,0 +1,31 @@
+<table style="width: 100%; height: 100%">
+  <tr valign="middle">
+    <td align="center">
+      <div class="container form-inicio" style="width: 350px !important">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+            <%= image_tag "frontend/logoBranco.png", title: "ConsumerCard", alt: "ConsumerCard", style: "width: 90%" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-center">
+            <br /><br />
+            <%= form_tag carregar_cidades_home_index_path, method: "get", remote: true, id: "form_inicial" do  %>
+              <%= select_tag :uf, options_for_select(@ufs.collect{|k,v|[v,k]}), class:"form-control input-sm", autofocus: true, style: "height: 27px" %>
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-center">
+              <br />
+              <%= form_tag  home_index_path do  %>
+                <select id="cidade" name="cidade" class="form-control input-sm" style="visibility: hidden; height: 27px"></select>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+<%= messages %>

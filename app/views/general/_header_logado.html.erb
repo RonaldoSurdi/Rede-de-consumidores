@@ -1,0 +1,43 @@
+<div class="login">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h6>Minha Conta</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height: 15px">
+      <small>Créditos para compras: <%= Dinheiro.new(current_cliente_user.saldo).real_formatado %></small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height: 15px">
+      <small>Pontos de Indicação: <%= current_cliente_user.quantidade_indicacoes %></small>
+    </div>
+  </div>
+
+  <%  anuidade = current_cliente_user.anuidade_paga?
+    if anuidade.is_a?(Pagamento) %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height: 15px">
+        <small>Vencimento da anuidade: <%= (anuidade.updated_at.to_date + 1.year).to_s_br %></small>
+      </div>
+    </div>
+  <% elsif !anuidade %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <small>Verifique o pagamento da sua <%= link_to "anuidade", public_anuidade_index_path %></small>
+      </div>
+    </div>
+  <% end %>
+  <div class="row" style="padding-top: 10px">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <%= link_to "Painel", painel_cliente_index_path, class: "btn botao" %>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
+      <%= link_to destroy_cliente_user_session_path ,method: "delete" do %>
+      <span class="glyphicon glyphicon-log-out"></span> Sair
+      <%end%>
+    </div>
+  </div>
+</div>
+

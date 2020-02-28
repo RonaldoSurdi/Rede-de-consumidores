@@ -1,0 +1,66 @@
+<h1>Clientes <small>Gerenciamento</small></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="actions">
+  <div class="row">
+    <%= form_tag nil, method: :get do %>
+      <div class="col-md-3">
+        <%= label_tag :cartao_emitido, "Filtro" %>
+        <%= text_field_tag :q, @filter, placeholder: "Filtro de Pesquisa", class:  "form-control" %>
+      </div>
+
+      <div class="col-md-2">
+        <%= label_tag :cartao_emitido, "Cartão Emitido?" %>
+        <%= select_tag :cartao_emitido, options_for_select([["", ""], ["Sim", "true"], ["Não", "false"]], @cartao_emitido), class:  "form-control" %>
+      </div>
+
+      <div class="col-md-6">
+        <br>
+        <button class="btn btn-primary" type="submit">Pesquisar</button>
+        <%= link_to 'Novo cliente', new_cliente_user_path, class: 'btn btn-success btn-sm pull-right' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= paginate @users %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+    <th>#</th>
+      <th>Nome</th>
+      <th>Cidade de Consumo</th>
+      <th>Plano Atual</th>
+      <th>Número do Cartão</th>
+      <th>Cartão Emitido</th>
+      <th>Pontos de Indicação</th>
+      <th>Vencimento</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr class="<%= tr_class_cliente(user) %>">
+        <td><%= link_to user.id, user %></td>
+        <td><%= user.nome %></td>
+        <td><%= user.cidade %></td>
+        <td><%= user.plano %></td>
+        <td><%= user.numero_cartao_formatado %></td>
+        <td>
+          <%= user.cartao_emitido ? "Sim" : "Não" %>
+        </td>
+        <td><%= user.quantidade_indicacoes %></td>
+        <td><%= (user.ultimo_pagamento + 1.year).to_date.to_s_br if user.ultimo_pagamento %></td>
+        <td>
+          <%= link_to "Informar Emissão de Cartão", emitir_cartao_cliente_user_path(user), data: { confirm: 'Você confirma a emissão do cartão?' } if !user.cartao_emitido && current_user.is_a?(AdminUser)  %>
+        </td>
+        <td><%= link_to t('Edit'), edit_cliente_user_path(user) %></td>
+        <td><%= link_to t('Destroy'), user, method: :delete, data: { confirm: 'Você confirma a exclusão?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

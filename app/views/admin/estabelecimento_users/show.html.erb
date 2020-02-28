@@ -1,0 +1,83 @@
+<h1><%= @user.nome %></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<p>
+  <strong>Descrição Completa:</strong> <%= @user.descricao %>
+</p>
+
+<p>
+  <strong>E-Mail:</strong> <%= @user.email %>
+</p>
+
+<p>
+  <strong>Cidade:</strong> <%= @user.cities[0].full_name %>
+</p>
+
+<p>
+  <strong>Tipo da Pessoa:</strong> <%= @user.juridica_fisica %>
+</p>
+
+<p>
+  <strong>CPF/CNPJ:</strong> <%= @user.cpf_cnpj %>
+</p>
+
+<p>
+  <strong>Logradouro:</strong> <%= @user.logradouro %>
+</p>
+
+<p>
+  <strong>CEP:</strong> <%= @user.cep %>
+</p>
+
+<p>
+  <strong>Número:</strong> <%= @user.numero %>
+</p>
+
+
+<p>
+  <strong>Bairro:</strong> <%= @user.bairro %>
+</p>
+
+<p>
+  <strong>Complemento:</strong> <%= @user.complemento %>
+</p>
+
+<p>
+  <strong>Telefone:</strong> <%= @user.telefone %>
+</p>
+
+<p>
+  <strong>Celular:</strong> <%= @user.celular %>
+</p>
+
+<p>
+  <strong>Taxa de Publicidade:</strong> <%= Dinheiro.new(@user.taxa_publicidade.to_f).real_formatado %>
+</p>
+
+<p>
+  <strong>Percentual de Bônus para Pagamento em Dinheiro:</strong> <%= number_to_percentage @user.percentual_bonus, precision: 2 %>
+</p>
+
+<p>
+  <strong>Percentual de Bônus para Demais Formas de Pagamento:</strong> <%= number_to_percentage @user.percentual_bonus_outras_formas, precision: 2 %>
+</p>
+
+<p>
+  <strong>URL:</strong> <%= @user.url %>
+</p>
+
+<p>
+  <strong>Observação:</strong> <%= @user.observacao %>
+</p>
+
+<p>
+  <strong>Logo (Thumbnail):</strong>
+  <%= image_tag @user.logo.url(:thumb) %>  
+</p>
+
+
+<%= link_to "Auditoria", auditorium_path("EstabelecimentoUser", codigo: @user.id, descricao: @user.nome) %> |
+<%= link_to 'Editar', edit_estabelecimento_user_path(@user) %> |
+<%= link_to 'Voltar', estabelecimento_users_path %>

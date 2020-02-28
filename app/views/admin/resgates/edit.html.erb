@@ -1,0 +1,69 @@
+<h1><%= @resgate.cliente_user.nome %></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="row">
+  <div class="col-md-6">
+    <legend>Informações do Cliente</legend> 
+    <p>
+      <strong>Cidade de Consumo:</strong> <%= @resgate.cliente_user.cities[0].full_name %>
+    </p>
+
+    <p>
+      <strong>Cidade:</strong> <%= @resgate.cliente_user.cidade %>
+    </p>
+
+    <p>
+      <strong>CEP:</strong> <%= @resgate.cliente_user.cep %>
+    </p>
+
+    <p>
+      <strong>Logradouro:</strong> <%= @resgate.cliente_user.logradouro %>
+    </p>
+
+    <p>
+      <strong>Número:</strong> <%= @resgate.cliente_user.numero %>
+    </p>
+
+
+    <p>
+      <strong>Bairro:</strong> <%= @resgate.cliente_user.bairro %>
+    </p>
+
+    <p>
+      <strong>Complemento:</strong> <%= @resgate.cliente_user.complemento %>
+    </p>
+
+    <p>
+      <strong>Telefone:</strong> <%= @resgate.cliente_user.telefone %>
+    </p>
+
+    <p>
+      <strong>Celular:</strong> <%= @resgate.cliente_user.celular %>
+    </p>
+
+    <p>
+      <strong>Número do Cartão:</strong> <%= @resgate.cliente_user.numero_cartao_formatado %>
+    </p>
+  </div>
+
+  <div class="col-md-6">
+    <legend>Informações do Prêmio</legend> 
+    <p>
+      <strong>Código:</strong> <%= link_to @resgate.premio.id, premio_path(@resgate.premio), target: "_blank" %>
+    </p>
+
+    <p>
+      <strong>Descrição:</strong> <%= @resgate.premio.descricao %>
+    </p>
+
+    <p>
+      <%= image_tag @resgate.premio.imagem.url, style: "max-width: 100%; max-height: 300px" %>
+    </p>
+  </div>
+</div>
+
+
+<%= link_to 'Confirmar', resgate_admin_path(@resgate), method: :put, data: {confirm: "Deseja realmente confirmar o envio desse prêmio?"}, class: "btn btn-primary" %>
+<%= link_to 'Voltar', resgate_admin_index_path %>

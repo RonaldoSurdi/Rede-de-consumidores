@@ -1,0 +1,28 @@
+<h3>
+  O cliente <%= @pagamento.origem.nome %> solicitou a segunda via do cartão.
+</h3>
+
+<p>
+  <strong>Número do cartão:</strong>
+  <%= @pagamento.origem.numero_cartao_formatado %>
+</p>
+
+<p>
+  <strong>Nosso número:</strong>
+  <%= @pagamento.nosso_numero %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= Dinheiro.new(@pagamento.valor).real_formatado %>
+</p>
+
+<p>
+  <strong>Data/Hora de Emissão:</strong>
+  <%= @pagamento.created_at.to_s_br %>
+</p>
+
+<p>
+  <strong>Data de Vencimento:</strong>
+  <%= @pagamento.data_vencimento.to_s_br %>
+</p>

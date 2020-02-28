@@ -1,0 +1,20 @@
+<div class="container content-premios">
+  <h1 class="txtDourado titulo">Prêmios</h1>
+  <% @tipos.each_with_index do |tipo, i_tipo| %>
+    <h2 class="txtDourado">
+      <%= tipo.descricao %><br><small><%= tipo.quantidade_indicacoes %> PONTOS DE INDICAÇÃO - ESCOLHA UM DOS PRÊMIOS ABAIXO</small>
+    </h2>
+
+    <% tipo.premios.each_with_index do |premio,i| %>
+      <% if i % 4 == 0 %>
+        <% if i != 0 %>
+          </div>
+        <% end %>
+
+        <div class="row">
+      <% end %>
+      <%= render partial: "produto", locals: {premio: premio, ultimo: i_tipo == @tipos.length - 1} %>
+    <% end %>
+    </div>
+  <% end %>
+</div>

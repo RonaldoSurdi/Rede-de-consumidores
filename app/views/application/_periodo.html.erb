@@ -1,0 +1,18 @@
+<div class="col-md-2">
+  <label for="tipo_data">Período</label>
+  <%= select_tag "tipo_data", options_for_select(periodo_options, @tipo_data), class: "form-control input-sm" %>
+</div>
+
+<div class="col-md-2">
+  <div class="form-group">
+    <label for="data_inicial">Inicial</label>
+    <%= text_field_tag "data_inicial", @data_inicial.to_s_br, class: "form-control input-sm", data: {mask: "data"}, autocomplete: false %>
+  </div>
+</div>
+
+<div class="col-md-2">
+  <div class="form-group">
+    <label for="data_final">Final</label>
+    <%= text_field_tag "data_final", @data_final.to_s_br, class: "form-control input-sm", data: {mask: "data"}, autocomplete: false %>
+  </div>
+</div>

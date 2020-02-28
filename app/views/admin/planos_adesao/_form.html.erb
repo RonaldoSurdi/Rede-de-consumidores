@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@plano) do |f| %>
+
+      <div class="row">
+          <div class="<%= get_class_control_form(@plano, 'vlr_anuidade') %> col-sm-4">
+            <%= f.label :vlr_anuidade, 'Valor Anuidade Cliente', class: 'control-label' %>
+            <%= f.text_field :vlr_anuidade, value: number_with_precision(@plano.vlr_anuidade, precision: 2), class: 'form-control', autofocus: true, required: true, data: {monetario: true}  %>
+            <span class="help-block"><%= @plano.errors.messages[:vlr_anuidade].join %></span>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="<%= get_class_control_form(@plano, 'vlr_indicado') %> col-sm-4">
+            <%= f.label :vlr_indicado, 'Valor Indicação', class: 'control-label' %>
+            <%= f.text_field :vlr_indicado, value: number_with_precision(@plano.vlr_indicado, precision: 2), class: 'form-control', required: true, data: {monetario: true}  %>
+            <span class="help-block"><%= @plano.errors.messages[:vlr_indicado].join %></span>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="<%= get_class_control_form(@plano, 'quantidade_indicacoes') %> col-sm-4">
+            <%= f.label :quantidade_indicacoes, "Pontos de Indicação", class: 'control-label' %>
+            <%= f.number_field :quantidade_indicacoes, class: 'form-control', required: true %>
+            <span class="help-block"><%= @plano.errors.messages[:quantidade_indicacoes].join %></span>
+          </div>
+      </div>
+
+      <%= f.submit 'Gravar', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

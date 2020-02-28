@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@config) do |f| %>
+
+      <div class="<%= get_class_control_form(@config, 'banco') %>">
+        <%= f.label :banco, class: 'control-label' %><br>
+        <%= f.select :banco, ConfigBoleto.bancos.collect{ |k,v| [v[:descricao], k] },  {include_blank: 'Selecione o Banco'}, class: 'form-control', autofocus: true, required: true  %>
+        <span class="help-block"><%= @config.errors.messages[:banco].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(@config, 'convenio') %>">
+        <%= f.label "Convênio", class: 'control-label' %><br>
+        <%= f.text_field :convenio, class: 'form-control', required: true  %>
+        <span class="help-block"><%= @config.errors.messages[:convenio].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(@config, 'agencia') %>">
+        <%= f.label "Agência", class: 'control-label' %><br>
+        <%= f.text_field :agencia, class: 'form-control', required: true  %>
+        <span class="help-block"><%= @config.errors.messages[:agencia].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(@config, 'conta_corrente') %>">
+        <%= f.label :conta_corrente, class: 'control-label' %><br>
+        <%= f.text_field :conta_corrente, class: 'form-control', required: true  %>
+        <span class="help-block"><%= @config.errors.messages[:conta_corrente].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(@config, 'posto') %>">
+        <%= f.label :posto, "Posto (Somente para Sicredi)", class: 'control-label' %><br>
+        <%= f.text_field :posto, class: 'form-control', required: true  %>
+        <span class="help-block"><%= @config.errors.messages[:posto].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(@config, 'byte_geracao') %>">
+        <%= f.label :byte_geracao, "Byte Geração (Somente Sicredi)", class: 'control-label' %><br>
+        <%= f.text_field :byte_geracao, class: 'form-control', required: true  %>
+        <span class="help-block"><%= @config.errors.messages[:byte_geracao].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(@config, 'dias_vencimento') %>">
+        <%= f.label :dias_vencimento, class: 'control-label' %><br>
+        <%= f.number_field :dias_vencimento, class: 'form-control', required: true  %>
+        <span class="help-block"><%= @config.errors.messages[:dias_vencimento].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(@config, 'instrucoes') %>">
+        <%= f.label "Instruções (Máximo 6 Linhas)", class: 'control-label' %><br>
+        <%= f.text_area :instrucoes, class: 'form-control', required: true, rows: 6  %>
+        <span class="help-block"><%= @config.errors.messages[:instrucoes].join %></span>
+      </div>
+
+      <%= f.submit "Gravar", class: 'btn btn-primary' %>
+    <% end %>
+
+  </div>
+</div>

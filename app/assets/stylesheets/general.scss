@@ -1,0 +1,16 @@
+.radio-buttons-inline {
+  .control-label { display: block; }
+
+  span.radio {
+    display: inline-block;
+    margin-top: 10px !important;
+    padding-right: 5px;
+
+    label {
+      margin-top: 5px;
+      vertical-align: text-bottom;
+    }
+
+    input[type=radio] { cursor: pointer; }
+  }
+}

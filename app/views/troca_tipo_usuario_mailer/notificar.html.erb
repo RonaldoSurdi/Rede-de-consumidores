@@ -1,0 +1,7 @@
+<p>Parabéns <strong><%= @cliente.nome %></strong>!</p>
+
+<p>Você acumulou <%= @tipo.quantidade_indicacoes %> Pontos de Indicação e acaba de se tornar um <%= @tipo.descricao %> da Rede de Consumo Inteligente ConsumerCard.</p>
+
+<p>E como recompensa de seu trabalho realizado, a ConsumerCard está lhe oferecendo um prêmio incrível. Basta você acessar o seu painel no site e ir até a opção “Solicitar Prêmio” e escolher um dos prêmios disponíveis. Seu prêmio será entregue no seu endereço em até <%= Parametrizacao.first.prazo_entrega_premio %> dias após a data da solicitação.</p>
+
+<p><i>Obs.: Para solicitar seu prêmio, você deverá ter realizado um consumo médio mensal de no mínimo <%= Dinheiro.new(Parametrizacao.first.vlr_consumo_medio_para_resgate_premios).real_formatado %> nos últimos 180 dias. Para informações mais detalhadas, consulte o regulamento do Programa.</i></p>

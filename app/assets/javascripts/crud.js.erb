@@ -1,0 +1,5 @@
+$(function() {
+  if (typeof(app) !== "undefined") {
+    $('ul li a[data-controller="' + app.controller + '"]').parent('li').addClass('active');
+  }
+});

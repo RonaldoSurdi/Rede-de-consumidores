@@ -1,0 +1,42 @@
+banner1:
+  tipo: 0
+  descricao: "Banner Sempre Ativo do Admin"
+  user: admin_user
+
+banner2:
+  tipo: 0
+  descricao: "Banner Inativo"
+  user: admin_user
+  data_inicial: 2010-01-01
+  data_final: 2011-01-01
+
+banner3:
+  tipo: 0
+  descricao: "Banner Ativo Somente com Data Inicial"
+  user: admin_user
+  data_inicial: 2010-01-01
+
+banner4:
+  tipo: 0
+  descricao: "Banner Ativo Somente com Data Final"
+  user: admin_user
+  data_final: 4000-01-01
+
+banner5:
+  tipo: 0
+  descricao: "Banner Inativo"
+  user: admin_user
+  data_inicial: 4000-01-01
+
+banner6:
+  tipo: 0
+  descricao: "Banner Inativo"
+  user: admin_user
+  data_final: 2000-01-01
+
+banner7:
+  tipo: 0
+  descricao: "Banner Ativo Origem"
+  user: origem
+  data_inicial: 1000-01-01
+  data_final: 5000-01-01

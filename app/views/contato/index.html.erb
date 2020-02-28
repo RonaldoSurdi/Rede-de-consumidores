@@ -1,0 +1,71 @@
+<div class="container">
+  <%= form_tag contato_index_path do %>
+  <div class="row">
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h1 class="txtDourado titulo">Fale Conosco!</h1>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <%= label_tag 'contato', "Nome", class: 'control-label' %>
+          <%= text_field :contato, :nome, class: 'form-control', autofocus: @infos.empty?, required: true, value: @infos[:nome] %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <%= label_tag 'cidade_id', "Cidade de Consumo", class: 'control-label' %>
+          <%= select_tag "contato[cidade_id]", options_for_select(@cidades.to_a.collect{|cidade|[cidade.full_name,cidade.id]}, cliente_user_signed_in? ? current_cliente_user.cities[0].id : nil), include_blank: true, class: "form-control", required: true %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <%= label_tag 'contato', "Email", class: 'control-label' %>
+          <%= email_field :contato, :email, class: 'form-control', required: true, value: @infos[:email] %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <%= label_tag 'contato', "Telefone", class: 'control-label' %>
+          <%= phone_field :contato, :fone, class: 'form-control', data: {mask:"telefone"}, value: @infos[:telefone], required: true %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <%= label_tag 'contato', "Assunto", class: 'control-label' %>
+          <%= text_field :contato, :assunto, class: 'form-control', value: @infos[:assunto], autofocus: !@infos.empty? && @infos[:assunto].blank?, required: true %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <%= label_tag 'contato', "Mensagem", class: 'control-label' %>
+          <%= text_area :contato, :msg, class: 'form-control', autofocus: !@infos.empty? && !@infos[:assunto].blank?, required: true  %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <%= submit_tag "Enviar", class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 text-right">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <address>
+        <strong>Rede ConsumerCard</strong><br>
+        CNPJ: 19.515.763/0001-01<br>
+      </address>
+      <address>
+        <strong>Fale conosco</strong><br>
+        <a href="mailto:contato@consumercard.net">contato@consumercard.net</a>
+      </address>
+    </div>
+  </div>
+  <% end %>
+</div>

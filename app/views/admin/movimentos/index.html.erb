@@ -1,0 +1,73 @@
+<h1>Conta Corrente <small><%= @movimentos.to_a.any? ? @movimentos[0].user.nome : nil %></small></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="actions">
+  <div class="row">
+    <%= form_tag nil, method: :get do %>
+      <div class="row">
+        <%= render partial: "application/periodo" %>
+        <% if [FranquiaUser, AdminUser].include?(current_user.class) %>
+          <div class="col-md-6">
+            <label for="usuario">Usuário</label>
+            <%= select_tag "usuario", options_for_select(@usuarios, @usuario), class: "form-control input-sm" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="row">
+        <div class="col-md-9">
+          <button class="btn btn-primary" type="submit">Pesquisar</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= paginate @movimentos %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Tipo</th>
+      <th>Descrição</th>
+      <th class="text-right">Valor</th>
+    </tr>
+  </thead>
+
+  <% if @movimentos.to_a.any? %>
+    <tbody>
+      <% 
+        total = 0.0
+        @movimentos.to_a.each do |movimento|
+        total += movimento.vlr
+      %>
+        <tr>
+          <td><%= movimento.data.to_s_br %></td>
+          <td><%= movimento.vlr > 0 ? "Entrada" : "Saída" %></td>
+          <td><%= movimento.descricao %></td>
+          <td class="text-right"><%= Dinheiro.new(movimento.vlr).real_formatado %></td>
+        </tr>
+      <% end %>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="3" class="text-right">
+          <strong>Total:</strong>
+        </td>
+
+        <td class="text-right">
+          <%= content_tag :strong, Dinheiro.new(@total).real_formatado %>
+        </td>
+      </tr>
+    </tfoot>
+  <% else %>
+    <tr>
+      <td colspan="4">Nenhum Movimento Encontrado</td>
+    </tr>
+  <% end %>
+
+</table>

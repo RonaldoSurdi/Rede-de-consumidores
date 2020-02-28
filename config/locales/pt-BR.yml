@@ -1,0 +1,40 @@
+pt-BR:
+  Edit: "Editar"
+  Destroy: "Excluir"
+  views:
+    pagination:
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
+      truncate: "..."
+
+  models_and_attributes: &models_and_attributes
+    attributes:
+      cliente_user:
+        nome: Nome
+        email: E-Mail
+        plano_adesao_id: Plano de Adesão
+        password: Senha
+        juridica_fisica: Tipo de Pessoa
+        cpf_cnpj: CPF/CNPJ
+        cidade: Cidade de Residência
+        cities: Cidade de Consumo
+        cep: CEP
+        uf: UF
+        logradouro: Logradouro
+        numero: Número
+        bairro: Bairro
+        complemento: Complemento
+        celular: Celular
+        telefone: Telefone
+        sexo: Sexo
+        estado_civil: Estado Civil
+        data_nascimento: Data de Nascimento
+        valor_anuidade: Valor da Anuidade
+        valor_indicado: Valor Indicado
+        pontos_indicacao: Pontos de Indicação
+
+  mailer:
+    default:
+      from: "ConsumerCard <no-reply@consumercard.net>"

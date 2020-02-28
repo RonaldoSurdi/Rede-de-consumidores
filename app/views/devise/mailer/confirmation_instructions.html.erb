@@ -1,0 +1,3 @@
+<p>Olá <strong><%= @resource.nome %></strong>, seja <%= saudacao(@resource) %> à ConsumerCard.</p>
+<p>Sua conta ainda não foi confirmada! Clique no link abaixo para confirmá-la:</p>
+<p><%= link_to 'Confirme sua conta', cliente_user_confirmation_url(confirmation_token: @token) %></p>

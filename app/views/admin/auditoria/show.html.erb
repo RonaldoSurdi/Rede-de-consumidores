@@ -1,0 +1,26 @@
+<h1>Auditoria <%= @descricao %></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<%= paginate @activities %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Data/Hora</th>
+      <th>Usuário</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @activities.each do |activity| %>
+      <tr>
+        <td><%= activity.created_at.to_s_br %></td>
+        <td><%= activity.usuario_nome %></td>
+        <td><%= acao_auditoria(activity) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

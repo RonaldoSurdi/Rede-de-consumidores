@@ -1,0 +1,22 @@
+(function() {
+  var erro = "<%= @erro %>";
+  if (erro !== "") {
+    $("#cliente_user_cidade").val("").removeAttr("readonly").removeAttr("tabindex");
+    alert("<%= @erro %>");
+    setTimeout(function() {
+      $("#cliente_user_cidade").focus();
+    }, 200);
+  } else {
+    var cep = <%= raw @cep.to_json %>;
+    if (cep.cidade) {
+      $("#cliente_user_cidade").val(cep.cidade + " - " + cep.uf);
+      $("#cliente_user_numero").val(cep.numero);
+      $("#cliente_user_logradouro").val(cep.logradouro);
+      $("#cliente_user_bairro").val(cep.bairro);
+    } else {
+      $("#cliente_user_cidade").val("");
+      $("#cliente_user_logradouro").val("");
+      $("#cliente_user_bairro").val("");
+    }
+  }
+})();

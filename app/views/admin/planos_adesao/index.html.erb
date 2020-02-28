@@ -1,0 +1,29 @@
+<h1>Planos de Adesão <small>Gerenciamento</small></h1>
+<%= breadcrumb %>
+
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+    <th>#</th>
+      <th>Descrição</th>
+      <th>Valor Anuidade</th>
+      <th>Valor Indicado</th>
+      <th>Pontos de Indicação</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @planos.each do |plano| %>
+      <tr>
+        <td><%= link_to plano.id, plano %></td>
+        <td><%= plano.descricao %></td>
+        <td><%= Dinheiro.new(plano.vlr_anuidade).real_formatado %></td>
+        <td><%= Dinheiro.new(plano.vlr_indicado).real_formatado %></td>
+        <td><%= plano.quantidade_indicacoes %></td>
+        <td><%= link_to t('Edit'), edit_planos_adesao_path(plano) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

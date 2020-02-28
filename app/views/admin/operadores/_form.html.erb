@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@operador) do |f| %>
+
+      <div class="<%= get_class_control_form(@operador, 'nome') %>">
+        <%= f.label :nome, 'Nome', class: 'control-label' %>
+        <%= f.text_field :nome, class: 'form-control', autofocus: true, required: true  %>
+        <span class="help-block"><%= @operador.errors.messages[:nome].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(@operador, 'email') %>">
+        <%= f.label :email, 'Login', class: 'control-label' %>
+        <%= f.text_field :email, class: 'form-control', required: true  %>
+        <span class="help-block"><%= @operador.errors.messages[:email].join %></span>
+      </div>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@operador, 'password') %> col-sm-6">
+          <%= f.label :password, 'Senha', class: 'control-label' %>
+          <%= content_tag :small, "Deixe em branco para manter a senha atual" if @operador.id %>
+          <br>
+
+          <%= f.password_field :password, class: 'form-control', required: !@operador.id  %>
+          <span class="help-block"><%= @operador.errors.messages[:password].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@operador, 'password_confirmation') %> col-sm-6">
+          <%= f.label :password_confirmation, 'Confirmação da Senha', class: 'control-label' %>
+          <%= f.password_field :password_confirmation, class: 'form-control', required: !@operador.id  %>
+          <span class="help-block"><%= @operador.errors.messages[:password_confirmation].join %></span>
+        </div>
+      </div>
+
+      <%= f.submit 'Gravar', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

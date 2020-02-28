@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title || "ConsumerCard" %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= favicon_link_tag "favicon.ico" %>
+    <%= stylesheet_link_tag  "application_public", media: "all" %>
+    <%= csrf_meta_tags %>
+    <%= render partial: "layouts/open_graph" %>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="<%= controller_name %>">
+    <div id="bg-loader" class="modal-backdrop fade in hide">
+      <div>Aguarde, carregando</div>
+    </div>
+    <nav class="navTop">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h6 class="cidade">Você está na página de: <span class="red"><%= current_cidade.full_name %></span>. Para mudar de cidade, <a href="<%= delete_cidade_default_home_index_path %>" class="red">clique aqui!</a></h6>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right menuTop">
+            <a href="<%= inicio_index_url %>">Home</a>
+            <a href="<%= contato_index_path %> ">Fale Conosco</a>
+            <a href="<%= sobre_index_path %> ">Quem Somos</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+            <a href="<%= inicio_index_url %>"><%= image_tag "frontend/consumer_card.png", title: "ConsumerCard", alt: "ConsumerCard", class: "logo img-responsive" %></a>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 logado">
+              <% if cliente_user_signed_in? %>
+                <%= render partial: "general/header_nome_logado" %>
+              <% end %>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 menuTop">
+              <% if cliente_user_signed_in? %>
+                <%= render partial: "general/header_logado" %>
+              <% else %>
+                <%= render partial: "general/header_publico" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </header>
+      <nav class="navMiddle">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <a href="<%= participar_index_path %>">COMO PARTICIPAR</a>
+              <a href="<%= estimativa_ganhos_url %>">ESTIMATIVA DE GANHOS</a>
+              <a href="<%= conveniadas_path %> ">EMPRESAS CONVENIADAS</a>
+              <a href="<%= premiacoes_path %>">PRÊMIOS</a>
+              <%= link_to "Regulamento", new_termo_cadastro_path(publico: true) %>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div  class="container">
+        <% if  messages  %>
+          <br />
+          <%= messages  %>
+        <% end %>
+      </div>
+      <section>
+        <%=  content_for?(:content) ? yield(:content) : yield %>
+      </section>
+      <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7">
+              <a href="<%= inicio_index_url %>"><%= image_tag "frontend/consumer_card.png", title: "ConsumerCard", alt: "ConsumerCard", class: "logo img-responsive pull-left" %></a>
+              
+              <ul class="list-unstyled itens-menu  pull-left">
+                <li>
+                  <%= link_to "COMO PARTICIPAR", participar_index_path %>
+                </li>
+                <li>
+                  <%= link_to "ESTIMATIVA DE GANHOS", estimativa_ganhos_path %>
+                </li>
+                <li>
+                  <%= link_to "EMPRESAS CONVENIADAS", conveniadas_path %>
+                </li>
+                <li>
+                  <%= link_to "PRÊMIOS", premiacoes_path %>
+                </li>
+                <li>
+                <%= link_to "REGULAMENTO", new_termo_cadastro_path(publico: true) %>
+                </li>
+                <li>
+                  <%= link_to "QUEM SOMOS", sobre_index_path %>
+                </li>
+                <li>
+                  <%= link_to "FALE CONOSCO", sobre_index_path %>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-5">
+              <!-- <a class="youtube pull-right"  href="https://www.youtube.com/channel/UC_ogR1W5Y-gsOXC-EDiaFeA" target="_blank" class="pull-right"><%= image_tag "frontend/iconYouTube.png", alt: "Youtube" %></a>
+              <div class="fb-like pull-right" data-href="https://www.facebook.com/consumercard" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div> -->
+              <p class="pull-right" style="color: #FFF">ConsumerCard na rede: &nbsp;</p>
+              <div class="text-right tecnologias">
+                <a href="http://www.saintec.com.br" target="_blank"><%= image_tag "frontend/saintec_horizontal_sem_slogan.png", title: "Desenvolvido por: SAINTEC Sistemas", alt: "SAINTEC Sistemas", class: "img-responsive pull-right" %></a>
+                <%= image_tag "frontend/comodo_secure_100x85_transp.png", title: "Comodo Secure", alt: "Comodo Secure", class: "img-responsive pull-right" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <br>
+              <h6 style="color: #FFF; font-size: 12px;">&COPY; Copyright. ConsumerCard - Rede de Consumo Inteligente - Todos os direitos reservados - <%= link_to "Política de Privacidade", privacidade_index_path, style: "color: #ffeb04;" %></h6>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <script>
+        window.app = {
+          controller: '<%= controller_name %>',
+          urlCep: '<%= cep_url(-1) %>'
+        }
+      </script>
+      <%= javascript_include_tag "application_public" %>
+      <%= yield :script %>
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id))
+            return;
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=342794925752207";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-124410487-1', 'consumercard.net');
+        ga('send', 'pageview');
+      </script>
+    </body>
+  </html>

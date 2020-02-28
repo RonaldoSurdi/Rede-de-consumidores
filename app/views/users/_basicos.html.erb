@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="<%= get_class_control_form(@user, 'nome') %> col-sm-12">
+    <%= f.label :nome, 'Nome Completo', class: 'control-label' %>
+    <%= f.text_field :nome, class: 'form-control', required: true, autofocus: true %>
+    <span class="help-block"><%= @user.errors.messages[:nome].join %></span>
+  </div>
+</div>
+
+<div class="<%= get_class_control_form(@user, 'email') %>">
+  <%= f.label :email, 'E-Mail', class: 'control-label' %>
+  <%= f.email_field :email, class: 'form-control', required: true  %>
+  <span class="help-block"><%= @user.errors.messages[:email].join %></span>
+</div>
+
+<div class="row">
+  <% if @user.is_a? ClienteUser %>
+    <div class="<%= get_class_control_form(@user, 'password') %> col-sm-6">
+      <%= f.label :password, 'Senha (6 dígitos)', class: 'control-label' %>
+      <%= content_tag :small, "Deixe em branco para manter a senha atual" if @user.id %>
+      <br>
+
+      <%= f.password_field :password, class: 'form-control', required: !@user.id, pattern: "\\d{6}"  %>
+      <span class="help-block"><%= @user.errors.messages[:password].join %></span>
+    </div>
+  <% else %>
+    <div class="<%= get_class_control_form(@user, 'password') %> col-sm-6">
+      <%= f.label :password, 'Senha', class: 'control-label' %>
+      <%= content_tag :small, "Deixar Em branco para manter a senha atual" if @user.id %>
+      <br>
+
+      <%= f.password_field :password, class: 'form-control', required: !@user.id %>
+      <span class="help-block"><%= @user.errors.messages[:password].join %></span>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="<%= get_class_control_form(@user, 'password_confirmation') %> col-sm-6">
+    <%= f.label :password_confirmation, 'Confirmação da Senha', class: 'control-label' %>
+    <%= f.password_field :password_confirmation, class: 'form-control', required: !@user.id, pattern: @user.is_a?(ClienteUser) ? "\\d{6}" : nil  %>
+    <span class="help-block"><%= @user.errors.messages[:password_confirmation].join %></span>
+  </div>
+</div>

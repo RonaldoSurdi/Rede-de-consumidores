@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@config) do |f| %>
+
+      <div class="<%= get_class_control_form(@config, 'email') %>">
+        <%= f.label "E-Mail", class: 'control-label' %><br>
+        <%= f.email_field :email, class: 'form-control', required: true, autofocus: true  %>
+        <span class="help-block"><%= @config.errors.messages[:email].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(@config, 'token') %>">
+        <%= f.label "Token", class: 'control-label' %><br>
+        <%= f.text_field :token, class: 'form-control', required: true  %>
+        <span class="help-block"><%= @config.errors.messages[:token].join %></span>
+      </div>
+
+      <%= f.submit "Gravar", class: 'btn btn-primary' %>
+    <% end %>
+
+  </div>
+</div>

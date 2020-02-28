@@ -1,0 +1,61 @@
+<h2 class="text-center"><%= @premio.descricao %></h2>
+
+<div class="col-md-12">
+  <div class="thumbnail" style="border: none; padding: 0; margin: 0">
+    <%= image_tag @premio.imagem.url, alt: @premio.descricao, title: @premio.descricao %>
+    <div class="caption">
+      <p><%= raw @premio.descricao_completa.nl2br %></p>
+    </div>
+  </div>
+
+  <%= form_for(current_cliente_user, url: resgates_path, method: :post) do |f| %>
+    <legend>Confira o endereço para entrega antes de solicitar o prêmio</legend>
+    <%= hidden_field_tag :premio_id, @premio.id %>
+    <div class="row">
+      <div class="<%= get_class_control_form(current_cliente_user, 'cep') %> col-md-3">
+        <%= f.label :cep, 'CEP', class: 'control-label' %>
+        <%= f.text_field :cep, class: 'form-control', data: {mask: "cep"} %>
+        <span class="help-block">
+          <a href="http://www.buscacep.correios.com.br/" target="_blank" tabindex="-1">Não sabe o seu cep?</a>
+          <%= current_cliente_user.errors.messages[:cep].join %>
+        </span>
+      </div>
+
+      <div class="<%= get_class_control_form(current_cliente_user, 'cidade') %> col-md-9">
+        <%= f.label :cidade, 'Cidade', class: 'control-label' %>
+        <%= f.text_field :cidade, class: 'form-control', required: true , readonly: true, tabindex: -1 %>
+        <span class="help-block"><%= current_cliente_user.errors.messages[:cidade].join %></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="<%= get_class_control_form(current_cliente_user, 'logradouro') %> col-sm-9">
+        <%= f.label :logradouro, 'Logradouro', class: 'control-label' %>
+        <%= f.text_field :logradouro, class: 'form-control', required: true %>
+        <span class="help-block"><%= current_cliente_user.errors.messages[:logradouro].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(current_cliente_user, 'numero') %> col-sm-3">
+        <%= f.label :numero, 'Número', class: 'control-label' %>
+        <%= f.text_field :numero, class: 'form-control', required: true %>
+        <span class="help-block"><%= current_cliente_user.errors.messages[:numero].join %></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="<%= get_class_control_form(current_cliente_user, 'bairro') %> col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <%= f.label :bairro, 'Bairro', class: 'control-label' %>
+        <%= f.text_field :bairro, class: 'form-control', required: true %>
+        <span class="help-block"><%= current_cliente_user.errors.messages[:bairro].join %></span>
+      </div>
+
+      <div class="<%= get_class_control_form(current_cliente_user, 'complemento') %> col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <%= f.label :complemento, 'Complemento', class: 'control-label' %>
+        <%= f.text_field :complemento, class: 'form-control' %>
+        <span class="help-block"><%= current_cliente_user.errors.messages[:complemento].join %></span>
+      </div>
+    </div>
+
+    <%= f.submit 'Solicitar Prêmio', class: 'btn btn-primary', data: {confirm: "Deseja realmente solicitar esse prêmio?"} %>
+  <% end %>
+</div>

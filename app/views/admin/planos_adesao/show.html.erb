@@ -1,0 +1,23 @@
+<h1><%= @plano.descricao %></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<p>
+  <strong>Valor Anuidade:</strong>
+  <%= Dinheiro.new(@plano.vlr_anuidade).real_formatado %>
+</p>
+
+<p>
+  <strong>Valor Indicação:</strong>
+  <%= Dinheiro.new(@plano.vlr_indicado).real_formatado %>
+</p>
+
+<p>
+  <strong>Pontos de Indicação:</strong>
+  <%= @plano.quantidade_indicacoes %>
+</p>
+
+<%= link_to "Auditoria", auditorium_path("PlanosAdesao", codigo: @plano.id, descricao: @plano.descricao) %> |
+<%= link_to 'Editar', edit_planos_adesao_path(@plano) %> |
+<%= link_to 'Voltar', planos_adesao_index_path %>

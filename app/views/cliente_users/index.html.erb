@@ -1,0 +1,27 @@
+<p><strong><%= current_cliente_user.fisica? ? 'Nome Completo' : 'Nome Fantasia' %>:</strong> <%= current_cliente_user.nome %></p>
+
+<% if current_cliente_user.juridica? %>
+  <p><strong>Razão Social:</strong> <%= current_cliente_user.razao_social %></p>
+<% end %>
+
+<p><strong>E-Mail:</strong> <%= current_cliente_user.email %></p>
+<p><strong>Plano:</strong> <%= current_cliente_user.plano_adesao.descricao %></p>
+
+<% if current_cliente_user.padrinho.blank? %>
+  <p><strong>Foi indicado por:</strong> Sem Indicação</p>
+<% else %>
+  <p><strong>Foi indicado por:</strong> <%= current_cliente_user.padrinho.nome if current_cliente_user.padrinho %></p>
+<% end %>
+
+<p><strong><%= current_cliente_user.fisica? ? 'CPF' : 'CNPJ' %>:</strong> <%= current_cliente_user.cpf_cnpj_formatado %></p>
+<p><strong>Cidade de Consumo:</strong> <%= current_cliente_user.cities[0].full_name %></p>
+<p><strong>Número do Cartão:</strong> <%= current_cliente_user.numero_cartao_formatado %></p>
+<p><strong>Saldo Atual:</strong> <%= Dinheiro.new(current_cliente_user.saldo).real_formatado %></p>
+<p><strong>Pontos de Indicação:</strong> <%= current_cliente_user.quantidade_indicacoes %></p>
+<p><strong>Consumo Médio Mensal (últimos 180 dias):</strong> <%= Dinheiro.new(@consumo_medio_mensal).real_formatado %></p>
+
+<% if current_cliente_user.anuidade_paga? %>
+  <p><strong>Vencimento da Anuidade:</strong> <%= current_cliente_user.vencimento_anuidade.to_date.to_s_br unless current_cliente_user.anuidade_paga? %></p>
+<% else %>
+  <p>Atenção!! Sua anuidade está vencida, por favor, realize o pagamento. <%= link_to "Anuidade", public_anuidade_index_path %></p>
+<% end %>

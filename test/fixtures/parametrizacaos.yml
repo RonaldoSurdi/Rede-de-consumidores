@@ -1,0 +1,6 @@
+one:
+  percentual_cliente: 90.0
+  percentual_franquia: 2.0
+  percentual_indicado: 8.0
+  vlr_minimo_bonus_indicacao: 50
+  percentual_administracao: 10.0

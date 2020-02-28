@@ -1,0 +1,52 @@
+<h1>Indicações</h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="actions">
+    <%= form_tag nil, method: :get do %>
+      <div class="row">
+        <div class="col-md-9">
+          <label for="usuario">Quem Indicou</label>
+          <%= select_tag "usuario", options_for_select(@usuarios, @usuario.try(:id)), include_blank: "true", class: "form-control input-sm" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <br>
+        <div class="col-md-9">
+          <button class="btn btn-primary" type="submit">Pesquisar</button>
+        </div>
+      </div>
+    <% end %>
+</div>
+
+<% if @usuario %>
+  <span>
+    Total de Pontos de Indicação de <%= @usuario.nome %>: <strong><%= @usuario.quantidade_indicacoes.to_i %></strong><br>
+  </span>
+<% end %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Usuário</th>
+      <th>Data de Pagamento</th>
+    </tr>
+  </thead>
+
+  <% if @indicacoes.to_a.any? %>
+    <tbody>
+      <% @indicacoes.each do |usuario| %>
+        <tr>
+          <td><%= usuario.nome %></td>
+          <td><%= usuario.data_ativacao.in_time_zone.to_s_br %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <tr>
+      <td colspan="2">Nenhuma indicação</td>
+    </tr>
+  <% end %>
+</table>

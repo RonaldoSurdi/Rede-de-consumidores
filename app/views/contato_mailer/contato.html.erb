@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><b>Contato via portal ConsumerCard</b></p>
+    <hr/>
+    <strong>Nome: </strong><%= @contato[:nome] %>  <br />
+    <strong>Email: </strong><%= @contato[:email] %> <br />
+    <strong>Telefone: </strong><%= @contato[:fone] %> <br />
+    <% if @contato[:cidade_id] %>
+      <strong>Cidade de Consumo: </strong><%= City.friendly.find(@contato[:cidade_id]).full_name %> <br />
+    <% end %>
+    <strong>Assunto: </strong><%= @contato[:assunto] %> <br />
+    <strong>Mensagem: </strong> <br /><%= @contato[:msg].gsub(/\n/, '<br/>') %> <br /><br />
+    <small>Este e-mail foi gerado automaticamente, favor não responder.</small>
+  </body>
+</html>

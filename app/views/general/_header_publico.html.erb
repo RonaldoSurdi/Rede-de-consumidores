@@ -1,0 +1,29 @@
+<div class="login">
+  <%= form_for(:cliente_user, as: :cliente_user, url: session_path(:cliente_user)) do |f| %>
+    <h6>Acesse sua conta</h6>
+
+    <div class="row">
+      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right" style="height: 25px"><label style="width: 32px;">E-mail</label></div>
+      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <%= f.email_field :email, autofocus: true, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right" style="height: 25px"><label style="width: 32px;">Senha</label></div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <%= f.password_field :password, class: 'form-control', required: true %>
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <input type="submit" class="btn botao submit" value="Entrar" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height: 15px">
+        <%= link_to ">> Esqueci minha senha", new_password_path(:cliente_user) %><br />
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <%= link_to ">> Criar Cadastro", new_termo_cadastro_path %><br />
+      </div>
+    </div>
+  <% end %>
+</div>

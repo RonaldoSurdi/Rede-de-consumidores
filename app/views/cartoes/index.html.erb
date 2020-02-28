@@ -1,0 +1,15 @@
+<% if @solicitacao %>
+  <h4>
+    <strong>Atenção!! Você já tem uma solicitação em aberto</strong>
+  </h4>
+  <br>
+<% end %>
+
+<h5>Você deve utilizar essa opção para solicitar a segunda via do seu cartão ConsumerCard.</h5>
+
+<p><strong>Número do Cartão: </strong> <%= current_cliente_user.numero_cartao_formatado %></p>
+<p><strong>Taxa para novo cartão: </strong> <%= Dinheiro.new(Parametrizacao.first.valor_cartao.to_f).real_formatado %></p>
+
+<div class="text-right">
+  <%= link_to "Solicitar", cartoes_path, class: "btn btn-primary", method: :post %>
+</div>

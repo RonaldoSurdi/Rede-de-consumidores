@@ -1,0 +1,37 @@
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+      <%= image_tag "frontend/consumer_card.png", title: "ConsumerCard", alt: "ConsumerCard", style: "padding: 50px 0" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <h5 class="text-center">Esqueceu sua Senha?</h5> <%= :user %>
+    <div id="login-wrapper" class="session-admin">
+      <%= render partial: 'general/messages' %>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <%= form_for(resource, :as => :user, :url => user_password_path, :html => { :method => :post }) do |f| %>
+        <%= raw resource.errors.full_messages.map { |msg| content_tag(:div, msg, class: "alert alert-danger") }.join %>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <%= f.email_field :email, class: 'form-control', required: true, autofocus: true, placeholder: "E-Mail" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <br>
+            <%= f.submit "Enviar por e-mail instruções para alteração da senha", class: "btn btn-primary btn-sm pull-right" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <footer class="navbar navbar-default navbar-fixed-bottom text-center" role="navigation">
+    SAINTEC Sistemas | Copyright <%= Time.now.strftime '%Y' %>
+  </footer>
+</div>

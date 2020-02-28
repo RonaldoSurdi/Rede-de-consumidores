@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= Dinheiro.new(@pagamento.valor).real_formatado %>
+</p>
+
+<p>
+  <strong>Data/Hora de Emissão:</strong>
+  <%= @pagamento.created_at.to_s_br %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= Pagamento.status[@pagamento.status.to_sym] %>
+</p>
+
+<%= link_to 'Back', contas_path %>

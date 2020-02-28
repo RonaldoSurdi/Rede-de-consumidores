@@ -1,0 +1,49 @@
+<h1><%= @user.nome %></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<p>
+  <strong>E-Mail:</strong> <%= @user.email %>
+</p>
+
+<p>
+  <strong>Cidades:</strong> <%= @user.cities.to_a.collect{ |c| c.full_name }.join(", ") %>
+</p>
+
+<p>
+  <strong>Tipo da Pessoa:</strong> <%= @user.juridica_fisica %>
+</p>
+
+<p>
+  <strong>CPF/CNPJ:</strong> <%= @user.cpf_cnpj %>
+</p>
+
+<p>
+  <strong>Logradouro:</strong> <%= @user.logradouro %>
+</p>
+
+<p>
+  <strong>Número:</strong> <%= @user.numero %>
+</p>
+
+
+<p>
+  <strong>Bairro:</strong> <%= @user.bairro %>
+</p>
+
+<p>
+  <strong>Complemento:</strong> <%= @user.complemento %>
+</p>
+
+<p>
+  <strong>Telefone:</strong> <%= @user.telefone %>
+</p>
+
+<p>
+  <strong>Celular:</strong> <%= @user.celular %>
+</p>
+
+<%= link_to "Auditoria", auditorium_path("FranquiaUser", codigo: @user.id, descricao: @user.nome) %> |
+<%= link_to 'Editar', edit_franquia_user_path(@user) %> |
+<%= link_to 'Voltar', franquia_users_path %>

@@ -1,0 +1,39 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_tag transacao_path(@transacao), method: :delete do %>
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Confirmação de Cancelamento</h4>
+        </div>
+        
+        <div class="modal-body">
+          <p>
+            <strong>Número: </strong>
+            <%= @transacao.id %>
+          </p>
+
+          <p>
+            <strong>Data: </strong>
+            <%= @transacao.created_at.to_s_br %>
+          </p>
+
+          <p>
+            <strong>Valor:</strong>
+            <%= Dinheiro.new(@transacao.vlr_gasto).real_formatado %>
+          </p>
+
+          <p>
+            <%= label_tag :motivo, "Motivo" %>
+            <%= text_field_tag :motivo, nil, class: "form-control", required: true %>
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-danger" id="confirmar-cancelamento" value="Confirmar Cancelamento!">
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

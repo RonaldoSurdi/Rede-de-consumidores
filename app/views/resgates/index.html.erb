@@ -1,0 +1,16 @@
+<% if @premios.empty? %>
+  <%= content_tag :h5, "Você deve ter #{@proximo.quantidade_indicacoes} Pontos de Indicação acumulados para avançar de categoria e solicitar seu prêmio." if @proximo %>
+  <%= content_tag :h5, "Nenhum prêmio disponível para resgate" unless @proximo %>
+  <h5>Dúvidas? <%= link_to "Consulte a Tabela de Prêmios", premiacoes_path %></h5>
+<% elsif @limite %>
+  <div class="container">
+    <% @premios.each_with_index do |premio, i| %>
+      <%= render partial: "header_privado", locals: {premio: premio, i: i} %>
+      <%= render partial: "produto_privado", locals: {premio: premio} %>
+    <% end %>
+    </div> <!-- Fecha Ultima Row -->
+  </div>
+<% else %>
+  <h5>Você não atingiu o Consumo Médio Mensal de <%= Dinheiro.new(Parametrizacao.first.vlr_consumo_medio_para_resgate_premios).real_formatado %> nos últimos 180 dias.<br></h5>
+  <h5>Dúvidas? <%= link_to "Consulte o item 7.4 do Regulamento", new_termo_cadastro_path(painel: true) %></h5>
+<% end %>

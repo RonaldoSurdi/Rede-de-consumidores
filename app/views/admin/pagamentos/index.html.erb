@@ -1,0 +1,89 @@
+<h1>Financeiro <small>Gerenciamento</small></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="actions">
+  <%= form_tag nil, method: :get do %>
+    <div class="row">
+      <div class="col-md-2">
+        <label for="tipo">Tipo</label>
+        <%= select_tag "tipo", options_for_select([["A Pagar", "PAGAR"], ["A Receber", "RECEBER"]], @tipo), class: "form-control input-sm" %>
+      </div>
+
+      <div class="col-md-2">
+        <label for="status">Status</label>
+        <%= select_tag "status", options_for_select([["Todos", ""], ["Aberto", "aberto"], ["Fechado", "fechado"]], @status), class: "form-control input-sm" %>
+      </div>      
+
+      <div class="col-md-2">
+        <label for="nossonumero">Nosso Número</label>
+        <%= text_field_tag :nossonumero, @nosso_numero, class: "form-control input-sm" %>
+      </div>
+      
+      <% if [FranquiaUser, AdminUser].include?(current_user.class) %>
+        <div class="col-md-6">
+          <label for="usuario">Usuário</label>
+          <%= select_tag "usuario", options_for_select(@usuarios, @usuario), class: "form-control input-sm" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <br>
+      <div class="col-md-9">
+        <button class="btn btn-primary" type="submit">Pesquisar</button>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @pagamentos %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Data/Hora Emissão</th>
+      <th>Nome</th>
+      <th>Vencimento</th>
+      <th>Nosso Número</th>
+      <th class="text-center"><%= @tipo == "PAGAR" ? "Paga?" : "Recebida?" %></th>
+      <th colspan="2"></th>
+      <th class="text-right">Valor</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pagamentos.each do |pagamento| %>
+      <tr>
+        <td><%= pagamento.created_at.to_s_br %></td>
+        <td><%= pessoa(pagamento) %></td>
+        <td><%= pagamento.data_vencimento.to_s_br  %></td>
+        <td><%= pagamento.nosso_numero  %></td>
+        <td  class="text-center">
+          <% if (@tipo == "PAGAR" && pagamento.status.to_s != "pago") || (@tipo != "PAGAR" && !pagamento.recebido) %>
+            <%= link_to confirmar_pagamento_path(pagamento), method: :put, title: acao(@tipo), style: "color:  #333333", data: {confirm: "Confirma ação?"} do %>
+              <i  class="glyphicon glyphicon-ok"></i>
+            <% end %>
+          <% else %>
+            <%= content_tag :span, style: "color: #47a447" do %>
+              <i  class="glyphicon glyphicon-ok"></i>
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= link_to 'Visualizar Boleto', boleto_path(pagamento), target: "_blank" if pagamento.data_vencimento %></td>
+        <td><%= link_to "Enviar para #{pagamento.origem.email}", enviar_email_boleto_path(pagamento), remote: true, id: "link-enviar-boleto" if pagamento.data_vencimento %></td>
+        <td class="text-right"><%= Dinheiro.new(pagamento.valor).real_formatado %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="7" class="text-right">Valor Total: </td>
+      <td class="text-right">
+        <%= Dinheiro.new(@total || 0).real_formatado %>
+      </td>
+    </tr>
+  </tfoot>
+</table>

@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="new-cadastro">
+    <h2>Cadastre-se!</h2>
+    <%= render partial: "shared" %>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-confirmacao-cadastro">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Confirmação do Participante Indicador</h4>
+      </div>
+      <div class="modal-body">
+        <p>Participante Indicador: <strong><span id="indicacao"></span></strong></p>
+        <p>Seu Nome: <strong><span id="nome"></span></strong></p>
+        <p><strong>Atenção:</strong></p>
+        <p class="text-justify">Conforme descrito no Regulamento do Consumidor para o Programa ConsumerCard, caso o Participante Indicado não conferir essa informação (nome do Participante Indicador) no momento do cadastro, o Participante Indicador não receberá os Bônus de Indicação, Bônus de Compra de Indicado e os Pontos de Indicação, isentando a ConsumerCard de qualquer culpabilidade pelo preenchimento incorreto e não mais cabendo futuras alterações de cadastro ou acúmulo de Bônus de Indicação, Bônus de Compra de Indicado e Pontos de Indicação relativos a este Participante, sob nenhuma hipótese.</p>
+        <p>Caso o Participante Indicador não estiver certo, clique abaixo em Cancelar e leia o item 9.4 do Regulamento do Programa.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="confirmar-cadastro">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>

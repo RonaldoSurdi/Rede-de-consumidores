@@ -1,0 +1,31 @@
+one:
+  id: 1
+  vlr_anuidade: 1.5
+  vlr_indicado: 1.5
+  descricao: MyString
+
+two:
+  id: 2
+  vlr_anuidade: 1.5
+  vlr_indicado: 1.5
+  descricao: MyString
+
+zerada:
+  id: 3
+  vlr_anuidade: 0
+  vlr_indicado: 0
+  descricao: MyString
+
+basico:
+  id: 4
+  vlr_anuidade: 100
+  vlr_indicado: 30
+  quantidade_indicacoes: 1
+  descricao: "ConsumerCard Básico"
+
+advanced:
+  id: 5
+  vlr_anuidade: 130
+  vlr_indicado: 50
+  quantidade_indicacoes: 2
+  descricao: "ConsumerCard Advanced"

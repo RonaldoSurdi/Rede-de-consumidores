@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@user, html: { multipart: true }) do |f| %>
+      <%= render partial: "users/basicos", locals: {f: f} %>
+
+      <%= f.label :juridica_fisica, 'Tipo de Pessoa', class: 'control-label' %><br>
+      <div class="radio">
+        <label>
+          <%= f.radio_button :juridica_fisica, 'F' %> Pessoa Física
+        </label>
+      </div>
+
+      <div class="radio">
+        <label>
+          <%= f.radio_button :juridica_fisica, 'J' %> Pessoa Jurídica
+        </label>
+      </div>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@user, 'descricao') %> col-sm-12">
+          <%= f.label :descricao, 'Descrição completa do estabelecimento', class: 'control-label' %>
+          <%= f.text_field :descricao, class: 'form-control', maxlength: 100 %>
+          <span class="help-block"><%= @user.errors.messages[:descricao].join %></span>
+        </div>
+      </div>
+
+      <%= render partial: "users/complementares", locals: {f: f} %>
+      <hr>
+      <div class="row">
+        <div class="<%= get_class_control_form(@user, 'percentual_bonus') %> col-sm-4">
+          <%= f.label :percentual_bonus, 'Percentual de Bônus para Pagamento em Dinheiro', class: 'control-label' %><br>
+          <%= f.text_field :percentual_bonus, class: 'form-control', data: {percentual: true}, value: number_with_precision(@user.percentual_bonus.to_f, precision: 2) %>
+          <span class="help-block"><%= @user.errors.messages[:percentual_bonus].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@user, 'percentual_bonus_outras_formas') %> col-sm-4">
+          <%= f.label :percentual_bonus_outras_formas, 'Percentual de Bônus para Demais Formas de Pagamento', class: 'control-label' %><br>
+          <%= f.text_field :percentual_bonus_outras_formas, class: 'form-control', data: {percentual: true}, value: number_with_precision(@user.percentual_bonus_outras_formas.to_f, precision: 2) %>
+          <span class="help-block"><%= @user.errors.messages[:percentual_bonus_outras_formas].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@user, 'taxa_publicidade') %> col-sm-3">
+          <%= f.label :taxa_publicidade, 'Taxa de Publicidade', class: 'control-label' %><br>
+          <%= f.text_field :taxa_publicidade, class: 'form-control', data: {monetario: true}, value: number_with_precision(@user.taxa_publicidade.to_f, precision: 2) %>
+          <span class="help-block"><%= @user.errors.messages[:taxa_publicidade].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@user, 'url') %> col-sm-9">
+          <%= f.label :url, 'URL', class: 'control-label' %><br>
+          <%= f.text_field :url, class: 'form-control', type: "url" %>
+          <span class="help-block"><%= @user.errors.messages[:url].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@user, 'observacao') %> col-sm-12">
+          <%= f.label :observacao, 'Observação', class: 'control-label' %>
+          <%= f.text_field :observacao, class: 'form-control', maxlength: 100 %>
+          <span class="help-block"><%= @user.errors.messages[:observacao].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@user, 'logo') %> col-md-12">
+          <%= f.label :logo, 'Logo (Se não informado será mantido o arquivo anterior)', class: 'control-label' if @user.id %>
+          <%= f.label :logo, 'Logo', class: 'control-label' unless @user.id %>
+          <%= f.file_field :logo %>
+          <span class="help-block">
+            A imagem deve ter tamanho 236px x 140px
+            <%= @user.errors.messages[:logo].join %>
+          </span>
+        </div>
+      </div>
+
+      <%= f.submit 'Gravar', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<% if ultimo %>
+  <div class="col-md-6 text-center col-md-offset-1">
+    <%= image_tag premio.imagem.url, alt: premio.descricao, title: premio.descricao, class: "img-responsive" %>
+  </div>
+  <div class="col-md-4">
+    <h4><%= premio.descricao %></h4>
+    <p class="text-left"><%= premio.descricao_completa.to_s.gsub(Regexp.new("^#{premio.descricao}"), "").to_s.strip.truncate(100) %></p>
+    <p>
+      <strong>
+        <%= link_to "Saiba Mais", premiacao_path(premio.id), class: "saiba-mais" %>
+      </strong>
+    </p>
+  </div>
+<% else %>
+  <div class="col-md-3">
+    <div class="thumbnail">
+      <div class="container-img">
+        <%= image_tag premio.imagem.url, alt: premio.descricao, title: premio.descricao, class: "img-responsive" %>
+      </div>
+      <div class="caption">
+        <p class="text-left">
+          <strong><%= premio.descricao %></strong><br><%= premio.descricao_completa.to_s.gsub(Regexp.new("^#{premio.descricao}"), "").to_s.strip.truncate(75) %>
+        </p>
+        <p>
+          <strong>
+            <%= link_to "Saiba Mais", premiacao_path(premio.id), class: "saiba-mais" %>
+          </strong>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

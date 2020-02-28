@@ -1,0 +1,28 @@
+<% content_for :content do %>
+  <div class="container">
+    <div class="row">
+      <div class="painel-aside col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        <ul class="list-unstyled menu_cliente">
+          <li><%= link_to "Informações Gerais", painel_cliente_index_path, data: {controller: "cliente_users"} %><br></li>
+          <li><%= link_to "Editar Cadastro", edit_cliente_user_registration_path, data: {controller: "cliente_user_registrations"} %><br></li>
+          <li><%= link_to "Anuidades", public_anuidade_index_path, data: {controller: "anuidades"} %><br></li>
+          <li><%= link_to "Transações", public_transacoes_path, data: {controller: "transacoes"} %><br></li>
+          <li><%= link_to "Conta Corrente", conta_corrente_index_path, data: {controller: "conta_corrente"} %><br></li>
+          <li><%= link_to "Indicar Amigos", new_indicacao_path, data: {controller: "indicacoes"} %><br></li>
+          <li><%= link_to "Regulamento", new_termo_cadastro_path(painel: true), data: {controller: "termo_cadastro"} %><br></li>
+          <li><%= link_to "Solicitar Novo Cartão", cartoes_path, data: {controller: "cartoes"} %><br></li>
+          <li><%= link_to "Solicitar Prêmio", resgates_path, data: {controller: "resgates"}  %><br></li>
+          <li><%= link_to "Logout", destroy_cliente_user_session_path, method: :delete, data: {confirm: "Você deseja sair?"} %></li>
+        </ul>
+      </div>
+      <div class="painel-content col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <div class="panel panel-default">
+          <div class="panel-heading">Painel de Controle</div>
+          <div class="panel-body"><%= yield %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end if cliente_user_signed_in? %>
+
+<%= render file: "layouts/public" %>

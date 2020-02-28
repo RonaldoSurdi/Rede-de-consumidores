@@ -1,0 +1,84 @@
+<%= content_tag :p, "Notificação de Transação", style: "font-size: 22px" if @transacao %>
+
+<p>Olá <strong><%= @cliente_user.nome %></strong>,</p>
+
+<p>Foi registrada uma movimentação em sua conta. Confira:</p>
+
+<% if @movimento && !@transacao %>
+  <p><strong><%= @movimento.descricao %></strong></p>
+<% end %>
+
+<% if @transacao %>
+  <% if @transacao.cancelada %>
+    <p><strong>Cancelamento de Transação</strong></p>
+  <% else %>
+    <% if @transacao.acumulo? %>
+      <p><strong>Bônus de Compra Própria</strong></p>
+    <% else %>
+      <p><strong>Resgate de Bônus</strong></p>
+    <% end %>
+  <% end %>
+
+  <p>
+    <strong>Número da Transação:</strong>
+    <%= @transacao.id %>
+  </p>
+
+  <% unless @transacao.cancelada %>
+    <p>
+      <strong>Tipo de Transação:</strong>
+      <%= @transacao.acumulo? ? 'Acúmulo' : 'Resgate' %>
+    </p>
+  <% end %>
+
+  <% if !@transacao.cancelada && @transacao.tipo_pagamento %>
+    <p>
+      <strong>Forma de Pagamento:</strong>
+      <%= Transacao.tipos[@transacao.tipo_pagamento.to_sym] %>
+    </p>
+  <% end %>
+
+  <p>
+    <strong>Data e Horário:</strong>
+    <%= @transacao.created_at.to_s_br %>
+  </p>
+
+  <p>
+    <strong>Estabelecimento:</strong>
+    <%= @transacao.operador.estabelecimento_user.nome %>
+  </p>
+
+  <p>
+    <strong>Número do Documento:</strong>
+    <%= @transacao.documento %>
+  </p>
+
+  <% if @transacao.acumulo? %>
+    <p>
+      <strong>Valor da Transação</strong>
+      <%= Dinheiro.new(@transacao.vlr_gasto.truncate(2)).real_formatado %>
+    </p>
+  <% end %>
+<% end %>
+
+<% if @movimento && (@transacao.nil? || !@transacao.cancelada) %>
+  <% if @movimento.vlr.to_f > 0 %>
+    <p>
+      <strong>Bônus Acumulado:</strong>
+      <%= Dinheiro.new(@movimento.vlr).real_formatado %>
+    </p>
+  <% else %>
+    <p>
+      <strong>Valor Resgatado:</strong>
+      <%= Dinheiro.new(@movimento.vlr.truncate(2).abs).real_formatado %>
+    </p>
+  <% end %>
+<% end %>
+
+
+<% if @movimento %>
+  <p>
+    <strong>Saldo Atual:</strong>
+    <%= Dinheiro.new(Saldo.para(@cliente_user).no_periodo_de("01/01/1990".to_date).ate(@movimento ? @movimento.data : @transacao.created_at.to_date).saldo).real_formatado %>
+  </p>
+<% end %>

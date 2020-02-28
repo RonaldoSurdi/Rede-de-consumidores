@@ -1,0 +1,75 @@
+<h1>Anuidades</h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="actions">
+    <%= form_tag nil, method: :get do %>
+      <div class="row">
+        <%= render partial: "application/periodo" %>
+        <div class="col-md-6">
+          <%= label_tag :tipo_pagamento, "Forma de Pagamento", class: "control-label" %>
+          <%= select_tag :tipo_pagamento, options_for_select(Pagamento.tipos.invert, @tipo_pagamento), include_blank: true, class: "form-control input-sm" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <%= label_tag :q, "Filtro de Pesquisa (Cliente/Franquia/Nosso Número)", class: "control-label" %>
+          <%= text_field_tag :q, @filter, class:  "form-control input-sm" %>
+        </div>
+        <div class="col-md-6">
+          <%= label_tag :status, "Situação do Pagamento", class: "control-label" %>
+          <%= select_tag :status, options_for_select(Pagamento.status.invert, @status), include_blank: true, class: "form-control input-sm" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-9">
+          <br><button class="btn btn-primary" type="submit">Pesquisar</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>
+
+<%= paginate @anuidades %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Data de Emissão</th>
+      <th>Status</th>
+      <th>Cliente</th>
+      <th>Franquia</th>
+      <th>Forma de Pagamento</th>
+      <th>Nosso Número</th>
+      <th class="text-right">Valor</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @anuidades.to_a.each do |anuidade| %>
+      <tr class="<%= tr_class_anuidade(anuidade) %>">
+        <td><%= anuidade.id %></td>
+        <td><%= anuidade.created_at.to_s_br %></td>
+        <td><%= Pagamento.status[anuidade.status.to_sym] %></td>
+        <td><%= anuidade.origem.nome %></td>
+        <td><%= anuidade.destino.nome %></td>
+        <td><%= Pagamento.tipos[anuidade.tipo_pagamento.to_sym] %></td>
+        <td><%= anuidade.nosso_numero %></td>
+        <td class="text-right"><%= Dinheiro.new(anuidade.valor).real_formatado %></td>
+        <% if anuidade.status.to_sym != :pago && current_user.is_a?(FranquiaUser) %>
+          <td class="text-right"><%= link_to "Confirmar Pagamento", anuidades_path(id: anuidade), method: :post, data: {confirm: "Confirmar pagamento?"} %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td class="text-right"><%= link_to "Auditoria", auditorium_path("Pagamento", codigo: anuidade.id, descricao: "Pagamento de Anuidade -  #{anuidade.origem.nome}") %></td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>

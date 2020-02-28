@@ -1,0 +1,100 @@
+transacao1:
+  operador: operador1
+  vlr_gasto: 10.00
+  cliente_user_id: 11
+  forma_pagamento: :dinheiro
+  documento: 123
+  created_at: "2010-01-01 05:00:00"
+  tipo_pagamento: :dinheiro
+
+transacao2:
+  operador: operador2
+  vlr_gasto: 150.00
+  cliente_user_id: 11
+  forma_pagamento: :dinheiro
+  documento: 124
+  created_at: "2010-01-01 05:00:01"
+  tipo_pagamento: :dinheiro
+
+transacao3:
+  operador: operador2
+  vlr_gasto: 1.00
+  cliente_user_id: 11
+  forma_pagamento: :pontos
+  documento: "124/1"
+  created_at: "2010-01-01 16:59:59"
+  tipo_pagamento: :dinheiro
+
+transacao4:
+  operador: operador1
+  vlr_gasto: 50.00
+  cliente_user_id: 12
+  forma_pagamento: :dinheiro
+  documento: "125"
+  created_at: "2010-01-01 05:00:03"
+  tipo_pagamento: :dinheiro
+
+transacao5:
+  operador: operador2
+  vlr_gasto: 100.00
+  cliente_user_id: 12
+  forma_pagamento: :dinheiro
+  documento: "126"
+  created_at: "2010-01-01 05:00:04"
+  tipo_pagamento: :dinheiro
+
+transacao6:
+  operador: operador1
+  vlr_gasto: 2.00
+  cliente_user_id : 12
+  forma_pagamento: :pontos
+  documento: "127"
+  created_at: "2010-01-01 05:00:05"
+  tipo_pagamento: :dinheiro
+
+resgate:
+  operador: operador1
+  vlr_gasto: 5.00
+  cliente_user_id: 11
+  forma_pagamento: :pontos
+  documento: "128"
+  created_at: "2012-01-31 05:00:00"
+  tipo_pagamento: :dinheiro
+
+transacao7:
+  operador: operador3
+  vlr_gasto: 180.23
+  cliente_user_id: 11
+  forma_pagamento: :dinheiro
+  documento: "128"
+  created_at: "2011-01-01 06:00:00"
+  tipo_pagamento: :dinheiro
+
+transacao8:
+  operador: operador3
+  vlr_gasto: 804.65
+  cliente_user_id: 11
+  forma_pagamento: :dinheiro
+  documento: "128"
+  created_at: "2011-01-20 07:00:00"
+  tipo_pagamento: :dinheiro
+
+transacao9:
+  operador: operador4
+  vlr_gasto: 10.65
+  cliente_user_id: 11
+  forma_pagamento: :pontos
+  documento: "128"
+  created_at: "2011-01-31 08:00:00"
+  tipo_pagamento: :dinheiro
+
+<% (10..100).each do |i| %>
+transacao<%= i %>:
+  operador: operador1
+  vlr_gasto: <%= i %>
+  cliente_user_id: 11
+  forma_pagamento: :dinheiro
+  documento: "128<%= i %>"
+  created_at: "2012-01-31 01:00:00"
+  tipo_pagamento: :dinheiro
+<%  end %>

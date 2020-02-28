@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><b>Informações do sistema ConsumerCard</b></p>
+    <hr/>
+    <ul>
+      <% @mensagens.to_a.each do |mensagem| %>
+        <%= content_tag :li, mensagem %>
+      <% end %>
+    </ul>
+
+    <small>Este e-mail foi gerado automaticamente, favor não responder.</small>
+  </body>
+</html>

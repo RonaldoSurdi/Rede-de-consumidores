@@ -1,0 +1,40 @@
+<h1><%= @user.nome %></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<p>
+  <strong>E-Mail:</strong> <%= @user.email %>
+  <%= content_tag :span, " - E-Mail não confirmado", class: "text-danger" unless @user.confirmed_at %>
+</p>
+
+<p><strong>Plano de Adesão:</strong> <%= @user.plano_adesao.descricao %></p>
+<p><strong>Foi indicado por:</strong> <%= @user.padrinho.nome if @user.padrinho %></p>
+
+<% if @user.fisica? %>
+  <p><strong>Sexo:</strong> <%= @user.sexo %></p>
+  <p><strong>Estado Civil:</strong> <%= @user.estado_civil %></p>
+  <p><strong>Data de Nascimento:</strong> <%= @user.data_nascimento.to_s_br %></p>
+<% end %>
+
+<% if @user.juridica? %>
+  <p><strong>Razão Social:</strong> <%= @user.razao_social %></p>
+<% end %>
+
+<p><strong><%= @user.fisica? ? 'CPF' : 'CNPJ' %>:</strong> <%= @user.cpf_cnpj_formatado %></p>
+<p><strong>Cidade de Consumo:</strong> <%= @user.cities[0].full_name %></p>
+<p><strong>Cidade:</strong> <%= @user.cidade %></p>
+<p><strong>CEP:</strong> <%= @user.cep %></p>
+<p><strong>Logradouro:</strong> <%= @user.logradouro %></p>
+<p><strong>Número:</strong> <%= @user.numero %></p>
+
+<p><strong>Bairro:</strong> <%= @user.bairro %></p>
+<p><strong>Complemento:</strong> <%= @user.complemento %></p>
+<p><strong>Telefone:</strong> <%= @user.telefone %></p>
+<p><strong>Celular:</strong> <%= @user.celular %></p>
+
+<p><strong>Número do Cartão:</strong> <%= @user.numero_cartao_formatado %></p>
+
+<%= link_to "Auditoria", auditorium_path("ClienteUser", codigo: @user.id, descricao: @user.nome) %> |
+<%= link_to 'Editar', edit_cliente_user_path(@user) %> |
+<%= link_to 'Voltar', cliente_users_path %>

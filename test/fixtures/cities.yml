@@ -1,0 +1,11 @@
+erechim:
+  description: Erechim
+  uf: RS
+
+getulio:
+  description: Getúlio Vargas
+  uf: RS
+
+porto_alegre:
+  description: Porto Alegre
+  uf: RS

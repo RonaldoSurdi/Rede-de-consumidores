@@ -1,0 +1,508 @@
+$dourado: #886541;
+$vermelhoConsumer: #89141a;
+$vermelhoTitulo: #841a1c;
+
+html, body {
+    padding: 0px !important;
+    margin: 0px !important;
+    height: 100%;
+    width: 100%;
+    font-family: Arial;
+    font-size: 12px;
+    color: #666;
+    min-width: 960px;
+}
+body.home {
+    background: image-url("frontend/bgInicio.jpg") no-repeat top center;
+    background-size: 100% auto;
+    border: 1px solid black;
+}
+
+.form-inicio {
+    background: $vermelhoConsumer;
+    height: 300px;
+    padding: 20px;
+    padding-top: 60px;
+}
+
+.container {
+    width: 960px !important;
+    min-width: none !important;
+}
+
+.navTop {
+    background: #EFEEDF;
+    padding: 15px 0px 8px 0px;
+    font-family: "Tahoma", Arial;
+}
+.navTop .cidade {
+    color: #886541;
+    padding: 0;
+    margin: 0;
+    font-family: "Tahoma", Arial;
+}
+.navTop .cidade .red {
+    color: #A3363C;
+}
+.navTop .menuTop a {
+    color: #886541;
+    margin: 0px 10px 0px 10px;
+}
+
+header {
+    background: $vermelhoConsumer;
+    background-size: 100% 100%;
+    padding: 0 0 15px 0;
+    min-height: 140px;
+}
+header .logo {
+    width: 350px;
+    margin: 35px 0px 0px 0px;
+}
+
+header .login {
+    border: 1px solid #C7A96C;
+    border-radius: 10px;
+    overflow: hidden;
+    float: right;
+    margin: 10px 0px 0px 0px;
+    padding: 8px;
+    color: #FFF;
+    font-family: "Tahoma", Arial;
+
+    a {
+        text-decoration: none;
+    }
+}
+header .login h6 {
+    font-weight: 800;
+    font-family: "Tahoma", Arial;
+    margin: 0;
+    padding: 0 0 8px 0;
+}
+header .login input {
+    height: 20px;
+
+}
+header .login input[type="email"], header .login input[type="password"] {
+    font-size: 11px;
+    padding: 0px 3px 0px 3px !important;
+}
+header .login label {
+    font-weight: normal;
+    padding: 5px 0px 10px 0px;
+    font-size: 11px;
+
+}
+header .login .botao {
+    background: image-url("frontend/bgBtn.png") repeat-x top;
+    background-color: #93734d;
+    font-size: 11px;
+    font-weight: bold;
+    color: #FFF;
+    padding: 0px 13px 0px 13px;
+}
+header .login .submit {
+    margin-left: -20px;
+}
+header .login a {
+    color: #FFF;
+    font-size: 10px;
+}
+header .logado h3 {
+    color: #FFF;
+    font-weight: bold;
+    font-family: "Tahoma", Arial;
+    padding: 45px 0px 0px 0px;
+    font-size: 20px;
+}
+
+nav.navMiddle {
+    background: #D6BD8F;
+    padding: 8px 0px 8px 0px;
+    margin: 5px 0 0 0;
+}
+nav.navMiddle a {
+    color: #886541;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin: 0 25px 0 0;
+}
+
+footer {
+    padding: 30px 0 20px 0;
+    background-color: $vermelhoConsumer;
+
+    .tecnologias {
+        position: absolute;
+        margin-top: 110px;
+        right: 15px;
+        z-index: 2;
+    }
+}
+footer h6 {
+    padding: 0px;
+    margin: 0px;
+    font-size: 14px;
+}
+footer .tnms {
+    float: left;
+    margin: 29px 0 0 20px;
+}
+
+footer .logo {
+    max-width: 280px !important;
+    max-height: 65px  !important;
+    margin: 30px 60px 0 0;
+    vertical-align: bottom;
+}
+
+footer a {
+    text-decoration: none !important;
+}
+
+footer .itens-menu a {
+    color: #FFF;
+    font-size: 12px;
+}
+
+footer .youtube img {
+    max-width: 40px;
+    vertical-align: middle;
+    padding-left: 8px;
+    margin-top: -5px;
+}
+
+footer h6 a {
+    color: #823343;
+}
+
+footer h6 a:hover {
+    color: #823343;
+}
+footer .uiGrid a {
+    color: #FFF !important;
+}
+
+section {
+    margin: 20px 0px 0px;
+    text-align: justify;
+    min-height: 350px;
+}
+
+.txtDourado {
+    color: $dourado;
+}
+section .titulo {
+    font-size: 38px;
+    text-transform: uppercase;
+}
+
+.inicio .banners {
+    height: 340px;
+}
+.inicio .carousel .item img {
+    width: 100%;
+    height: 300px;
+}
+.inicio .carousel .carousel-indicators {
+    top: 310px !important;
+}
+.inicio .carousel .carousel-indicators li {
+    background: #D2B885 !important;
+    border: none !important;
+    text-indent: 0px !important;
+    width: 18px !important;
+    height: 18px !important;
+    color: #FFF !important;
+    padding: 0px 1px 0px 0px !important;
+    margin: 0px !important;
+}
+.inicio .carousel .carousel-indicators .active {
+    background: #893237 !important;
+    border: none !important;
+}
+
+.inicio .empresas {
+    background: #fCfCfC;
+    border: 1px solid #EEE;
+    overflow: hidden;
+    margin: 0 0px 0 0px;
+}
+.inicio .empresa {
+    padding: 10px;
+}
+.inicio .empresa .divLogo {
+    background: #FFF;
+    width: 100px;
+    height: 70px;
+    float: left;
+    border: 1px solid #EEE;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.inicio .empresa .divLogo table {
+    width: 100%;
+    height: 100%;
+}
+.inicio .empresa .divLogo img {
+    max-width: 90px;
+    max-height: 60px;
+}
+.inicio .empresa address {
+    margin: 12px 0 0 0;
+    text-align: left;
+    line-height: 12px;
+}
+
+.btn-consumer {
+    background-color: $vermelhoConsumer;
+    color: #FFFFFF;
+}
+.btn-consumer:hover {
+    color: #FFF;
+}
+
+.participar {
+    .blocos {
+        .content {
+            padding-top: 20px;
+            background: #f5efe3;
+        }
+
+        h5 {
+            font-weight: bold;
+            margin-bottom: 3px !important;
+        }
+
+        .texto {
+            padding: 15px;
+        }
+
+        .espaco-1 {
+            background-color: #851c23;
+            height: 8px;
+        }
+
+        .espaco-2 {
+            background-color: #c7a96d;
+            height: 8px;
+        }
+        a {
+            color: $vermelhoConsumer;
+        }
+    }
+}
+
+.participar .informacoes {
+    width: 100%;
+    text-align: left;
+}
+.participar .informacoes .td1 {
+    background: #fdfbf9;
+}
+.participar .informacoes .td2 {
+    background: #f5efe3;
+}
+.participar hr {
+    height: 5px;
+}
+.participar .informacoes h5 {
+    margin: 3px 0 3px 0;
+}
+
+textarea {
+    resize: none;
+}
+.conveniadas .container-logo {
+    background: image-url("frontend/bgLogo.jpg") repeat-y center;
+    height: 130px;
+}
+
+.conveniadas .container-logo .logo {
+}
+
+.conveniadas .thumbnail {
+    padding: 12px;
+    border: none;
+    background: #f6f6f6;
+}
+.conveniadas .thumbnail .caption {
+    padding: 0px !important;
+    height: 360px;
+}
+.conveniadas .thumbnail .caption .asterisco {
+    line-height: 9px;
+    font-size: 10px;
+}
+.conveniadas .thumbnail * {
+    color: #565656 !important;
+}
+
+.conveniadas .empresa {
+    height: 250px;
+}
+.conveniadas .num {
+    font-size: 15px;
+    color: #FFF;
+    background: #A3363C;
+    border-radius: 20px;
+    padding: 0 6px 0;
+}
+.conveniadas address {
+    margin: 10px 0px 0px 0px !important;
+}
+.conveniadas .observacao {
+    font-size: 11px;
+    text-align: left;
+    margin-top: 15px;
+}
+.conveniadas .observacao span {
+    color: #666666 !important;
+
+}
+.conveniadas .observacao {
+    color: #adadad !important;
+    font-weight: bold;
+}
+
+.conveniadas .email, .conveniadas .url {
+    color: #8f3652 !important;
+    font-size: 10px;
+}
+
+.conveniadas .bonus {
+    width: 100%;
+    margin-top: 10px;
+    th {
+        background: #c0c0c0;
+        color: #FFF !important;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 3px 0;
+    }
+
+    td {
+        padding: 2px 0 2px 10px;
+    }
+    .proprio {
+        color: #666666 !important;
+        font-weight: bold;
+    }
+    .indicado {
+        color: #adadad !important;
+        font-weight: bold;
+    }
+
+    .percentual {
+        color: #83334c !important;
+        text-align: center;
+        font-weight: bold;
+    }
+
+}
+
+.menu_cliente {
+    padding-top: 10px;
+    line-height: 25px;
+}
+
+div#bg-loader {
+  opacity: 0.6;
+  color: #FFF;
+  font-weight: bold;
+
+  div {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    font-size: 15px;
+    margin-left: -74px;
+  }
+}
+
+.premiacoes {
+    .carousel-control {
+      padding-top:10%;
+      width:5%;
+    }
+}
+
+.informacoes-video {
+    padding-top: 50px;
+    margin-right: 20px;
+
+    h5 {
+        font-size: 20px;
+        line-height: 1.1em;
+        color: $vermelhoTitulo;
+    }
+    p {
+        line-height: 1.1em;
+        font-size:14px;
+    }
+}
+
+.like-video {
+    margin-bottom: 5px;
+}
+
+.estimativa_ganhos {
+    .content-estimativa {
+        background: image-url("frontend/bgEstimativa.jpg") no-repeat top center;
+        background-size: 100% auto;
+        margin-bottom: 25px;
+    }
+
+    .estimativa-mulher {
+        position: absolute;
+        bottom: -25px;
+        max-height: 800px;
+        margin-left: -80px;
+        z-index: 1;
+    }
+
+    .tabela-estimativa {
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 992px) {
+  .modal-lg {
+    width: 900px;
+  }
+}
+
+.link {
+    color: $vermelhoTitulo;
+    text-decoration: none !important;
+}
+
+.link:hover {
+    color: $vermelhoTitulo;
+}
+
+.nome_usuario {
+    small {
+        color: #dcca98;
+
+        i {
+            color: #FFF;
+            font-size: 20px;
+        }
+    }
+}
+
+.container-img {
+    text-align: center;
+    padding: 20px;
+}
+.content-premios h2 {
+    font-weight: bold;
+}
+
+.text-justify {
+    text-align: justify !important;
+}

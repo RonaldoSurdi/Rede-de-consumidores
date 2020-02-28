@@ -1,0 +1,14 @@
+<h1><%= @operador.nome %></h1>
+
+<%= breadcrumb %>
+
+<%= messages %>
+
+<p>
+  <strong>Login:</strong>
+  <%= @operador.email %>
+</p>
+
+<%= link_to "Auditoria", auditorium_path("Operador", codigo: @operador.id, descricao: @operador.nome) %> |
+<%= link_to 'Editar', edit_operador_path(@operador) %> |
+<%= link_to 'Voltar', operadores_path %>

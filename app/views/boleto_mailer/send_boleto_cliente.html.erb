@@ -1,0 +1,7 @@
+<p>Olá <%= @pagamento.origem.nome %>,</p>
+<p>O sistema ConsumerCard gerou um boleto de cobrança de anuidade para você.</p>
+<p><strong>Valor:</strong> <%= Dinheiro.new(@pagamento.valor).real_formatado %></p>
+<p><strong>Data/Hora de Emissão:</strong> <%= @pagamento.created_at.to_s_br %></p>
+<p><strong>Data de Vencimento:</strong> <%= @pagamento.data_vencimento.to_s_br %></p>
+<p>Segue, em anexo, o boleto.</p>
+<p>Em caso de você não conseguir pagá-lo até a data de vencimento, não se preocupe, você poderá solicitar um novo boleto através do site ConsumerCard.</p>

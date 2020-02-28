@@ -1,0 +1,31 @@
+<%= paginate @transacoes %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Tipo</th>
+      <th>Pagamento</th>
+      <th>Estabelecimento</th>
+      <th>Documento</th>
+      <th>Data</th>
+      <th class="text-right">Valor</th>
+      <th>Cancelamento</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transacoes.each do |transacao| %>
+      <tr class="<%= tr_class transacao %>">
+        <td><%= transacao.id %></td>
+        <td><%= Transacao.formas[transacao.forma_pagamento.to_sym] %></td>
+        <td><%= transacao.tipo_pagamento ? Transacao.tipos[transacao.tipo_pagamento.to_sym] : "" %></td>
+        <td><%= transacao.operador.estabelecimento_user.nome %></td>
+        <td><%= transacao.documento %></td>
+        <td><%= transacao.created_at.to_s_br %></td>
+        <td class="text-right"><%= Dinheiro.new(transacao.vlr_gasto).real_formatado %></td>
+        <td><%= transacao.motivo.blank? ? "Não Cancelada" : transacao.motivo %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

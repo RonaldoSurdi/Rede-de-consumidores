@@ -1,0 +1,34 @@
+<h2>Pagamento de Anuidade</h2>
+<%= form_tag public_anuidade_index_path do %>
+  <div class="form-group">
+    <%= label_tag :plano_adesao, "Plano" %>
+    <%= select_tag :plano_adesao_id, options_for_select(@planos.collect {|plano| [plano.descricao, plano.id]}, current_cliente_user.plano_adesao.id), class: "form-control", required: true %>
+    <span id="help-plano-adesao"></span>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :tipo, "Tipo de pagamento" %>
+    <%= select_tag :tipo, options_for_select(Pagamento.tipos.invert), autofocus: true, required: true, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit_tag "Gerar Pagamento!", class: "btn btn-primary pull-right" %>
+  </div>
+<% end %>
+
+<%= content_for :script do %>
+  <script>
+    $(function() {
+      var planos = <%= raw @planos.to_a.inject({}) { |out, plano| out[plano.id.to_s] = plano; out }.to_json %>;
+      $("#plano_adesao_id").on("change", function() {
+        var plano = planos[$(this).val()];
+        var content = [];
+        if (plano) {
+          content.push($("<div>").text("Valor Anuidade: R$ " + plano.vlr_anuidade.toFixed(2).replace(".", ",")));
+        }
+        $("#help-plano-adesao").html(content);
+      });
+      $("#plano_adesao_id").trigger("change");
+    });
+  </script>
+<% end %>

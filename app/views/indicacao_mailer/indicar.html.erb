@@ -1,0 +1,5 @@
+<h4>Olá!</h4>
+<p>Você foi indicado para participar da Rede de Consumo Inteligente ConsumerCard!</p>
+<p><strong>Quem te indicou: </strong><%= @indicacao[:user].nome %></p>
+<br>
+<strong><%= link_to "Clique aqui para registrar-se", new_cliente_user_registration_url(indicante: @indicacao[:user].id, email: @indicacao[:email]) %></strong><br><br>

@@ -1,0 +1,6 @@
+var options = [];
+options.push($("<option>").attr("value", "0").text("Selecione uma Cidade"));
+<% @cidades.to_a.each do |cidade| %>
+  options.push($("<option>").attr("value", "<%= cidade.id %>").text("<%= cidade.description %>"));
+<% end %>
+$("#cidade").html(options).css("visibility", "visible").focus();

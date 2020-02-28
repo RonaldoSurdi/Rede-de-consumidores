@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="<%= get_class_control_form(@user, 'cpf_cnpj') %> col-sm-6">
+    <%= f.label :cpf_cnpj, 'CPF', class: 'control-label' %>
+    <%= f.text_field :cpf_cnpj, class: 'form-control', required: true  %>
+    <span class="help-block"><%= @user.errors.messages[:cpf_cnpj].to_a.first %></span>
+  </div>
+</div>
+
+<% unless @user.is_a? FranquiaUser %>
+  <% if @user.id %>
+    <div class="row">
+      <div class="col-sm-12">
+        <%= f.label :cities_read_only, cidade_label(@user), class: 'control-label' %><br>
+        <%= text_field_tag :cities_read_only, @user.cities[0].full_name, disabled: true, class: "form-control" %>
+      </div>
+    </div>
+  <% else %>
+    <div class="row">
+      <div class="<%= get_class_control_form(@user, 'cities') %> col-sm-12">
+        <%= f.label :cities, cidade_label(@user), class: 'control-label' %>
+        <%= select_tag "#{@user.class.name.underscore}[city_ids][]", options_from_collection_for_select(@cities, :id, :full_name, @user.city_ids), include_blank: true, class: "form-control" %>
+        <span class="help-block"><%= @user.errors.messages[:cities].to_a.join %></span>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<br>
+<legend>Endereço</legend>
+
+<% if @user.is_a? ClienteUser %>
+  <div class="row">
+    <div class="<%= get_class_control_form(@user, 'cidade') %> col-sm-9">
+      <%= f.label :cidade, 'Cidade', class: 'control-label' %>
+      <%= f.text_field :cidade, class: 'form-control', required: true %>
+      <span class="help-block"><%= @user.errors.messages[:cidade].join %></span>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="<%= get_class_control_form(@user, 'logradouro') %> col-sm-9">
+    <%= f.label :logradouro, 'Logradouro', class: 'control-label' %>
+    <%= f.text_field :logradouro, class: 'form-control', required: true %>
+    <span class="help-block"><%= @user.errors.messages[:logradouro].join %></span>
+  </div>
+
+  <div class="<%= get_class_control_form(@user, 'numero') %> col-sm-3">
+    <%= f.label :numero, 'Número', class: 'control-label' %>
+    <%= f.text_field :numero, class: 'form-control', required: true %>
+    <span class="help-block"><%= @user.errors.messages[:numero].join %></span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="<%= get_class_control_form(@user, 'cep') %> col-sm-6">
+    <%= f.label :cep, 'CEP', class: 'control-label' %>
+    <%= f.text_field :cep, class: 'form-control', data: {mask: "cep"} %>
+    <span class="help-block"><%= @user.errors.messages[:cep].join %></span>
+  </div>
+
+  <div class="<%= get_class_control_form(@user, 'bairro') %> col-sm-6">
+    <%= f.label :bairro, 'Bairro', class: 'control-label' %>
+    <%= f.text_field :bairro, class: 'form-control', required: true %>
+    <span class="help-block"><%= @user.errors.messages[:bairro].join %></span>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="<%= get_class_control_form(@user, 'complemento') %> col-sm-12">
+    <%= f.label :complemento, 'Complemento', class: 'control-label' %>
+    <%= f.text_field :complemento, class: 'form-control' %>
+    <span class="help-block"><%= @user.errors.messages[:complemento].join %></span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="<%= get_class_control_form(@user, 'celular') %> col-sm-6">
+    <%= f.label :celular, 'Celular', class: 'control-label' %>
+    <%= link_to "?", "#", data: {toggle: "tooltip", placement: "left", "original-title" => "Será enviado um SMS sempre que for registrada uma transação em seu nome"} if @user.is_a? ClienteUser  %>
+    <%= f.text_field :celular, class: 'form-control', data: {mask: "telefone"}, required: @user.is_a?(ClienteUser)  %>
+    <span class="help-block"><%= @user.errors.messages[:celular].join %></span>
+  </div>
+
+  <div class="<%= get_class_control_form(@user, 'telefone') %> col-sm-6">
+    <%= f.label :telefone, 'Telefone', class: 'control-label' %>
+    <%= f.text_field :telefone, class: 'form-control', data: {mask: "telefone8"}, required: !@user.is_a?(ClienteUser) %>
+    <span class="help-block"><%= @user.errors.messages[:telefone].join %></span>
+  </div>
+</div>

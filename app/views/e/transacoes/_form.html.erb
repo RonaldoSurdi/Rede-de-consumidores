@@ -1,0 +1,88 @@
+<%= form_for(@transacao) do |f| %>
+  <%= hidden_field_tag :confirmacao_senha %>
+
+  Operador: <strong><%= current_operador.nome %></strong><br><br>
+  <% if false %>
+    <div class="<%= get_class_control_form(@transacao, 'created_at') %>">
+      <%= f.label :created_at, "Data/Hora Transação", class: 'control-label' %>
+      <%= f.datetime_select :created_at %>
+      <span class="help-block"><%= @transacao.errors.messages[:created_at].join %></span>
+    </div>
+  <% end %>
+
+  <div class="<%= get_class_control_form(@transacao, 'forma_pagamento') %>">
+    <%= f.label :forma_pagamento, "Tipo de Transação", class: 'control-label' %>
+    <%= f.select(:forma_pagamento, Transacao.formas.collect{ |k,v| [v, k] }, {include_blank: "Selecione"}, {class: 'form-control', required: true, autofocus: true})  %>
+    <span class="help-block"><%= @transacao.errors.messages[:forma_pagamento].join %></span>
+  </div>
+
+  <div class="<%= get_class_control_form(@transacao, 'tipo_pagamento') %>">
+    <%= f.label :tipo_pagamento, "Forma de Pagamento", class: 'control-label' %>
+    <%= f.select(:tipo_pagamento, Transacao.tipos.collect{ |k,v| [v, k] }, {include_blank: "Selecione"}, {class: 'form-control', required: true})  %>
+    <span class="help-block"><%= @transacao.errors.messages[:tipo_pagamento].join %></span>
+  </div>
+
+  <div class="row">
+    <div class="<%= get_class_control_form(@transacao, 'cliente_user') %> col-md-4">
+      <label>
+        <input type="radio" name="tipo-informacao" value="cartao" checked>
+        Número do Cartão
+      </label>
+      <label>
+        <input type="radio" name="tipo-informacao" value="cpf">
+        CPF
+      </label>
+      <%= f.text_field :cliente_user_numero_cartao, class: 'form-control', required: true, data: {mask: "cartao", "enter-to-tab" => true}, value: @transacao.cliente_user_numero_cartao_formatado %>
+      <span class="help-block"><%= @transacao.errors.messages[:cliente_user].to_a.join %></span>
+    </div>
+    <div class="col-md-8">
+      <label for="cliente" class="control-label">&nbsp;</label>
+      <input type="text" disabled id="cliente" class="form-control" value="<%= @transacao.cliente_user ? @transacao.cliente_user.nome : "" %>">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <p>
+        <strong>Saldo atual do cliente: </strong>
+        <span id="saldo">
+          <%= Dinheiro.new(Saldo.para(@transacao.cliente_user).saldo).real_formatado if @transacao.cliente_user %>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <div class="<%= get_class_control_form(@transacao, 'documento') %>">
+    <%= f.label :documento, "Número do Documento", class: 'control-label' %>
+    <%= f.text_field :documento, class: 'form-control', required: true %>
+    <span class="help-block"><%= @transacao.errors.messages[:documento].join %></span>
+  </div>
+
+  <div class="<%= get_class_control_form(@transacao, 'vlr_gasto') %>">
+    <%= f.label :vlr_gasto, "Valor", class: 'control-label' %>
+    <%= f.text_field :vlr_gasto, class: 'form-control', data: {monetario: true}, required: true, value: Dinheiro.new(@transacao.vlr_gasto).to_s  %>
+    <span class="help-block"><%= @transacao.errors.messages[:vlr_gasto].join %></span>
+  </div>
+
+  <%= f.submit "Gravar", class: 'btn btn-primary' %>
+<% end %>
+
+<div class="modal fade" id="confirmacao-transacao">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Confirmação de Registro</h4>
+      </div>
+
+      <div class="modal-body">
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="corrigir-button" data-dismiss="modal">Corrigir</button>
+        <button type="button" class="btn btn-primary" id="confirmar-button">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>

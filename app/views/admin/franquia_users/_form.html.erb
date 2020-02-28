@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@user) do |f| %>
+      <%= render partial: "users/basicos", locals: {f: f} %>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@user, 'cities') %> col-sm-12">
+          <%= select_tag "franquia_user[city_ids]", options_from_collection_for_select(@cities, :id, :description, @user.city_ids), multiple: true, size: 10, class: "form-control" %>
+          <span class="help-block"><%= @user.errors.messages[:cities].to_a.join %></span>
+        </div>
+      </div>
+
+      <legend>Informações Adicionais</legend>
+
+      <%= f.label :juridica_fisica, 'Tipo de Pessoa', class: 'control-label' %><br>
+      <div class="radio">
+        <label>
+          <%= f.radio_button :juridica_fisica, 'F' %> Pessoa Física
+        </label>
+      </div>
+
+      <div class="radio">
+        <label>
+          <%= f.radio_button :juridica_fisica, 'J' %> Pessoa Jurídica
+        </label>
+      </div>
+
+      <%= render partial: "users/complementares", locals: {f: f} %>
+
+      <%= f.submit 'Gravar', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

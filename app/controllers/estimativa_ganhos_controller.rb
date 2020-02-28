@@ -1,0 +1,2 @@
+class EstimativaGanhosController < ApplicationController
+end

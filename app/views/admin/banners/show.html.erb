@@ -1,0 +1,37 @@
+<h1><%= @banner.descricao %></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<p>
+  <strong>Descrição:</strong>
+  <%= @banner.descricao %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @banner.hash_tipo[:descricao] %>
+</p>
+
+<p>
+  <strong>URL:</strong>
+  <%= @banner.url %>
+</p>
+
+<p>
+  <strong>Data Inicial:</strong>
+  <%= @banner.data_inicial.to_s_br %>
+</p>
+
+<p>
+  <strong>Data Final:</strong>
+  <%= @banner.data_final.to_s_br %>
+</p>
+
+<p>
+  <%= image_tag @banner.file.url %>
+</p>
+
+<%= link_to "Auditoria", auditorium_path("Banner", codigo: @banner.id, descricao: @banner.descricao) %> |
+<%= link_to 'Editar', edit_banner_path(@banner) %> |
+<%= link_to 'Voltar', banners_path %>

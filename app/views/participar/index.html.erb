@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+      <h1 class="titulo txtDourado">COMO PARTICIPAR</h1>
+      <h3 style="margin-bottom: 3px">O que é o ConsumerCard?</h3>
+      <p>
+        O ConsumerCard é um programa de fidelidade da Rede de Consumo Inteligente ConsumerCard. Os consumidores participantes recebem o cartão do programa e apresentando-o nos estabelecimentos credenciados da rede, ganham mais vantagens nas suas compras mensais. As compras realizadas geram bônus em reais que podem ser utilizados nas futuras compras. Os participantes ainda podem acumular pontos e bônus através da indicação e do consumo mensal dos novos participantes. Através dos pontos acumulados, os consumidores podem solicitar prêmios, sem sorteio.  O principal objetivo do ConsumerCard é elevar o poder de compra dos consumidores em cada cidade participante do programa.
+      </p>
+      <h4 class="txtDourado" style="margin-top: 20px">Veja como é fácil participar!</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 blocos text-left">
+      <div class="content">
+        <div class="espaco-1"></div>
+        <%= image_tag "frontend/faca_seu_cadastro.jpg", alt: "Faça seu cadastro", class: "img-responsive"  %>
+        <div class="texto">
+          <h5 class="txtDourado">Faça o seu cadastro</h5>
+          <p>Cadastre-se agora mesmo aqui no site da Rede de Consumo Inteligente ConsumerCard. Escolha uma das duas opções de planos disponíveis conforme o seu gasto médio mensal, e comece a obter vantagens nas suas compras mensais. Você pode ter sido indicado ou não por um amigo. Seja um consumidor inteligente. &nbsp; <strong><br><%= link_to "Comece já!", new_termo_cadastro_path %></strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 blocos text-left">
+      <div class="content">
+        <div class="espaco-2"></div>
+        <%= image_tag "frontend/compre_e_ganhe.jpg", alt: "Compre e Ganhe", class: "img-responsive" %>
+        <div class="texto">
+          <h5 class="txtDourado">Compre e Ganhe</h5>
+          <p>Compre em qualquer um dos estabelecimentos credenciados da Rede ConsumerCard e ganhe bônus em reais que poderão ser resgatados nas suas futuras compras. Pagando suas compras em dinheiro, você acumula mais bônus. Quanto mais você consumir, mais bônus você irá ganhar e mais créditos você terá para gastar. <strong><br><%= link_to "Veja os credenciados!", conveniadas_path %></strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 blocos text-left">
+      <div class="content">
+        <div class="espaco-1"></div>
+        <%= image_tag "frontend/indique_amigos.jpg", alt: "Indique Amigos", class: "img-responsive" %>
+        <div class="texto">
+          <h5 class="txtDourado">Indique Amigos</h5>
+          <p>Se você já faz parte do ConsumerCard, está habilitado para indicar amigos. Toda vez que você indicar um amigo e ele efetivar o cadastro, você ganha pontos e bônus em reais no seu cartão para utilizar nas lojas credenciadas. Você não é obrigado a indicar ninguém, porém quanto mais amigos indicar, mais você irá ganhar. <strong><br><%= link_to "Indique já!", new_indicacao_path(acao: :indicacao), data: {controller: "indicacoes"} %></strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 blocos text-left">
+      <div class="content">
+        <div class="espaco-2"></div>
+        <%= image_tag "frontend/ganhe_premios.jpg", alt: "Ganhe Prêmios", class: "img-responsive" %>
+        <div class="texto">
+          <h5 class="txtDourado">Ganhe Prêmios</h5>
+          <p>É simples e fácil para você ganhar prêmios, basta alcançar os pontos necessários. Com apenas 10 Pontos de Indicação você já ganha um dos prêmios disponíveis, sem sorteio, é só escolher no site. Quanto mais amigos você indicar, mais pontos você irá ganhar e mais prêmios estarão disponíveis para você. <strong><%= link_to "Veja os prêmios disponíveis aqui!", premiacoes_path %></strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+</div>

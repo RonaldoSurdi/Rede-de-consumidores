@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@banner, html: { multipart: true }) do |f| %>
+      
+      <div class="row">
+        <div class="col-md-12">
+          <% unless @banner.id %>
+            <div class="<%= get_class_control_form(@banner, 'tipo') %>">
+              <%= f.label :tipo, 'Tipo', class: 'control-label' %>
+              <%= f.select :tipo, Banner.tipos.collect {|k, v| [v[:descricao], k] }, {include_blank: 'Selecione o Tipo'}, class: "form-control", required: true, autofocus: true %>
+              <span class="help-block"><%= @banner.errors.messages[:tipo].join %></span>
+            </div>
+          <% else %>
+            <%= f.label :tipo, 'Tipo', class: 'control-label' %>
+            <%= text_field_tag :tipo_readonly, Banner.tipos[@banner.tipo.to_i][:descricao], disabled: true, class: "form-control" %><br>
+          <% end %>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="<%= get_class_control_form(@banner, 'descricao') %> col-md-12">
+          <%= f.label :descricao, 'Descrição', class: 'control-label' %>
+          <%= f.text_field :descricao, class: 'form-control', autofocus: @banner.id, required: true  %>
+          <span class="help-block"><%= @banner.errors.messages[:descricao].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@banner, 'url') %>  col-md-12">
+          <%= f.label :url, 'URL', class: 'control-label' %>
+          <%= f.text_field :url, class: 'form-control', type: "url"  %>
+          <span class="help-block"><%= @banner.errors.messages[:url].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="<%= get_class_control_form(@banner, 'data_inicial_str') %>">
+            <%= f.label :data_inicial_str, 'Data Inicial', class: 'control-label' %>
+            <%= f.text_field :data_inicial_str, class: 'form-control', data: {mask: "data"} %>
+            <span class="help-block"><%= @banner.errors.messages[:data_inicial_str].join %></span>
+          </div>
+        </div>  
+
+        <div class="col-md-4">
+          <div class="<%= get_class_control_form(@banner, 'data_final_str') %>">
+            <%= f.label :data_final_str, 'Data Final', class: 'control-label' %>
+            <%= f.text_field :data_final_str, class: 'form-control', data: {mask: "data"} %>
+            <span class="help-block"><%= @banner.errors.messages[:data_final_str].join %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="<%= get_class_control_form(@banner, 'file') %> col-md-12">
+          <%= f.label :file, 'Arquivo (Se não informado será mantido o arquivo anterior)', class: 'control-label' if @banner.id %>
+          <%= f.label :file, 'Arquivo', class: 'control-label' unless @banner.id %>
+          <%= f.file_field :file %>
+          <br><span class="observacao label label-default">Se a imagem for maior que o tamanho especificado no tipo ela será automaticamente redimensionada</span><br>
+          <span class="help-block"><%= @banner.errors.messages[:file].join %></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.submit 'Gravar', class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

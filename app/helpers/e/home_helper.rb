@@ -1,0 +1,2 @@
+module E::HomeHelper
+end

@@ -1,0 +1,23 @@
+<% if @nao_precisa_pagar %>
+  <h3>O seu plano tem isenção do pagamento da anuidade!</h3>
+<% else %>
+  <% if @pagamento_em_aberto %>
+    <div class="alert alert-warning">Existe um pagamento em aberto, por favor, aguarde a confirmação de pagamento da sua anuidade</div>
+    <%= link_to "Gerar novo pagamento", new_public_anuidade_path %>
+  <% end %>
+
+  <div class="informacoes-utlimo-pagamento">
+    <% if @ultimo_pagamento %>
+      <h3>Informações sobre último pagamento</h3>
+      <p><strong>Data de confirmação do pagamento: </strong> <%= @ultimo_pagamento.updated_at.to_s_br %></p>
+      <p><strong>Valido até: </strong> <%= (@ultimo_pagamento.updated_at + 1.year).to_date.to_s_br %></p>
+    <% elsif !@pagamento_em_aberto %>
+      <div class="alert alert-danger">Atenção!! Você ainda não efetou o pagamento da anuidade.</div>
+    <% end %>
+  </div>
+
+  <% if !@pagamento_em_aberto && (!@ultimo_pagamento || (DateTime.now.to_time - @ultimo_pagamento.updated_at.to_time) >= 11.month)  %>
+    <%= content_tag :div, "Atenção!! Faltam #{distance_of_time_in_words(@ultimo_pagamento.updated_at + 1.year, DateTime.now)} para o vencimento da anuidade", class: "alert alert-warning" if @ultimo_pagamento %>
+    <%= link_to "Realizar pagamento da anuidade", new_public_anuidade_path, class: "btn btn-primary center-block" %>
+  <% end %>
+<% end %>

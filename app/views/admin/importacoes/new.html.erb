@@ -1,0 +1,193 @@
+<h1>Importar Usuários</h1>
+
+<%= breadcrumb %>
+<div class="row">
+  <div class="col-xs-12">
+    <br/>
+
+    <%= messages %>
+    <div class="box">
+      <div class="box-content">
+        <div class="row">
+          <div class="col-xs-12">
+
+            <% if @erros %>
+              <div id="mensagens">
+                <div class="alert alert-danger alert-dismissable max-height-box">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+                  <%= @erros.first[:general] %>
+
+                  <% unless @erros.first[:general] %>
+                    <p>
+                      <big>
+                        <strong>Foram encontrados os seguintes erros ao tentar importar, portanto nenhum registro foi gravado:</strong>
+                      </big>
+                    </p>
+
+                    <br/>
+                    <ul>
+                      <% @erros.each do |linha| %>
+                        <li>
+                          <strong>Linha <%= linha.keys.first %></strong>
+                          <ul>
+                            <% linha.values.first.each do |erro| %>
+                              <li><strong><%= t("models_and_attributes.attributes.cliente_user.#{erro.first}") %></strong>: <%= erro.last.first %></li>
+                            <% end %>
+                          </ul>
+                        </li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+        <%= form_tag(importacoes_path, multipart: true) do |f| %>
+          <div class="form-inputs">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="box-content">
+                  <%= label_tag :padrinho, 'Indicado por', class: 'control-label' %><br>
+                  <%= select_tag :padrinho_id, options_from_collection_for_select(clientes, :id, :nome, selected: params[:padrinho_id]),
+                        prompt: "Sem nenhum indicador", class: "form-control" %>
+                </div>
+              </div>
+            </div>
+
+            <br/>
+            <div class="row sync-height-row">
+              <div class="col-xs-4">
+                <div class="box-content sync-height-boxes">
+                  <ul class="list-unstyled">
+                    <li>
+                      <big>
+                        <strong>Arquivo CSV</strong>
+                      </big>
+                    </li>
+                    <br/>
+                    <li>
+                      <label class="radio-inline">
+                        <input type="radio" name="tipo_arquivo" class="radio"
+                            value="<%= Importation::CSVClientUser::SEPARADORES[:ponto_e_virgula][:valor] %>"
+                            <%= "checked" if params[:tipo_arquivo].blank? || params[:tipo_arquivo] == Importation::CSVClientUser::SEPARADORES[:ponto_e_virgula][:valor].to_s %>>
+
+                        Separação por <strong>Ponto-e-Vírgula</strong>;
+                      </label>
+                    </li>
+                    <li>
+                      <label class="radio-inline">
+                        <input type="radio" name="tipo_arquivo" class="radio"
+                            value="<%= Importation::CSVClientUser::SEPARADORES[:tab][:valor] %>"
+                            <%= "checked" if params[:tipo_arquivo] == Importation::CSVClientUser::SEPARADORES[:tab][:valor].to_s %>>
+
+                        Separação por <strong>Tabulação</strong>.
+                      </label>
+                    </li>
+                  </ul>
+                  <br/>
+
+                  <%= file_field_tag "arquivo", class: "control-label btn-md", required: true %>
+                </div>
+              </div>
+
+              <div class="col-xs-4">
+                <div class="box-content sync-height-boxes">
+                  <ul class="list-unstyled">
+                    <li>
+                      <big>
+                        <strong>Layout Esperado do Arquivo</strong>
+                      </big>
+                    </li>
+                    <br/>
+
+                    <% t('importation.cliente_user.attributes').each do |attr_key, attr_value| %>
+                      <li>
+                        <%= attr_value %>
+                        <%= t("importation.cliente_user.inline_info.#{attr_key}_html", default: '') %>
+                        <%= t("importation.cliente_user.extra_info.#{attr_key}_html", default: '') %>
+                      </li>
+                    <% end %>
+                    <li>
+                      <%= t('models_and_attributes.attributes.cliente_user.plano_adesao_id') %>
+                      <%= t("importation.cliente_user.inline_info.plano_adesao_id_html", default: '') %>
+                      <strong>
+                        <abbr title="<% PlanosAdesao.all.each { |plano| %><%= "#{plano.id} -> #{plano.descricao}\n" %><% } %>">?</abbr>
+                      </strong>
+                    </li>
+
+                    <br/>
+                    <li>
+                      <strong>
+                        <u>
+                          Campos para Pessoas Físicas
+                          <abbr class="pull-right" title="Deixar em branco se for uma pessoa jurídica">?</abbr>
+                        </u>
+                      </strong>
+                    </li>
+                    <li>
+                      <%= t('models_and_attributes.attributes.cliente_user.sexo') %>
+                      <%= t("importation.cliente_user.inline_info.sexo_html", default: '') %>
+                      <%= t("importation.cliente_user.extra_info.sexo_html", default: '') %>
+                    </li>
+                    <li>
+                      <%= t('models_and_attributes.attributes.cliente_user.estado_civil') %>
+                      <%= t("importation.cliente_user.inline_info.estado_civil_html", default: '') %>
+                      <%= t("importation.cliente_user.extra_info.estado_civil_html", default: '') %>
+                    </li>
+                    <li>
+                      <%= t('models_and_attributes.attributes.cliente_user.data_nascimento') %>
+                      <%= t("importation.cliente_user.inline_info.data_nascimento_html", default: '') %>
+                      <%= t("importation.cliente_user.extra_info.data_nascimento_html", default: '') %>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-xs-4">
+                <div class="box-content sync-height-boxes">
+                  <ul class="list-unstyled">
+                    <li>
+                      <big>
+                        <strong>
+                          Codificação do Arquivo
+                          <abbr class="pull-right" title="Tradução do computador dos valores numéricos em caracteres visíveis, para diferentes alfabetos">?</abbr>
+                        </strong>
+                      </big>
+                    </li>
+                    <br/>
+
+                    <% @codificacoes.each_with_index do |codificacao, index| %>
+                      <li>
+                        <label class="radio-inline">
+                          <input type="radio" name="tipo_codificacao" class="radio" value="<%= index %>"
+                              <%= "checked" if (params[:tipo_codificacao].blank? && index.zero?) || params[:tipo_codificacao].to_i == index %>>
+                          <%= codificacao.name %>
+                        </label>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <br/>
+            <div class="row">
+              <div class="col-sm-offset-8 col-sm-4">
+                <button type="submit" class="btn btn-success col-sm-12" data-confirm="Você tem certeza?">
+                  <strong>PROCESSAR ARQUIVO</strong>&nbsp;&nbsp;
+                  <i class="icon-ok"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>

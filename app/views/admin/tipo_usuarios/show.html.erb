@@ -1,0 +1,22 @@
+<h1><%= @tipo.descricao %></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<p>
+  <strong>Descrição:</strong>
+  <%= @tipo.descricao %>
+</p>
+
+<p>
+  <strong>Pontos de Indicação:</strong>
+  <%= @tipo.quantidade_indicacoes %>
+</p>
+
+<p>
+  <%= image_tag @tipo.imagem.url if @tipo.imagem? %>
+</p>
+
+<%= link_to "Auditoria", auditorium_path("TipoUsuario", codigo: @tipo.id, descricao: @tipo.descricao) %> |
+<%= link_to 'Editar', edit_tipo_usuario_path(@tipo) %> |
+<%= link_to 'Voltar', tipo_usuarios_path %>

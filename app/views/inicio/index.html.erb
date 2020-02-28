@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="row banners">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <% @banners.each_with_index do |banner,i| %>
+            <li data-target="#carousel-example-generic" data-slide-to="<%=i%>" class="<%= i == 0 ? "active" : ""%>"><%=i+1%></li>
+          <% end %>
+        </ol>
+        <div class="carousel-inner">
+          <% @banners.each_with_index do |banner,i| %>
+          <div class="item <%= i == 0 ? "active" : ""%>">
+            <% if banner.url.blank? %>
+              <%= image_tag banner.file.url  %>
+            <%else%>
+              <%= link_to banner.url, target: "_blank" do %>
+              <%= image_tag banner.file.url  %>
+              <%end%>
+            <%end%>
+          </div>
+          <% end %>
+        </div>
+        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h4 class="txtDourado pull-left" style="margin: 0px">EMPRESAS CONVENIADAS</h4>
+          <%= link_to "VER TODAS", conveniadas_path, class: "txtDourado pull-right", style: "margin-top: 5px" %>
+        </div>
+      </div>
+      <div class="row empresas">
+        <% @empresas.each_with_index do |empresa, i|   %>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 empresa">
+          <div class="divLogo">
+            <table>
+              <tr valign="middle">
+                <td align="center"><%= image_tag empresa.logo.url(:thumb), title: empresa.descricao, alt: empresa.nome %></td>
+              </tr>
+            </table>
+          </div>
+          <address>
+            <strong><%=empresa.nome%></strong><br/>
+            <small><%=empresa.descricao%></small>
+          </address>
+        </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+      <h1 class="txtDourado" style="font-size: 40px; line-height: 40px">Seja um Consumidor <br /> <strong style="font-size: 50px">inteligente!</strong></h1>
+      <h5 style="padding-bottom: 10px">
+      <strong>Comece agora a economizar nas compras mensais.</strong>
+        <br />
+        Chegou o ConsumerCard! Um cartão de consumo inteligente
+        para você ganhar muitos prêmios e vantagens. 
+      </h5>
+      <%= link_to "Cadastre-se agora!", new_termo_cadastro_path, class: "btn btn-sm btn-consumer pull-right" %>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <%= image_tag "frontend/premios.jpg", class: "img-responsive"  %>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center">
+        <%= image_tag "frontend/mulherDivulgacao.jpg", alt: "Veja como é fácil e lucrativo ser um consumidor inteligente ConsumerCard", class: "pull-left" %>
+        <%= image_tag @banners_tipo_2[0].file.url, alt: @banners_tipo_2[0].descricao, class: "pull-left", style: "margin-top: -230px; width: 930px;" if @banners_tipo_2.any? %>
+    </div>
+
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" style="padding-top: 15px">
+      <div class="pull-right">
+        <div class="fb-like like-video" data-href="https://www.facebook.com/consumercard" data-layout="button_count" data-action="like"></div><br>
+        <iframe width="420" height="315" src="//www.youtube.com/embed/laQ1Kcc1Ca4?rel=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="pull-right text-right informacoes-video">
+        <%= image_tag "frontend/iconeVideo.png", alt: "Vídeo explicativo", style: "width: 42px" %>
+        <h5>Veja como é fácil<br>e lucrativo ser um<br>consumidor inteligente<br>ConsumerCard!</h5>
+        <p>Assista o nosso vídeo<br>institucional e saiba como<br>fazer parte desta rede.</p>
+        <p class="txtDourado" style="font-size: 12px"><strong>ASSISTA O VÍDEO...</strong></p>
+      </div>
+    </div>
+  </div>
+
+</div>

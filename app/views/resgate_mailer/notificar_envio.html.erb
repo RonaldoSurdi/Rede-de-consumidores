@@ -1,0 +1,5 @@
+<p>Olá <strong><%= @resgate.cliente_user.nome %></strong>,</p>
+
+<p>A ConsumerCard acaba de enviar seu prêmio.</p>
+
+<p>Você receberá o prêmio <%= @resgate.premio.descricao %> no seu endereço em até <%= Parametrizacao.first.prazo_entrega_premio %> dias.</p>

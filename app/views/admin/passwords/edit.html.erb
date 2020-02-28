@@ -1,0 +1,46 @@
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+      <%= image_tag "frontend/consumer_card.png", title: "ConsumerCard", alt: "ConsumerCard", style: "padding: 50px 0" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <h5 class="text-center">Esqueceu sua Senha?</h5> <%= :user %>
+    <div id="login-wrapper" class="session-admin">
+      <%= render partial: 'general/messages' %>
+
+    <%= form_for(resource, :as => :user, :url => user_password_path, :html => { :method => :put }) do |f| %>
+      <%= raw resource.errors.full_messages.to_a.uniq.map { |msg| content_tag(:div, msg, class: "alert alert-danger") }.join %>
+      <%= f.hidden_field :reset_password_token %>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <%= label_tag :password, "Nova senha" %>
+          <%= f.password_field :password, class: 'form-control', autofocus: true, required: true %>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <%= label_tag :password_confirmation, "Confirmação da Senha" %>
+          <%= f.password_field :password_confirmation, class: 'form-control', required: true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <br>
+          <%= f.submit "Alterar Senha", class: "btn btn-primary btn-sm pull-right" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <footer class="navbar navbar-default navbar-fixed-bottom text-center" role="navigation">
+    SAINTEC Sistemas | Copyright <%= Time.now.strftime '%Y' %>
+  </footer>
+</div>

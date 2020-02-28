@@ -1,0 +1,40 @@
+@import '../mixins';
+
+body.sessions.crud, body.passwords.crud {
+  background: image-url("frontend/bgHome.jpg") no-repeat center;
+  background-size: 100% 100%;
+  border: 1px solid black;
+}
+
+.sessions.crud, .passwords.crud  {
+  #login-wrapper {
+    background: #FFF;
+    width: 420px;
+    height: 320px;
+    padding: 25px;
+    margin: auto;
+    @include border-radius(6px);
+    @include shadow(#FFF, 0, 0, 3px);
+  }
+
+  nav {
+    h3 {
+      text-align: center;
+    }
+  }
+
+  footer {
+    padding-top: 13px;
+  }
+
+  h5 {
+    color: #FFF;
+    font-weight: bold;
+  }
+
+  footer {
+    background: none;
+    border: none;
+    color: #FFF;
+  }
+}

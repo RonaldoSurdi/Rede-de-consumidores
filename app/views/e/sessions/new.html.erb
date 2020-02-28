@@ -1,0 +1,34 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+      <%= image_tag "frontend/consumer_card.png", title: "ConsumerCard", alt: "ConsumerCard", style: "padding: 50px 0" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <h5 class="text-center">Acesso Operadores</h5>
+    <div id="login-wrapper" class="session-estabelecimento">
+
+      <%= render partial: 'general/messages' %>
+
+      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+        <div class="form-group">
+          <%= f.label "Login" %>
+          <%= f.text_field :email, autofocus: true, class: 'form-control', required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password, 'Senha' %>
+          <%= f.password_field :password, class: 'form-control', required: true %>
+        </div>
+
+        <%= f.submit "Login", class: 'btn btn-success' %>
+      <% end %>
+    </div>
+
+    <footer class="navbar navbar-default navbar-fixed-bottom text-center" role="navigation">
+      SAINTEC Sistemas | Copyright <%= Time.now.strftime '%Y' %>
+    </footer>
+  </div>
+</div>

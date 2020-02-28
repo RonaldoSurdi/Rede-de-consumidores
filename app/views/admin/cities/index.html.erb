@@ -1,0 +1,43 @@
+<h1>Cidades <small>Gerenciamento</small></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="actions">
+  <div class="row">
+    <%= form_tag nil, method: :get do %>
+      <div class="col-md-3">
+        <%= text_field_tag :q, @filter, placeholder: "Filtro de Pesquisa", class:  "form-control" %>
+      </div>
+      <div class="col-md-9">
+        <button class="btn btn-primary" type="submit">Pesquisar</button>
+        <%= link_to 'Nova Cidade', new_city_path, class: 'btn btn-success btn-sm pull-right' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= paginate @cities %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+    <th>#</th>
+      <th data-order="description">Descrição</th>
+      <th data-order="uf">UF</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cities.each do |city| %>
+      <tr>
+        <td><%= link_to city.id, city %></td>
+        <td><%= city.description %></td>
+        <td><%= city.uf %></td>
+        <td><%= link_to t('Edit'), edit_city_path(city) %></td>
+        <td><%= link_to t('Destroy'), city, method: :delete, data: { confirm: 'Você confirma a exclusão?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

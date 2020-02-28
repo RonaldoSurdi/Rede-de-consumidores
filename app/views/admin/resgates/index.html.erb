@@ -1,0 +1,57 @@
+<h1>Solicitação de Prêmios</h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="actions">
+    <%= form_tag nil, method: :get do %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= label_tag :q, "Filtro de Pesquisa", class: "control-label" %>
+          <%= text_field_tag :q, @filter, class:  "form-control input-sm" %>
+        </div>
+        <div class="col-md-6">
+          <%= label_tag :enviado, "Enviado", class: "control-label" %>
+          <%= select_tag :enviado, options_for_select([["Todos", ""], ["Sim", :sim], ["Não", :nao]], @enviado), class: "form-control input-sm" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-9">
+          <br><button class="btn btn-primary" type="submit">Pesquisar</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>
+
+<%= paginate @resgates %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Cliente</th>
+      <th>Tipo</th>
+      <th>Prêmio</th>
+      <th>Data da Solicitação</th>
+      <th>Data de Envio do Prêmio</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @resgates.to_a.each do |resgate| %>
+      <tr class="<%= tr_class_resgate(resgate) %>">
+        <td><%= resgate.id %></td>
+        <td><%= resgate.cliente_user.nome %></td>
+        <td><%= resgate.premio.tipo_usuario.descricao %></td>
+        <td><%= resgate.premio.descricao %></td>
+        <td><%= resgate.created_at.to_s_br %></td>
+        <td><%= resgate.enviado ? resgate.updated_at.to_s_br : "" %></td>
+        <td><%= link_to "Confirmar Envio", edit_resgate_admin_path(resgate) unless resgate.enviado %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

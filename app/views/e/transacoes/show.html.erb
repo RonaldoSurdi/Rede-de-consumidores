@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @e_transacao.created_at %>
+</p>
+
+<p>
+  <strong>Vlr gasto:</strong>
+  <%= @e_transacao.vlr_gasto %>
+</p>
+
+<%= link_to 'Edit', edit_e_transacao_path(@e_transacao) %> |
+<%= link_to 'Back', e_transacoes_path %>

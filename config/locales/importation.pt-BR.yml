@@ -1,0 +1,102 @@
+pt-BR:
+  importation:
+    general:
+      required_html: &required_html
+        "<strong>(Obrigatório)</strong>"
+    cliente_user:
+      attributes:
+        nome: Nome
+        email: E-Mail
+        password: Senha
+        cpf_cnpj: CPF/CNPJ
+        cidade_consumo: Cidade de Consumo
+        cidade_endereco: Cidade de Residência
+        cep: CEP
+        logradouro: Logradouro
+        numero: Número
+        bairro: Bairro
+        complemento: Complemento
+        celular: Celular
+        telefone: Telefone
+        valor_anuidade: Valor da Anuidade
+        valor_indicado: Valor Indicado
+        pontos_indicacao: Pontos de Indicação
+        juridica_fisica: Tipo de Pessoa
+      inline_info:
+        nome_html: *required_html
+        email_html: *required_html
+        plano_adesao_id_html: *required_html
+        password_html: *required_html
+        juridica_fisica_html: *required_html
+        cpf_cnpj_html: *required_html
+        cidade_consumo_html: *required_html
+        cidade_endereco_html: *required_html
+        cep_html: *required_html
+        logradouro_html: *required_html
+        numero_html:  *required_html
+        bairro_html: *required_html
+        celular_html: *required_html
+        sexo_html: *required_html
+        estado_civil_html: *required_html
+        data_nascimento_html: *required_html
+        valor_anuidade_html: *required_html
+        valor_indicado_html: *required_html
+        pontos_indicacao_html: *required_html
+      extra_info:
+        estado_civil_html: |
+          <strong>
+            <abbr title="
+              0 -> Solteiro(a);
+              1 -> Casado(a);
+              2 -> Divorciado(a);
+              3 -> Separado(a);
+              4 -> Viúvo(a).">?</abbr>
+          </strong>
+        juridica_fisica_html: >
+          <strong>
+            <abbr title="(F/J)">?</abbr>
+          </strong>
+        data_nascimento_html: >
+          <strong>
+            <abbr title="(dd/mm/aaaa)">?</abbr>
+          </strong>
+        sexo_html: >
+          <strong>
+            <abbr title="(M/F)">?</abbr>
+          </strong>
+        celular_html: >
+          <strong>
+            <abbr title="(99) 9999-9999">?</abbr>
+          </strong>
+        telefone_html: >
+          <strong>
+            <abbr title="(99) 9999-9999">?</abbr>
+          </strong>
+        cep_html: >
+          <strong>
+            <abbr title="(99999-999)">?</abbr>
+          </strong>
+        plano_adesao_id_html: >
+          <strong>
+            <abbr title="algo">?</abbr>
+          </strong>
+        cidade_endereco_html: &cidade |
+          <strong>
+            <abbr title="
+              É necessário ser escrito igual a uma cidade já cadastrada;
+              Ex: (Cidade - UF)">?</abbr>
+          </strong>
+        cidade_consumo_html: *cidade
+        valor_anuidade_html: &valor_anuidade |
+          <strong>
+            <abbr title="
+              Número maior ou igual a zero, com vírgula como separador decimal e sem separador de milhar.
+              Ex: (1000,00)">?</abbr>
+          </strong>
+        valor_indicado_html: *valor_anuidade
+        pontos_indicacao_html: |
+          <strong>
+            <abbr title="
+              Número maior ou igual a zero
+              Ex: (10)">?</abbr>
+          </strong>

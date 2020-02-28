@@ -1,0 +1,540 @@
+  [1m[36m (116.0ms)[0m  [1mCREATE TABLE `activities` (`id` int(11) auto_increment PRIMARY KEY, `trackable_id` int(11), `trackable_type` varchar(255), `owner_id` int(11), `owner_type` varchar(255), `key` varchar(255), `parameters` text, `recipient_id` int(11), `recipient_type` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (29.0ms)[0m  CREATE INDEX `index_activities_on_owner_id_and_owner_type` USING btree ON `activities` (`owner_id`, `owner_type`) 
+  [1m[36m (30.8ms)[0m  [1mCREATE INDEX `index_activities_on_recipient_id_and_recipient_type` USING btree ON `activities` (`recipient_id`, `recipient_type`) [0m
+  [1m[35m (22.2ms)[0m  CREATE INDEX `index_activities_on_trackable_id_and_trackable_type` USING btree ON `activities` (`trackable_id`, `trackable_type`) 
+  [1m[36m (30.8ms)[0m  [1mCREATE TABLE `banners` (`id` int(11) auto_increment PRIMARY KEY, `data_inicial` date, `data_final` date, `url` varchar(255), `descricao` varchar(255), `file_file_name` varchar(255), `file_content_type` varchar(255), `file_file_size` int(11), `file_updated_at` datetime, `user_id` int(11), `tipo` varchar(255)) ENGINE=InnoDB[0m
+  [1m[35m (21.7ms)[0m  CREATE INDEX `index_banners_on_user_id` USING btree ON `banners` (`user_id`) 
+  [1m[36m (31.4ms)[0m  [1mCREATE TABLE `cities` (`id` int(11) auto_increment PRIMARY KEY, `description` varchar(255), `uf` varchar(255), `created_at` datetime, `updated_at` datetime, `slug` varchar(255)) ENGINE=InnoDB[0m
+  [1m[35m (27.6ms)[0m  CREATE UNIQUE INDEX `index_cities_on_slug` USING btree ON `cities` (`slug`) 
+  [1m[36m (33.2ms)[0m  [1mCREATE TABLE `cities_users` (`city_id` int(11), `user_id` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (21.1ms)[0m  CREATE INDEX `index_cities_users_on_city_id` USING btree ON `cities_users` (`city_id`) 
+  [1m[36m (30.2ms)[0m  [1mCREATE INDEX `index_cities_users_on_user_id` USING btree ON `cities_users` (`user_id`) [0m
+  [1m[35m (29.7ms)[0m  CREATE TABLE `config_boletos` (`id` int(11) auto_increment PRIMARY KEY, `banco` varchar(255), `convenio` varchar(255), `agencia` varchar(255), `conta_corrente` varchar(255), `dias_vencimento` int(11), `instrucoes` text, `user_id` int(11), `created_at` datetime, `updated_at` datetime, `posto` varchar(255), `byte_geracao` varchar(255)) ENGINE=InnoDB
+  [1m[36m (22.3ms)[0m  [1mCREATE INDEX `index_config_boletos_on_user_id` USING btree ON `config_boletos` (`user_id`) [0m
+  [1m[35m (21.0ms)[0m  CREATE TABLE `config_pagseguros` (`id` int(11) auto_increment PRIMARY KEY, `franquia_user_id` int(11), `email` varchar(255), `token` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB
+  [1m[36m (31.4ms)[0m  [1mCREATE INDEX `index_config_pagseguros_on_franquia_user_id` USING btree ON `config_pagseguros` (`franquia_user_id`) [0m
+  [1m[35m (29.9ms)[0m  CREATE TABLE `friendly_id_slugs` (`id` int(11) auto_increment PRIMARY KEY, `slug` varchar(255) NOT NULL, `sluggable_id` int(11) NOT NULL, `sluggable_type` varchar(50), `scope` varchar(255), `created_at` datetime) ENGINE=InnoDB
+  [1m[36m (20.4ms)[0m  [1mCREATE UNIQUE INDEX `index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope` USING btree ON `friendly_id_slugs` (`slug`, `sluggable_type`, `scope`) [0m
+  [1m[35m (25.4ms)[0m  CREATE INDEX `index_friendly_id_slugs_on_slug_and_sluggable_type` USING btree ON `friendly_id_slugs` (`slug`, `sluggable_type`) 
+  [1m[36m (18.3ms)[0m  [1mCREATE INDEX `index_friendly_id_slugs_on_sluggable_id` USING btree ON `friendly_id_slugs` (`sluggable_id`) [0m
+  [1m[35m (19.8ms)[0m  CREATE INDEX `index_friendly_id_slugs_on_sluggable_type` USING btree ON `friendly_id_slugs` (`sluggable_type`) 
+  [1m[36m (30.2ms)[0m  [1mCREATE TABLE `movimentos` (`id` int(11) auto_increment PRIMARY KEY, `data` date, `vlr` decimal(15,6), `user_id` int(11), `descricao` varchar(255), `created_at` datetime, `updated_at` datetime, `transacao_id` int(11), `fechamento_mes_base` int(11), `fechamento_ano_base` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (26.4ms)[0m  CREATE INDEX `index_movimentos_on_data` USING btree ON `movimentos` (`data`) 
+  [1m[36m (25.0ms)[0m  [1mCREATE INDEX `index_movimentos_on_transacao_id` USING btree ON `movimentos` (`transacao_id`) [0m
+  [1m[35m (18.8ms)[0m  CREATE INDEX `index_movimentos_on_user_id` USING btree ON `movimentos` (`user_id`) 
+  [1m[36m (22.5ms)[0m  [1mCREATE TABLE `operadores` (`id` int(11) auto_increment PRIMARY KEY, `nome` varchar(255), `estabelecimento_user_id` int(11), `created_at` datetime, `updated_at` datetime, `email` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `eliminado` tinyint(1)) ENGINE=InnoDB[0m
+  [1m[35m (23.0ms)[0m  CREATE UNIQUE INDEX `index_operadores_on_email` USING btree ON `operadores` (`email`) 
+  [1m[36m (26.1ms)[0m  [1mCREATE INDEX `index_operadores_on_estabelecimento_user_id` USING btree ON `operadores` (`estabelecimento_user_id`) [0m
+  [1m[35m (302.2ms)[0m  CREATE TABLE `pagamentos` (`id` int(11) auto_increment PRIMARY KEY, `valor` decimal(15,6), `status` varchar(255), `origem_id` int(11), `destino_id` int(11), `created_at` datetime, `updated_at` datetime, `data_vencimento` date, `tipo_pagamento` varchar(255), `url_pagseguro` varchar(255), `nosso_numero` varchar(255), `planos_adesao_id` int(11), `categoria` varchar(255), `recebido` tinyint(1)) ENGINE=InnoDB
+  [1m[36m (42.3ms)[0m  [1mCREATE INDEX `index_pagamentos_on_destino_id` USING btree ON `pagamentos` (`destino_id`) [0m
+  [1m[35m (22.5ms)[0m  CREATE INDEX `index_pagamentos_on_origem_id` USING btree ON `pagamentos` (`origem_id`) 
+  [1m[36m (26.5ms)[0m  [1mCREATE INDEX `index_pagamentos_on_planos_adesao_id` USING btree ON `pagamentos` (`planos_adesao_id`) [0m
+  [1m[35m (27.5ms)[0m  CREATE TABLE `parametrizacoes` (`id` int(11) auto_increment PRIMARY KEY, `created_at` datetime, `updated_at` datetime, `percentual_cliente` float, `percentual_franquia` float, `percentual_indicado` float, `vlr_minimo_bonus_indicacao` float, `percentual_administracao` float, `vlr_consumo_medio_para_resgate_premios` float, `prazo_entrega_premio` int(11), `valor_cartao` float) ENGINE=InnoDB
+  [1m[36m (35.5ms)[0m  [1mCREATE TABLE `planos_adesoes` (`id` int(11) auto_increment PRIMARY KEY, `vlr_anuidade` float, `vlr_indicado` float, `descricao` varchar(255), `created_at` datetime, `updated_at` datetime, `quantidade_indicacoes` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (25.2ms)[0m  CREATE TABLE `premios` (`id` int(11) auto_increment PRIMARY KEY, `tipo_usuario_id` int(11), `descricao` varchar(255), `descricao_completa` text, `created_at` datetime, `updated_at` datetime, `imagem_file_name` varchar(255), `imagem_content_type` varchar(255), `imagem_file_size` int(11), `imagem_updated_at` datetime) ENGINE=InnoDB
+  [1m[36m (25.9ms)[0m  [1mCREATE INDEX `index_premios_on_tipo_usuario_id` USING btree ON `premios` (`tipo_usuario_id`) [0m
+  [1m[35m (27.4ms)[0m  CREATE TABLE `resgates` (`id` int(11) auto_increment PRIMARY KEY, `cliente_user_id` int(11), `premio_id` int(11), `enviado` tinyint(1), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB
+  [1m[36m (17.6ms)[0m  [1mCREATE INDEX `index_resgates_on_cliente_user_id` USING btree ON `resgates` (`cliente_user_id`) [0m
+  [1m[35m (31.1ms)[0m  CREATE INDEX `index_resgates_on_premio_id` USING btree ON `resgates` (`premio_id`) 
+  [1m[36m (24.9ms)[0m  [1mCREATE TABLE `tipo_usuarios` (`id` int(11) auto_increment PRIMARY KEY, `descricao` varchar(255), `quantidade_indicacoes` int(11), `created_at` datetime, `updated_at` datetime, `imagem_file_name` varchar(255), `imagem_content_type` varchar(255), `imagem_file_size` int(11), `imagem_updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (24.2ms)[0m  CREATE TABLE `transacoes` (`id` int(11) auto_increment PRIMARY KEY, `forma_pagamento` varchar(255), `vlr_gasto` decimal(15,6), `cliente_user_id` int(11), `operador_id` int(11), `created_at` datetime, `updated_at` datetime, `cancelada` tinyint(1), `motivo` varchar(255), `documento` varchar(255), `valor_franquia` decimal(15,6), `valor_padrinho` decimal(15,6), `tipo_pagamento` varchar(255), `percentual_bonus_real` float) ENGINE=InnoDB
+  [1m[36m (20.3ms)[0m  [1mCREATE INDEX `index_transacoes_on_cancelada` USING btree ON `transacoes` (`cancelada`) [0m
+  [1m[35m (17.8ms)[0m  CREATE INDEX `index_transacoes_on_cliente_user_id` USING btree ON `transacoes` (`cliente_user_id`) 
+  [1m[36m (40.5ms)[0m  [1mCREATE INDEX `index_transacoes_on_created_at` USING btree ON `transacoes` (`created_at`) [0m
+  [1m[35m (16.6ms)[0m  CREATE INDEX `index_transacoes_on_forma_pagamento` USING btree ON `transacoes` (`forma_pagamento`) 
+  [1m[36m (20.1ms)[0m  [1mCREATE INDEX `index_transacoes_on_operador_id` USING btree ON `transacoes` (`operador_id`) [0m
+  [1m[35m (32.5ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `email` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime, `remember_created_at` datetime, `sign_in_count` int(11) DEFAULT 0 NOT NULL, `current_sign_in_at` datetime, `last_sign_in_at` datetime, `current_sign_in_ip` varchar(255), `last_sign_in_ip` varchar(255), `created_at` datetime, `updated_at` datetime, `juridica_fisica` varchar(255), `cpf_cnpj` varchar(255), `nome` varchar(255), `logradouro` varchar(255), `bairro` varchar(255), `complemento` varchar(255), `numero` varchar(255), `telefone` varchar(255), `celular` varchar(255), `type` varchar(255), `confirmation_token` varchar(255), `confirmed_at` datetime, `confirmation_sent_at` datetime, `unconfirmed_email` varchar(255), `cep` varchar(255), `percentual_bonus_real` float, `plano_adesao_id` int(11), `cliente_user_indicador_id` int(11), `numero_cartao` varchar(255), `padrinho_id` int(11), `taxa_publicidade` float, `cartao_emitido` tinyint(1) DEFAULT 0, `cidade` varchar(255), `descricao` varchar(255), `logo_file_name` varchar(255), `logo_content_type` varchar(255), `logo_file_size` int(11), `logo_updated_at` datetime, `data_nascimento` date, `estado_civil` varchar(255), `sexo` varchar(255), `url` varchar(255), `quantidade_indicacoes` int(11), `percentual_bonus_outras_formas` float, `observacao` varchar(255), `importado` tinyint(1) DEFAULT 0 NOT NULL, `razao_social` varchar(255)) ENGINE=InnoDB
+  [1m[36m (25.7ms)[0m  [1mCREATE INDEX `index_users_on_cliente_user_indicador_id` USING btree ON `users` (`cliente_user_indicador_id`) [0m
+  [1m[35m (17.0ms)[0m  CREATE UNIQUE INDEX `index_users_on_confirmation_token` USING btree ON `users` (`confirmation_token`) 
+  [1m[36m (16.8ms)[0m  [1mCREATE UNIQUE INDEX `index_users_on_cpf_cnpj` USING btree ON `users` (`cpf_cnpj`) [0m
+  [1m[35m (27.0ms)[0m  CREATE UNIQUE INDEX `index_users_on_email` USING btree ON `users` (`email`) 
+  [1m[36m (44.8ms)[0m  [1mCREATE INDEX `index_users_on_nome` USING btree ON `users` (`nome`) [0m
+  [1m[35m (21.7ms)[0m  CREATE UNIQUE INDEX `index_users_on_numero_cartao` USING btree ON `users` (`numero_cartao`) 
+  [1m[36m (28.7ms)[0m  [1mCREATE INDEX `index_users_on_padrinho_id` USING btree ON `users` (`padrinho_id`) [0m
+  [1m[35m (22.0ms)[0m  CREATE INDEX `index_users_on_plano_adesao_id` USING btree ON `users` (`plano_adesao_id`) 
+  [1m[36m (26.0ms)[0m  [1mCREATE UNIQUE INDEX `index_users_on_reset_password_token` USING btree ON `users` (`reset_password_token`) [0m
+  [1m[35m (17.7ms)[0m  CREATE INDEX `index_users_on_type` USING btree ON `users` (`type`) 
+  [1m[36m (86.3ms)[0m  [1mALTER TABLE `banners` ADD CONSTRAINT `banners_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(id)[0m
+  [1m[35m (76.8ms)[0m  ALTER TABLE `cities_users` ADD CONSTRAINT `cities_users_city_id_fk` FOREIGN KEY (`city_id`) REFERENCES `cities`(id)
+  [1m[36m (60.0ms)[0m  [1mALTER TABLE `cities_users` ADD CONSTRAINT `cities_users_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(id)[0m
+  [1m[35m (59.1ms)[0m  ALTER TABLE `config_boletos` ADD CONSTRAINT `config_boletos_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(id)
+  [1m[36m (63.7ms)[0m  [1mALTER TABLE `config_pagseguros` ADD CONSTRAINT `config_pagseguros_franquia_user_id_fk` FOREIGN KEY (`franquia_user_id`) REFERENCES `users`(id)[0m
+  [1m[35m (74.6ms)[0m  ALTER TABLE `movimentos` ADD CONSTRAINT `movimentos_transacao_id_fk` FOREIGN KEY (`transacao_id`) REFERENCES `transacoes`(id)
+  [1m[36m (79.1ms)[0m  [1mALTER TABLE `movimentos` ADD CONSTRAINT `movimentos_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(id)[0m
+  [1m[35m (53.7ms)[0m  ALTER TABLE `operadores` ADD CONSTRAINT `operadores_estabelecimento_user_id_fk` FOREIGN KEY (`estabelecimento_user_id`) REFERENCES `users`(id)
+  [1m[36m (68.8ms)[0m  [1mALTER TABLE `pagamentos` ADD CONSTRAINT `pagamentos_planos_adesao_id_fk` FOREIGN KEY (`planos_adesao_id`) REFERENCES `planos_adesoes`(id)[0m
+  [1m[35m (70.8ms)[0m  ALTER TABLE `pagamentos` ADD CONSTRAINT `pagamentos_destino_id_fk` FOREIGN KEY (`destino_id`) REFERENCES `users`(id)
+  [1m[36m (80.8ms)[0m  [1mALTER TABLE `pagamentos` ADD CONSTRAINT `pagamentos_origem_id_fk` FOREIGN KEY (`origem_id`) REFERENCES `users`(id)[0m
+  [1m[35m (60.1ms)[0m  ALTER TABLE `premios` ADD CONSTRAINT `premios_tipo_usuario_id_fk` FOREIGN KEY (`tipo_usuario_id`) REFERENCES `tipo_usuarios`(id)
+  [1m[36m (62.0ms)[0m  [1mALTER TABLE `resgates` ADD CONSTRAINT `resgates_premio_id_fk` FOREIGN KEY (`premio_id`) REFERENCES `premios`(id)[0m
+  [1m[35m (71.0ms)[0m  ALTER TABLE `resgates` ADD CONSTRAINT `resgates_cliente_user_id_fk` FOREIGN KEY (`cliente_user_id`) REFERENCES `users`(id)
+  [1m[36m (95.0ms)[0m  [1mALTER TABLE `transacoes` ADD CONSTRAINT `transacoes_operador_id_fk` FOREIGN KEY (`operador_id`) REFERENCES `operadores`(id)[0m
+  [1m[35m (91.5ms)[0m  ALTER TABLE `transacoes` ADD CONSTRAINT `transacoes_cliente_user_id_fk` FOREIGN KEY (`cliente_user_id`) REFERENCES `users`(id)
+  [1m[36m (136.6ms)[0m  [1mALTER TABLE `users` ADD CONSTRAINT `users_plano_adesao_id_fk` FOREIGN KEY (`plano_adesao_id`) REFERENCES `planos_adesoes`(id)[0m
+  [1m[35m (89.4ms)[0m  ALTER TABLE `users` ADD CONSTRAINT `users_padrinho_id_fk` FOREIGN KEY (`padrinho_id`) REFERENCES `users`(id)
+  [1m[36m (27.0ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (39.6ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`) 
+  [1m[36m (0.4ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (11.0ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150728130835')
+  [1m[36m (3.0ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131231152045')[0m
+  [1m[35m (2.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140127111707')
+  [1m[36m (2.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131219183400')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140106030148')
+  [1m[36m (2.5ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131204174053')[0m
+  [1m[35m (2.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140502194616')
+  [1m[36m (2.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140217125731')[0m
+  [1m[35m (2.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131218164051')
+  [1m[36m (4.9ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131205015710')[0m
+  [1m[35m (3.0ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140602183918')
+  [1m[36m (3.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140307011152')[0m
+  [1m[35m (2.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131230174455')
+  [1m[36m (4.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140104151731')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140105214718')
+  [1m[36m (3.0ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140217145210')[0m
+  [1m[35m (3.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140106004752')
+  [1m[36m (2.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131127184921')[0m
+  [1m[35m (4.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140307165600')
+  [1m[36m (2.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140217141912')[0m
+  [1m[35m (2.0ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140306185911')
+  [1m[36m (2.1ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140115142355')[0m
+  [1m[35m (3.0ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140307121844')
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131217203228')[0m
+  [1m[35m (5.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131211001751')
+  [1m[36m (4.0ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131205195953')[0m
+  [1m[35m (5.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140107010620')
+  [1m[36m (8.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131212223315')[0m
+  [1m[35m (10.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131213161205')
+  [1m[36m (2.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131230231420')[0m
+  [1m[35m (2.0ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140306181904')
+  [1m[36m (3.1ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140107010325')[0m
+  [1m[35m (2.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140128023142')
+  [1m[36m (5.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140106151000')[0m
+  [1m[35m (2.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140128172955')
+  [1m[36m (2.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140106144023')[0m
+  [1m[35m (2.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140404142424')
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131211024446')[0m
+  [1m[35m (2.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150710181417')
+  [1m[36m (3.9ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131203182020')[0m
+  [1m[35m (3.0ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140307121454')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131204173711')[0m
+  [1m[35m (3.0ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131211183414')
+  [1m[36m (1.9ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131218232314')[0m
+  [1m[35m (2.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131206014214')
+  [1m[36m (2.5ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140107010753')[0m
+  [1m[35m (2.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131212225707')
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131218171038')[0m
+  [1m[35m (2.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140114155612')
+  [1m[36m (3.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140306181929')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140405133122')
+  [1m[36m (3.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140404173203')[0m
+  [1m[35m (2.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131213214444')
+  [1m[36m (2.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140602203416')[0m
+  [1m[35m (2.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131218163859')
+  [1m[36m (4.0ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131231145254')[0m
+  [1m[35m (2.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140217125545')
+  [1m[36m (4.0ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131218174222')[0m
+  [1m[35m (2.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140306185754')
+  [1m[36m (2.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131217211948')[0m
+  [1m[35m (2.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131231011029')
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131230162258')[0m
+  [1m[35m (1.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131211184430')
+  [1m[36m (2.1ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140114162240')[0m
+  [1m[35m (4.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131211171147')
+  [1m[36m (2.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140217145303')[0m
+  [1m[35m (2.1ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140117135425')
+  [1m[36m (2.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140104150252')[0m
+  [1m[35m (2.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131210202526')
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140128023604')[0m
+  [1m[35m (2.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140306211333')
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140115135329')[0m
+  [1m[35m (2.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140307205604')
+  [1m[36m (3.0ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20131218222334')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131231125207')
+  [1m[36m (2.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140105221449')[0m
+  [1m[35m (2.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20131231154805')
+  [1m[36m (2.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140106144313')[0m
+  [1m[35m (2.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140106144122')
+  [1m[36m (2.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20140404171303')[0m
+  [1m[35m (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20140104164121')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mAdminUser Load (7.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`type` IN ('AdminUser') ORDER BY `users`.`id` ASC LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (17.6ms)[0m  SELECT 1 AS one FROM `users` WHERE `users`.`email` = BINARY 'admin@consumercard.net' LIMIT 1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM `users` WHERE `users`.`cpf_cnpj` = BINARY '19515763000101' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO `users` (`cpf_cnpj`, `created_at`, `email`, `encrypted_password`, `nome`, `type`, `updated_at`) VALUES ('19515763000101', '2018-08-25 06:12:28', 'admin@consumercard.net', '$2a$10$VjdXMdoVhP7ksBnifZqY/.geROlUYPH3iop/ND./qJ16XddYZwW8K', 'Rede ConsumerCard', 'AdminUser', '2018-08-25 06:12:28')
+  [1m[36mSQL (80.7ms)[0m  [1mINSERT INTO `activities` (`created_at`, `key`, `parameters`, `trackable_id`, `trackable_type`, `updated_at`) VALUES ('2018-08-25 06:12:29', 'admin_user.create', '--- {}\n', 1, 'User', '2018-08-25 06:12:29')[0m
+  [1m[35m (2.7ms)[0m  COMMIT
+  [1m[36mParametrizacao Load (0.3ms)[0m  [1mSELECT `parametrizacoes`.* FROM `parametrizacoes` ORDER BY `parametrizacoes`.`id` ASC LIMIT 1[0m
+  [1m[35m (0.7ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `parametrizacoes` (`created_at`, `percentual_administracao`, `percentual_cliente`, `percentual_franquia`, `percentual_indicado`, `updated_at`, `vlr_minimo_bonus_indicacao`) VALUES ('2018-08-25 06:12:29', 10.0, 90.0, 2.0, 8.0, '2018-08-25 06:12:29', 10.0)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `activities` (`created_at`, `key`, `parameters`, `trackable_id`, `trackable_type`, `updated_at`) VALUES ('2018-08-25 06:12:29', 'parametrizacao.create', '--- {}\n', 1, 'Parametrizacao', '2018-08-25 06:12:29')
+  [1m[36m (3.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `planos_adesoes` (`created_at`, `descricao`, `quantidade_indicacoes`, `updated_at`, `vlr_anuidade`, `vlr_indicado`) VALUES ('2018-08-25 06:12:29', 'ConsumerCard', 1, '2018-08-25 06:12:29', 100.0, 30.0)[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `activities` (`created_at`, `key`, `parameters`, `trackable_id`, `trackable_type`, `updated_at`) VALUES ('2018-08-25 06:12:29', 'planos_adesao.create', '--- {}\n', 1, 'PlanosAdesao', '2018-08-25 06:12:29')
+  [1m[36m (5.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO `planos_adesoes` (`created_at`, `descricao`, `quantidade_indicacoes`, `updated_at`, `vlr_anuidade`, `vlr_indicado`) VALUES ('2018-08-25 06:12:29', 'ConsumerCard Advanced', 2, '2018-08-25 06:12:29', 130.0, 40.0)[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `activities` (`created_at`, `key`, `parameters`, `trackable_id`, `trackable_type`, `updated_at`) VALUES ('2018-08-25 06:12:29', 'planos_adesao.create', '--- {}\n', 2, 'PlanosAdesao', '2018-08-25 06:12:29')
+  [1m[36m (5.3ms)[0m  [1mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (21.1ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'activities'
+ [0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `activities`
+  [1m[36m (0.3ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'banners'
+ [0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `banners`
+  [1m[36m (0.3ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'cities'
+ [0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `cities`
+  [1m[36m (0.2ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'cities_users'
+ [0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `cities_users`
+  [1m[36m (0.2ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'config_boletos'
+ [0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `config_boletos`
+  [1m[36m (0.3ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'config_pagseguros'
+ [0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `config_pagseguros`
+  [1m[36m (0.3ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'friendly_id_slugs'
+ [0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `friendly_id_slugs`
+  [1m[36m (0.3ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'movimentos'
+ [0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `movimentos`
+  [1m[36m (0.3ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'operadores'
+ [0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `operadores`
+  [1m[36m (0.2ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'pagamentos'
+ [0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `pagamentos`
+  [1m[36m (0.3ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'parametrizacoes'
+ [0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `parametrizacoes`
+  [1m[36m (0.2ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'planos_adesoes'
+ [0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `planos_adesoes`
+  [1m[36m (0.2ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'premios'
+ [0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `premios`
+  [1m[36m (0.3ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'resgates'
+ [0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `resgates`
+  [1m[36m (0.2ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'tipo_usuarios'
+ [0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `tipo_usuarios`
+  [1m[36m (0.3ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'transacoes'
+ [0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `transacoes`
+  [1m[36m (0.2ms)[0m  [1m
+ SELECT fk.referenced_table_name as 'to_table'
+ ,fk.referenced_column_name as 'primary_key'
+ ,fk.column_name as 'column'
+ ,fk.constraint_name as 'name'
+ FROM information_schema.key_column_usage fk
+ WHERE fk.referenced_column_name is not null
+ AND fk.table_schema = 'consumer_dev'
+ AND fk.table_name = 'users'
+ [0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `users`
+
+
+Started GET "/" for 187.59.35.121 at 2018-08-25 06:15:55 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Processing by HomeController#index as HTML
+  [1m[35mCity Load (14.2ms)[0m  SELECT distinct uf FROM `cities` ORDER BY `cities`.uf ASC
+  Rendered general/_messages.html.erb (0.8ms)
+  Rendered home/index.html.erb within layouts/inicial (153.8ms)
+WARNING: On line 1 of /var/www/consumercard/app/assets/stylesheets/public/cliente_users.css.scss:
+  It's not clear which file to import for '@import "mixins"'.
+  Candidates:
+    mixins.css.scss
+    mixins.scss
+  For now I'll choose mixins.css.scss.
+  This will be an error in future versions of Sass.
+
+
+WARNING: On line 1 of /var/www/consumercard/app/assets/stylesheets/public/sessions.css.scss:
+  It's not clear which file to import for '@import "../mixins"'.
+  Candidates:
+    ../mixins.css.scss
+    ../mixins.scss
+  For now I'll choose mixins.css.scss.
+  This will be an error in future versions of Sass.
+
+
+  Rendered layouts/_open_graph.html.erb (46.2ms)
+Completed 200 OK in 6069ms (Views: 5650.0ms | ActiveRecord: 14.2ms)
+
+
+Started GET "/admin" for 187.59.35.121 at 2018-08-25 06:16:07 +0000
+Processing by Admin::HomeController#index as HTML
+Redirected to http://201.30.93.66:3000/admin/users/sign_in
+Completed 302 Found in 153ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/users/sign_in" for 187.59.35.121 at 2018-08-25 06:16:07 +0000
+Processing by Admin::SessionsController#new as HTML
+  Rendered general/_messages.html.erb (0.3ms)
+  Rendered admin/sessions/new.html.erb within layouts/application (34.4ms)
+  Rendered layouts/admin_public.html.erb (36.4ms)
+Completed 200 OK in 509ms (Views: 145.8ms | ActiveRecord: 1.6ms)
+
+
+Started POST "/admin/users/sign_in" for 187.59.35.121 at 2018-08-25 06:16:20 +0000
+Processing by Admin::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Djx9J2DRzEDZn9EcDpHvkvfohwRWMdvxs6EuhxD1X/w=", "user"=>{"email"=>"contato@consumercard.net", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'contato@consumercard.net' ORDER BY `users`.`id` ASC LIMIT 1[0m
+Completed 401 Unauthorized in 14ms
+Processing by Admin::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Djx9J2DRzEDZn9EcDpHvkvfohwRWMdvxs6EuhxD1X/w=", "user"=>{"email"=>"contato@consumercard.net", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  Rendered general/_messages.html.erb (0.2ms)
+  Rendered admin/sessions/new.html.erb within layouts/application (6.9ms)
+  Rendered layouts/admin_public.html.erb (11.4ms)
+Completed 200 OK in 174ms (Views: 62.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/users/sign_in" for 187.59.35.121 at 2018-08-25 06:16:24 +0000
+Processing by Admin::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Djx9J2DRzEDZn9EcDpHvkvfohwRWMdvxs6EuhxD1X/w=", "user"=>{"email"=>"contato@consumercard.net", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`email` = 'contato@consumercard.net' ORDER BY `users`.`id` ASC LIMIT 1
+Completed 401 Unauthorized in 5ms
+Processing by Admin::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Djx9J2DRzEDZn9EcDpHvkvfohwRWMdvxs6EuhxD1X/w=", "user"=>{"email"=>"contato@consumercard.net", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  Rendered general/_messages.html.erb (0.1ms)
+  Rendered admin/sessions/new.html.erb within layouts/application (3.4ms)
+  Rendered layouts/admin_public.html.erb (11.4ms)
+Completed 200 OK in 126ms (Views: 19.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/users/sign_in" for 187.59.35.121 at 2018-08-25 06:16:32 +0000
+Processing by Admin::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Djx9J2DRzEDZn9EcDpHvkvfohwRWMdvxs6EuhxD1X/w=", "user"=>{"email"=>"admin@consumercard.net", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@consumercard.net' ORDER BY `users`.`id` ASC LIMIT 1[0m
+Completed 401 Unauthorized in 348ms
+Processing by Admin::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Djx9J2DRzEDZn9EcDpHvkvfohwRWMdvxs6EuhxD1X/w=", "user"=>{"email"=>"admin@consumercard.net", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  Rendered general/_messages.html.erb (0.2ms)
+  Rendered admin/sessions/new.html.erb within layouts/application (4.2ms)
+  Rendered layouts/admin_public.html.erb (10.7ms)
+Completed 200 OK in 127ms (Views: 20.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/users/sign_in" for 187.59.35.121 at 2018-08-25 06:16:39 +0000
+Processing by Admin::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Djx9J2DRzEDZn9EcDpHvkvfohwRWMdvxs6EuhxD1X/w=", "user"=>{"email"=>"admin@consumercard.net", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.7ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@consumercard.net' ORDER BY `users`.`id` ASC LIMIT 1
+Redirected to http://201.30.93.66:3000/admin
+Completed 302 Found in 134ms (ActiveRecord: 0.7ms)
+
+
+Started GET "/admin" for 187.59.35.121 at 2018-08-25 06:16:39 +0000
+Processing by Admin::HomeController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendered general/_messages.html.erb (0.4ms)
+  [1m[35mAdminUser Load (1.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`type` IN ('AdminUser') ORDER BY `users`.id ASC LIMIT 1
+  [1m[36mConfigBoleto Load (0.3ms)[0m  [1mSELECT `config_boletos`.* FROM `config_boletos` WHERE `config_boletos`.`user_id` = 1 ORDER BY `config_boletos`.`id` ASC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`type` IN ('AdminUser') ORDER BY `users`.id ASC LIMIT 1
+  [1m[36mCACHE (0.2ms)[0m  [1mSELECT `config_boletos`.* FROM `config_boletos` WHERE `config_boletos`.`user_id` = 1 ORDER BY `config_boletos`.`id` ASC LIMIT 1[0m  [["user_id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`type` IN ('AdminUser') ORDER BY `users`.id ASC LIMIT 1
+  Rendered admin/home/index.html.erb within layouts/application (776.3ms)
+  Rendered layouts/admin.html.erb (3454.6ms)
+Completed 200 OK in 4354ms (Views: 4346.1ms | ActiveRecord: 4.2ms)
+
+
+Started GET "/admin/parametrizacoes" for 187.59.35.121 at 2018-08-25 06:16:47 +0000
+Processing by Admin::ParametrizacoesController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mParametrizacao Load (1.1ms)[0m  SELECT `parametrizacoes`.* FROM `parametrizacoes` ORDER BY `parametrizacoes`.`id` ASC LIMIT 1
+Redirected to http://201.30.93.66:3000/admin/parametrizacoes/1
+Completed 302 Found in 50ms (ActiveRecord: 3.5ms)
+
+
+Started GET "/admin/parametrizacoes/1" for 187.59.35.121 at 2018-08-25 06:16:48 +0000
+Processing by Admin::ParametrizacoesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mParametrizacao Load (0.2ms)[0m  SELECT `parametrizacoes`.* FROM `parametrizacoes` WHERE `parametrizacoes`.`id` = 1 LIMIT 1
+  Rendered general/_breadcrumb.html.erb (1.2ms)
+  Rendered general/_messages.html.erb (0.2ms)
+  Rendered admin/parametrizacoes/show.html.erb within layouts/application (10.5ms)
+  Rendered layouts/admin.html.erb (32.5ms)
+Completed 200 OK in 120ms (Views: 114.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/admin/pagamentos" for 187.59.35.121 at 2018-08-25 06:16:51 +0000
+Processing by Admin::PagamentosController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (19.1ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`type` IN ('EstabelecimentoUser', 'FranquiaUser') ORDER BY `users`.nome ASC
+  [1m[36mAdminUser Load (0.6ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`type` IN ('AdminUser') ORDER BY `users`.id ASC LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`type` IN ('AdminUser') ORDER BY `users`.id ASC LIMIT 1
+  [1m[36m (26.8ms)[0m  [1mSELECT SUM(`pagamentos`.`valor`) AS sum_id FROM `pagamentos` INNER JOIN `users` ON `users`.`id` = `pagamentos`.`origem_id` INNER JOIN `users` `destinos_pagamentos` ON `destinos_pagamentos`.`id` = `pagamentos`.`destino_id` WHERE `pagamentos`.`origem_id` = 1 AND (`pagamentos`.`categoria` != 'anuidade')[0m
+  Rendered general/_breadcrumb.html.erb (0.5ms)
+  Rendered general/_messages.html.erb (0.1ms)
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM `pagamentos` INNER JOIN `users` ON `users`.`id` = `pagamentos`.`origem_id` INNER JOIN `users` `destinos_pagamentos` ON `destinos_pagamentos`.`id` = `pagamentos`.`destino_id` WHERE `pagamentos`.`origem_id` = 1 AND (`pagamentos`.`categoria` != 'anuidade')
+  [1m[36mSQL (1.1ms)[0m  [1mSELECT `pagamentos`.`id` AS t0_r0, `pagamentos`.`valor` AS t0_r1, `pagamentos`.`status` AS t0_r2, `pagamentos`.`origem_id` AS t0_r3, `pagamentos`.`destino_id` AS t0_r4, `pagamentos`.`created_at` AS t0_r5, `pagamentos`.`updated_at` AS t0_r6, `pagamentos`.`data_vencimento` AS t0_r7, `pagamentos`.`tipo_pagamento` AS t0_r8, `pagamentos`.`url_pagseguro` AS t0_r9, `pagamentos`.`nosso_numero` AS t0_r10, `pagamentos`.`planos_adesao_id` AS t0_r11, `pagamentos`.`categoria` AS t0_r12, `pagamentos`.`recebido` AS t0_r13, `users`.`id` AS t1_r0, `users`.`email` AS t1_r1, `users`.`encrypted_password` AS t1_r2, `users`.`reset_password_token` AS t1_r3, `users`.`reset_password_sent_at` AS t1_r4, `users`.`remember_created_at` AS t1_r5, `users`.`sign_in_count` AS t1_r6, `users`.`current_sign_in_at` AS t1_r7, `users`.`last_sign_in_at` AS t1_r8, `users`.`current_sign_in_ip` AS t1_r9, `users`.`last_sign_in_ip` AS t1_r10, `users`.`created_at` AS t1_r11, `users`.`updated_at` AS t1_r12, `users`.`juridica_fisica` AS t1_r13, `users`.`cpf_cnpj` AS t1_r14, `users`.`nome` AS t1_r15, `users`.`logradouro` AS t1_r16, `users`.`bairro` AS t1_r17, `users`.`complemento` AS t1_r18, `users`.`numero` AS t1_r19, `users`.`telefone` AS t1_r20, `users`.`celular` AS t1_r21, `users`.`type` AS t1_r22, `users`.`confirmation_token` AS t1_r23, `users`.`confirmed_at` AS t1_r24, `users`.`confirmation_sent_at` AS t1_r25, `users`.`unconfirmed_email` AS t1_r26, `users`.`cep` AS t1_r27, `users`.`percentual_bonus_real` AS t1_r28, `users`.`plano_adesao_id` AS t1_r29, `users`.`cliente_user_indicador_id` AS t1_r30, `users`.`numero_cartao` AS t1_r31, `users`.`padrinho_id` AS t1_r32, `users`.`taxa_publicidade` AS t1_r33, `users`.`cartao_emitido` AS t1_r34, `users`.`cidade` AS t1_r35, `users`.`descricao` AS t1_r36, `users`.`logo_file_name` AS t1_r37, `users`.`logo_content_type` AS t1_r38, `users`.`logo_file_size` AS t1_r39, `users`.`logo_updated_at` AS t1_r40, `users`.`data_nascimento` AS t1_r41, `users`.`estado_civil` AS t1_r42, `users`.`sexo` AS t1_r43, `users`.`url` AS t1_r44, `users`.`quantidade_indicacoes` AS t1_r45, `users`.`percentual_bonus_outras_formas` AS t1_r46, `users`.`observacao` AS t1_r47, `users`.`importado` AS t1_r48, `users`.`razao_social` AS t1_r49, `destinos_pagamentos`.`id` AS t2_r0, `destinos_pagamentos`.`email` AS t2_r1, `destinos_pagamentos`.`encrypted_password` AS t2_r2, `destinos_pagamentos`.`reset_password_token` AS t2_r3, `destinos_pagamentos`.`reset_password_sent_at` AS t2_r4, `destinos_pagamentos`.`remember_created_at` AS t2_r5, `destinos_pagamentos`.`sign_in_count` AS t2_r6, `destinos_pagamentos`.`current_sign_in_at` AS t2_r7, `destinos_pagamentos`.`last_sign_in_at` AS t2_r8, `destinos_pagamentos`.`current_sign_in_ip` AS t2_r9, `destinos_pagamentos`.`last_sign_in_ip` AS t2_r10, `destinos_pagamentos`.`created_at` AS t2_r11, `destinos_pagamentos`.`updated_at` AS t2_r12, `destinos_pagamentos`.`juridica_fisica` AS t2_r13, `destinos_pagamentos`.`cpf_cnpj` AS t2_r14, `destinos_pagamentos`.`nome` AS t2_r15, `destinos_pagamentos`.`logradouro` AS t2_r16, `destinos_pagamentos`.`bairro` AS t2_r17, `destinos_pagamentos`.`complemento` AS t2_r18, `destinos_pagamentos`.`numero` AS t2_r19, `destinos_pagamentos`.`telefone` AS t2_r20, `destinos_pagamentos`.`celular` AS t2_r21, `destinos_pagamentos`.`type` AS t2_r22, `destinos_pagamentos`.`confirmation_token` AS t2_r23, `destinos_pagamentos`.`confirmed_at` AS t2_r24, `destinos_pagamentos`.`confirmation_sent_at` AS t2_r25, `destinos_pagamentos`.`unconfirmed_email` AS t2_r26, `destinos_pagamentos`.`cep` AS t2_r27, `destinos_pagamentos`.`percentual_bonus_real` AS t2_r28, `destinos_pagamentos`.`plano_adesao_id` AS t2_r29, `destinos_pagamentos`.`cliente_user_indicador_id` AS t2_r30, `destinos_pagamentos`.`numero_cartao` AS t2_r31, `destinos_pagamentos`.`padrinho_id` AS t2_r32, `destinos_pagamentos`.`taxa_publicidade` AS t2_r33, `destinos_pagamentos`.`cartao_emitido` AS t2_r34, `destinos_pagamentos`.`cidade` AS t2_r35, `destinos_pagamentos`.`descricao` AS t2_r36, `destinos_pagamentos`.`logo_file_name` AS t2_r37, `destinos_pagamentos`.`logo_content_type` AS t2_r38, `destinos_pagamentos`.`logo_file_size` AS t2_r39, `destinos_pagamentos`.`logo_updated_at` AS t2_r40, `destinos_pagamentos`.`data_nascimento` AS t2_r41, `destinos_pagamentos`.`estado_civil` AS t2_r42, `destinos_pagamentos`.`sexo` AS t2_r43, `destinos_pagamentos`.`url` AS t2_r44, `destinos_pagamentos`.`quantidade_indicacoes` AS t2_r45, `destinos_pagamentos`.`percentual_bonus_outras_formas` AS t2_r46, `destinos_pagamentos`.`observacao` AS t2_r47, `destinos_pagamentos`.`importado` AS t2_r48, `destinos_pagamentos`.`razao_social` AS t2_r49 FROM `pagamentos` INNER JOIN `users` ON `users`.`id` = `pagamentos`.`origem_id` INNER JOIN `users` `destinos_pagamentos` ON `destinos_pagamentos`.`id` = `pagamentos`.`destino_id` WHERE `pagamentos`.`origem_id` = 1 AND (`pagamentos`.`categoria` != 'anuidade') LIMIT 25 OFFSET 0[0m
+  Rendered admin/pagamentos/index.html.erb within layouts/application (26.0ms)
+  Rendered layouts/admin.html.erb (27.6ms)
+Completed 200 OK in 208ms (Views: 131.4ms | ActiveRecord: 50.4ms)
+
+
+Started GET "/admin/cities" for 187.59.35.121 at 2018-08-25 06:16:54 +0000
+Processing by Admin::CitiesController#index as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1
+  Rendered general/_breadcrumb.html.erb (0.4ms)
+  Rendered general/_messages.html.erb (0.1ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `cities` WHERE (description like '%%' Or uf Like '%%')[0m
+  [1m[35mCity Load (0.2ms)[0m  SELECT `cities`.* FROM `cities` WHERE (description like '%%' Or uf Like '%%') LIMIT 25 OFFSET 0
+  Rendered admin/cities/index.html.erb within layouts/application (9.0ms)
+  Rendered layouts/admin.html.erb (28.6ms)
+Completed 200 OK in 47ms (Views: 41.0ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/admin/cities" for 187.59.35.121 at 2018-08-25 06:16:54 +0000
+Processing by Admin::CitiesController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1[0m
+  Rendered general/_breadcrumb.html.erb (0.3ms)
+  Rendered general/_messages.html.erb (0.1ms)
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `cities` WHERE (description like '%%' Or uf Like '%%')
+  [1m[36mCity Load (0.2ms)[0m  [1mSELECT `cities`.* FROM `cities` WHERE (description like '%%' Or uf Like '%%') LIMIT 25 OFFSET 0[0m
+  Rendered admin/cities/index.html.erb within layouts/application (4.9ms)
+  Rendered layouts/admin.html.erb (26.9ms)
+Completed 200 OK in 38ms (Views: 33.7ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/" for 187.59.35.121 at 2018-08-25 06:17:09 +0000
+Processing by HomeController#index as HTML
+  [1m[35mCity Load (0.5ms)[0m  SELECT distinct uf FROM `cities` ORDER BY `cities`.uf ASC
+  Rendered general/_messages.html.erb (0.1ms)
+  Rendered home/index.html.erb within layouts/inicial (1.9ms)
+  Rendered layouts/_open_graph.html.erb (0.4ms)
+Completed 200 OK in 23ms (Views: 19.8ms | ActiveRecord: 0.5ms)

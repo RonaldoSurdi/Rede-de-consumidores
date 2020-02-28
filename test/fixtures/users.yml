@@ -1,0 +1,217 @@
+admin_user:
+  id: 1
+  nome: "Mateus Luís Nava"
+  email: "nava.mateus@gmail.com"
+  encrypted_password: "connect123"
+  type: "AdminUser"
+
+franquia_1:
+  id: 2
+  nome: "Franquia 1"
+  email: "franquia@gmail.com"
+  encrypted_password: "connect123"
+  type: "FranquiaUser"
+
+franquia_2:
+  id: 3
+  nome: "Franquia 2"
+  email: "franquia2@gmail.com"
+  encrypted_password: "connect123"
+  type: "FranquiaUser"
+
+franquia_3:
+  id: 4
+  nome: "Franquia 3"
+  email: "franquia3@gmail.com"
+  encrypted_password: "connect123"
+  type: "FranquiaUser"
+
+estabelecimento:
+  id: 5
+  nome: "Estabelecimento"
+  email: "estabelecimento@gmail.com"
+  encrypted_password: "connect123"
+  type: "EstabelecimentoUser"
+  cities: [erechim]
+  cpf_cnpj: "83688943015"
+  percentual_bonus: 10.0
+
+estabelecimento2:
+  id: 6
+  nome: "Estabelecimento2"
+  email: "estabeleciment2o@gmail.com"
+  encrypted_password: "connect123"
+  type: "EstabelecimentoUser"
+  cities: [erechim]
+  cpf_cnpj: "83688943018"
+  percentual_bonus: 5.0
+  taxa_publicidade: 10.0
+
+estabelecimento3:
+  id: 7
+  nome: "Estabelecimento3"
+  email: "estabeleciment3@gmail.com"
+  encrypted_password: "connect123"
+  type: "EstabelecimentoUser"
+  cities: [getulio]
+  cpf_cnpj: "8368894301123"
+  percentual_bonus: 7.21
+
+estabelecimento4:
+  id: 8
+  nome: "Estabelecimento4"
+  email: "estabeleciment4@gmail.com"
+  encrypted_password: "connect123"
+  type: "EstabelecimentoUser"
+  cities: [getulio]
+  cpf_cnpj: "836889430111233"
+  percentual_bonus: 10.5
+
+franquia_getulio:
+  id: 9
+  nome: "Franquia Getulio"
+  email: "getulio@gmail.com"
+  encrypted_password: "connect123"
+  type: "FranquiaUser"
+  cities: [getulio]
+  cpf_cnpj: "32112348545412"
+  logradouro: "Logradouro"
+  cep: "99700-000"  
+
+origem:
+  id: 10
+  nome: "Origem"
+  email: "origem@gmail.com"
+  encrypted_password: "connect123"
+  type: "FranquiaUser"
+  cities: [erechim]
+  cpf_cnpj: "32118545410"
+  logradouro: "Logradouro"
+  cep: "99700-000"
+
+cliente:
+  id: 11
+  nome: "Cliente"
+  email: "cliente@gmail.com"
+  encrypted_password: "connect123"
+  type: "ClienteUser"
+  cities: [erechim]
+  cpf_cnpj: <%= BrFaker::Cpf.cpf(false) %>
+  logradouro: "Logradouro"
+  bairro: "Centro"
+  cep: "99700-000"
+  plano_adesao_id: 4
+  numero_cartao: 9001000001
+  data_nascimento: "1989-01-01"
+  estado_civil: "Solteiro"
+  sexo: "M"
+  celular: "5499118599"
+  numero: "23"
+  cidade: "Erechim"
+
+cliente2:
+  id: 12
+  nome: "Cliente 2"
+  email: "cliente2@gmail.com"
+  encrypted_password: "connect123"
+  type: "ClienteUser"
+  cities: [erechim]
+  cpf_cnpj: <%= BrFaker::Cpf.cpf(false) %>
+  logradouro: "Logradouro"
+  bairro: "Centro"
+  cep: "99700-000"
+  plano_adesao_id: 2
+  padrinho_id: 11
+  data_nascimento: "1989-01-01"
+  estado_civil: "Solteiro"
+  sexo: "M"
+  celular: "5499118599"
+  numero_cartao: 9001000002
+  numero: "23"
+  plano_adesao: basico
+  cidade: "Erechim"
+
+cliente3:
+  id: 13
+  nome: "Cliente 3"
+  email: "cliente3@gmail.com"
+  encrypted_password: "connect123"
+  type: "ClienteUser"
+  cities: [erechim]
+  cpf_cnpj: <%= BrFaker::Cpf.cpf(false) %>
+  logradouro: "Logradouro"
+  bairro: "Centro"
+  cep: "99700-000"
+  plano_adesao_id: 1
+  data_nascimento: "1989-01-01"
+  estado_civil: "Solteiro"
+  sexo: "M"
+  celular: "5499118599"
+  numero_cartao: 9001000003
+  numero: "23"
+  plano_adesao: basico
+  cidade: "Erechim"
+
+cliente4:
+  id: 14
+  nome: "Cliente 4"
+  email: "cliente4@gmail.com"
+  encrypted_password: "connect123"
+  type: "ClienteUser"
+  cities: [getulio]
+  cpf_cnpj: <%= BrFaker::Cpf.cpf(false) %>
+  logradouro: "Logradouro"
+  bairro: "Centro"
+  cep: "99700-000"
+  plano_adesao_id: 1
+  data_nascimento: "1989-01-01"
+  estado_civil: "Solteiro"
+  sexo: "M"
+  celular: "5499118599"
+  numero_cartao: 9001000004
+  numero: "23"
+  plano_adesao: basico
+  cidade: "Erechim"
+
+cliente5:
+  id: 15
+  nome: "Cliente 5"
+  email: "cliente5@gmail.com"
+  encrypted_password: "connect123"
+  type: "ClienteUser"
+  cities: [getulio]
+  cpf_cnpj: <%= BrFaker::Cpf.cpf(false) %>
+  logradouro: "Logradouro"
+  bairro: "Centro"
+  cep: "99700-000"
+  plano_adesao_id: 2
+  padrinho: cliente4
+  data_nascimento: "1989-01-01"
+  estado_civil: "Solteiro"
+  sexo: "M"
+  celular: "5499118599"
+  numero_cartao: 9001000005
+  numero: "23"
+  plano_adesao: advanced
+  cidade: "Erechim"
+
+cliente_anuidade_zerada:
+  id: 16
+  nome: "Cliente Anuidade Zerada"
+  email: "zerada@gmail.com"
+  encrypted_password: "connect123"
+  type: "ClienteUser"
+  cities: [erechim]
+  cpf_cnpj: <%= BrFaker::Cpf.cpf(false) %>
+  logradouro: "Logradouro"
+  bairro: "Centro"
+  cep: "99700-000"
+  plano_adesao_id: 3
+  data_nascimento: "1989-01-01"
+  estado_civil: "Solteiro"
+  sexo: "M"  
+  celular: "5499118599"
+  numero_cartao: 9001000006
+  numero: "23"
+  plano_adesao: zerada
+  cidade: "Erechim"

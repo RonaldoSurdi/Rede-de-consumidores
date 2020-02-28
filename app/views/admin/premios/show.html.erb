@@ -1,0 +1,22 @@
+<h1><%= @premio.descricao %></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<p>
+  <strong>Tipo Usuário:</strong>
+  <%= @premio.tipo_usuario.descricao %>
+</p>
+
+<p>
+  <strong>Descrição Completa:</strong><br>
+  <%= raw @premio.descricao_completa.to_s.nl2br %>
+</p>
+
+<p>
+  <%= image_tag @premio.imagem.url, style: "max-width: 100%" %>
+</p>
+
+<%= link_to "Auditoria", auditorium_path("Premio", codigo: @premio.id, descricao: @premio.descricao) %> |
+<%= link_to 'Editar', edit_premio_path(@premio) %> |
+<%= link_to 'Voltar', premios_path %>

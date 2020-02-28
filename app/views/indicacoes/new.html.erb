@@ -1,0 +1,43 @@
+<h2>Indicação de Amigos</h2>
+
+<%= form_tag indicacoes_path do %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <%= label_tag :emails, "E-Mails - Separar emails com ;" %>
+      <%= text_field_tag :emails, nil, class: 'form-control', autofocus: true, required: true %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <br>
+      <%= submit_tag "Indicar Amigos!", class: "btn btn-primary btn-sm pull-right" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h5>Pessoas indicadas que efetuaram o cadastro</h5>
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Cadastro ativado em</th>
+            <th>Pontos de Indicação</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @pessoas_indicadas.each do |pessoa| %>
+            <tr>
+              <td><%= pessoa.nome %></td>
+              <td><%= pessoa.data_ativacao ? pessoa.data_ativacao.in_time_zone.to_s_br : "Ainda não está ativado" %></td>
+              <td><%= pessoa.pontos_indicacao ? pessoa.pontos_indicacao : "" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

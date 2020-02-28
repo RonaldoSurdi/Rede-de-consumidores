@@ -1,0 +1,19 @@
+operador1:
+  nome: "Operador 1"
+  estabelecimento_user_id: 5
+  email: "operador1"
+
+operador2:
+  nome: "Operador 2"
+  estabelecimento_user_id: 6
+  email: "operador2"
+
+operador3:
+  nome: "Operador 3"
+  estabelecimento_user_id: 7
+  email: "operador3"
+
+operador4:
+  nome: "Operador 4"
+  estabelecimento_user_id: 8
+  email: "operador4"

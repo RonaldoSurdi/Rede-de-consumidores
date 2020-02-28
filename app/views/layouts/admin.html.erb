@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ConsumerCard - Administração</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= favicon_link_tag "favicon.ico" %>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= csrf_meta_tags %>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body class="crud <%= controller_name %>">
+  <div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to "ConsumerCard - Acesso #{current_user.tipo}", user_root_path, class:  "navbar-brand" %>
+      </div>
+
+      <div class="collapse navbar-collapse navbar-ex1-collapse" id="menu-admin">
+        <ul class="nav navbar-nav side-nav">
+          <%= content_tag :li, link_to("Configurações Gerais", parametrizacoes_path, data: {controller: 'parametrizacoes'}) if current_user.is_a? AdminUser %>
+          <%= content_tag :li, link_to("Configurações para Emissão de Boletos", config_boletos_path, data: {controller: 'config_boletos'}) if [FranquiaUser,AdminUser].include? current_user.class %>
+          <%= content_tag :li, link_to("Configurações do PagSeguro", config_pagseguros_path, data: {controller: 'config_pagseguros'}) if current_user.is_a?(FranquiaUser) %>
+          <%= content_tag :li, link_to("Financeiro", pagamentos_path, data: {controller: 'pagamentos'}) if [FranquiaUser,AdminUser,EstabelecimentoUser].include? current_user.class %>
+          <%= content_tag :li, link_to("Conta Corrente", movimentos_path, data: {controller: 'movimentos'}) %>
+          <%= content_tag :li, link_to("Administradores", admin_users_path, data: {controller: 'admin_users'}) if current_user.is_a? AdminUser %>
+          <%= content_tag :li, link_to("Cidades", cities_path, data: {controller: 'cities'}) if current_user.is_a? AdminUser %>
+          <%= content_tag :li, link_to("Franquias", franquia_users_path, data: {controller: 'franquia_users'}) if current_user.is_a? AdminUser %>
+          <%= content_tag :li, link_to("Estabelecimentos", estabelecimento_users_path, data: {controller: 'estabelecimento_users'}) if current_user.is_a? FranquiaUser %>
+          <%= content_tag :li, link_to("Planos de Adesão", planos_adesao_index_path, data: {controller: 'planos_adesao'}) if current_user.is_a? AdminUser %>
+          <%= content_tag :li, link_to("Clientes", cliente_users_path, data: {controller: 'cliente_users'}) if [AdminUser, FranquiaUser].include? current_user.class  %>
+          <%= content_tag :li, link_to("Banners", banners_path, data: {controller: 'banners'}) if [AdminUser, FranquiaUser].include? current_user.class  %>
+          <%= content_tag :li, link_to("Operadores", operadores_path, data: {controller: 'operadores'}) if current_user.is_a? EstabelecimentoUser %>
+          <%= content_tag :li, link_to("Transações", admin_transacoes_path, data: {controller: 'transacoes'}) %>
+          <%= content_tag :li, link_to("Anuidades", anuidades_path, data: {controller: 'anuidades'}) if [FranquiaUser, AdminUser].include? current_user.class %>
+          <%= content_tag :li, link_to("Indicações", indicacoes_admin_index_path, data: {controller: 'indicacoes_admin'}) if [FranquiaUser, AdminUser].include? current_user.class  %>
+          <%= content_tag :li, link_to("Tipos de Usuários", tipo_usuarios_path, data: {controller: 'tipo_usuarios'}) if current_user.is_a? AdminUser %>
+          <%= content_tag :li, link_to("Prêmios", premios_path, data: {controller: 'premios'}) if current_user.is_a? AdminUser %>
+          <%= content_tag :li, link_to("Solicitação de Prêmios", resgate_admin_index_path, data: {controller: 'resgates'}) if current_user.is_a? AdminUser %>
+          <%= content_tag :li, link_to("Importação de Usuários", new_importacao_path, data: {controller: 'importacoes'}) if [FranquiaUser, AdminUser].include? current_user.class %>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right navbar-user">
+          <li class="dropdown user-dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= "#{current_user.nome} (#{current_user.tipo})" %> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Alterar Senha", password_index_path %></li>
+              <li><%= link_to "Log Out", destroy_user_session_path, method: "delete" %></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div id="page-wrapper">
+      <div class="row">
+        <div class="col-lg-12">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.app = {
+      controller: '<%= controller_name %>'
+    }
+  </script>
+  <%= javascript_include_tag "application" %>
+  <script>
+    function definirAlturaMenu() {
+      $("#menu-admin ul.side-nav").height($(window).height() - $("#menu-admin").height());
+    }
+    definirAlturaMenu();
+    $(window).on("resize", definirAlturaMenu);
+
+  </script>
+</body>
+</html>

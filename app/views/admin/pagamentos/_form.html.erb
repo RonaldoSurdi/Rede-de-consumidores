@@ -1,0 +1,28 @@
+<%= form_for(@pagamento) do |f| %>
+
+  <div class="<%= get_class_control_form(@pagamento, 'tipo') %>">
+    <%= f.label :tipo, class: 'control-label' %><br>
+    <%= f.text_field :tipo, class: 'form-control'  %>
+    <span class="help-block"><%= @pagamento.errors.messages[:tipo].join %></span>
+  </div>
+
+  <div class="<%= get_class_control_form(@pagamento, 'valor') %>">
+    <%= f.label :valor, class: 'control-label' %><br>
+    <%= f.text_field :valor, class: 'form-control'  %>
+    <span class="help-block"><%= @pagamento.errors.messages[:valor].join %></span>
+  </div>
+
+  <div class="<%= get_class_control_form(@pagamento, 'dt_hra_emissao') %>">
+    <%= f.label :dt_hra_emissao, class: 'control-label' %><br>
+    <%= f.datetime_select :dt_hra_emissao, class: 'form-control'  %>
+    <span class="help-block"><%= @pagamento.errors.messages[:dt_hra_emissao].join %></span>
+  </div>
+
+  <div class="<%= get_class_control_form(@pagamento, 'status') %>">
+    <%= f.label :status, class: 'control-label' %><br>
+    <%= f.text_field :status, class: 'form-control'  %>
+    <span class="help-block"><%= @pagamento.errors.messages[:status].join %></span>
+  </div>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+<% end %>

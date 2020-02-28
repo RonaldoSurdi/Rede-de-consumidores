@@ -1,0 +1,26 @@
+<%%= form_for(@<%= singular_table_name %>) do |f| %>
+
+<% attributes.each do |attribute| -%>
+  <div class="<%%= get_class_control_form(@<%= singular_table_name %>, '<%= attribute.column_name %>') %>">
+<% if attribute.password_digest? -%>
+    <%%= f.label :password, class: 'control-label' %><br>
+    <%%= f.password_field :password, class: 'form-control' %>
+  </div>
+  <div class="<%%= get_class_control_form(@<%= singular_table_name %>, '<%= attribute.column_name %>') %>">
+    <%%= f.label :password_confirmation, class: 'control-label'  %><br>
+    <%%= f.password_field :password_confirmation, class: 'form-control'  %>
+<% else -%>
+  <%- if attribute.reference? -%>
+    <%%= f.label :<%= attribute.column_name %>, class: 'control-label' %><br>
+    <%%= f.<%= attribute.field_type %> :<%= attribute.column_name %>, class: 'form-control'   %>
+  <%- else -%>
+    <%%= f.label :<%= attribute.name %>, class: 'control-label' %><br>
+    <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, class: 'form-control'  %>
+  <%- end -%>
+<% end -%>
+    <span class="help-block"><%%= @<%= singular_table_name %>.errors.messages[:<%= attribute.column_name %>].join %></span>
+  </div>
+
+<% end -%>
+  <%%= f.submit nil, class: 'btn btn-primary' %>
+<%% end %>

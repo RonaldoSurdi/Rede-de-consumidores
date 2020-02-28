@@ -1,0 +1,43 @@
+<h1>Prêmios <small>Gerenciamento</small></h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<div class="actions">
+  <div class="row">
+    <%= form_tag nil, method: :get do %>
+      <div class="col-md-3">
+        <%= text_field_tag :q, @filter, placeholder: "Filtro de Pesquisa", class:  "form-control" %>
+      </div>
+      <div class="col-md-9">
+        <button class="btn btn-primary" type="submit">Pesquisar</button>
+        <%= link_to 'Novo Prêmio', new_premio_path, class: 'btn btn-success btn-sm pull-right' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= paginate @premios %>
+
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+    <th>#</th>
+      <th>Descrição</th>
+      <th>Tipo</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @premios.each do |premio| %>
+      <tr>
+        <td><%= link_to premio.id, premio %></td>
+        <td><%= premio.descricao %></td>
+        <td><%= premio.tipo_usuario.descricao %></td>
+        <td><%= link_to t('Edit'), edit_premio_path(premio) %></td>
+        <td><%= link_to t('Destroy'), premio, method: :delete, data: { confirm: 'Você confirma a exclusão?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

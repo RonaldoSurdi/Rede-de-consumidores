@@ -1,0 +1,6 @@
+<% if notice || alert %>
+  <div id="mensagens">
+    <%= content_tag :div, notice, class: 'alert alert-success' if notice %>
+    <%= content_tag :div, alert, class: 'alert alert-danger' if alert %>
+  </div>
+<% end %>

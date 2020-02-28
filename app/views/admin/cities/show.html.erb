@@ -1,0 +1,22 @@
+<h1><%= @city.description %></h1>
+<%= breadcrumb %>
+<%= messages %>
+
+<p>
+  <strong>Descrição:</strong>
+  <%= @city.description %>
+</p>
+
+<p>
+  <strong>UF:</strong>
+  <%= @city.uf %>
+</p>
+
+<p>
+  <strong>Identificador (URL):</strong>
+  <%= @city.slug %>
+</p>
+
+<%= link_to "Auditoria", auditorium_path("City", codigo: @city.id, descricao: @city.full_name) %> |
+<%= link_to 'Editar', edit_city_path(@city) %> |
+<%= link_to 'Voltar', cities_path %>

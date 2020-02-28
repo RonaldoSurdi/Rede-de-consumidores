@@ -1,0 +1,54 @@
+<h1>Configurações <small>Emissão de Boleto</small></h1>
+
+<%= messages %>
+
+<p>
+  <strong>Banco:</strong>
+  <%= ConfigBoleto.bancos[@config.banco.to_sym][:descricao] if @config.banco %>
+</p>
+
+<p>
+  <strong>Convênio:</strong>
+  <%= @config.convenio %>
+</p>
+
+
+<p>
+  <strong>Agência:</strong>
+  <%= @config.agencia %>
+</p>
+
+
+<p>
+  <strong>Conta Corrente:</strong>
+  <%= @config.conta_corrente %>
+</p>
+
+
+<p>
+  <strong>Posto (Somente Sicredi):</strong>
+  <%= @config.posto %>
+</p>
+
+
+<p>
+  <strong>Byte de Geração (Somente Sicredi):</strong>
+  <%= @config.byte_geracao %>
+</p>
+
+
+<p>
+  <strong>Quantidade dias para Vencimento:</strong>
+  <%= @config.dias_vencimento %>
+</p>
+
+
+<p>
+  <strong>Instruções:</strong>
+  <%= @config.instrucoes %>
+</p>
+
+<%= link_to "Testar emissão de Boleto", test_config_boletos_path if @config.present? %> | 
+<%= link_to "Auditoria", auditorium_path("ConfigBoleto", codigo: @config.id, descricao: "Configurações de Boletos") %> |
+<%= link_to 'Editar', edit_config_boleto_path(@config) if @config.id %>
+<%= link_to 'Editar', new_config_boleto_path unless @config.id %>

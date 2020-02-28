@@ -1,0 +1,6 @@
+pagamento_1:
+  valor: 598.65
+  created_at: 2013-12-11 16:44:30
+  status: :aberto
+  origem: origem
+  destino: estabelecimento

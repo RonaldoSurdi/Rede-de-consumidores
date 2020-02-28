@@ -1,0 +1,45 @@
+movimento1:
+  data: 2013-12-17
+  vlr: 1.5
+  user: cliente
+  descricao: MyString
+
+movimento2:
+  data: 2013-12-18
+  vlr: 12.50
+  user: cliente
+  descricao: MyString
+
+movimento3:
+  data: 2014-12-18
+  vlr: 50.90
+  user: cliente
+  descricao: MyString
+
+movimento4:
+  data: 2014-12-18
+  vlr: 50.90
+  user: cliente2
+  descricao: MyString
+
+movimento5:
+  data: 2013-12-17
+  vlr: 5
+  user: cliente3
+  transacao: transacao2
+
+movimento6:
+  data: 2013-12-17
+  vlr: -5
+  user: cliente3
+
+movimento7:
+  data: 2013-12-17
+  vlr: 10
+  user: cliente3
+
+movimento8:
+  data: 2010-01-02
+  vlr: 100.00
+  descricao: "Pagamento de Anuidade"
+  user: origem

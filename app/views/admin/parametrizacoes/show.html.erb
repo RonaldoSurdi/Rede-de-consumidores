@@ -1,0 +1,47 @@
+<h1>Configurações</h1>
+
+<%= breadcrumb %>
+<%= messages %>
+
+<p>
+  <strong>Percentual do Bônus para o Cliente:</strong>
+  <%= number_to_percentage @parametrizacao.percentual_cliente || 0, precision: 2 %>
+</p>
+
+<p>
+  <strong>Percentual do Bônus para a Franquia:</strong>
+  <%= number_to_percentage @parametrizacao.percentual_franquia  || 0, precision: 2 %>
+</p>
+
+<p>
+  <strong>Percentual do Bônus para o Indicador:</strong>
+  <%= number_to_percentage @parametrizacao.percentual_indicado || 0, precision: 2 %>
+</p>
+
+<p>
+  <strong>Percentual sobre o Faturamento da Franquia destinado para a Administração:</strong>
+  <%= number_to_percentage @parametrizacao.percentual_administracao  || 0, precision: 2 %>
+</p>
+
+<p>
+  <strong>Valor de consumo mensal mínimo para o cliente receber bônus de indicação:</strong>
+  <%= Dinheiro.new(@parametrizacao.vlr_minimo_bonus_indicacao || 0).real_formatado %>
+</p>
+
+<p>
+  <strong>Valor de consumo médio mensal nos últimos 180 dias para poder solicitar prêmios:</strong>
+  <%= Dinheiro.new(@parametrizacao.vlr_consumo_medio_para_resgate_premios || 0).real_formatado %>
+</p>
+
+<p>
+  <strong>Prazo de entrega do prêmio em dias:</strong>
+  <%= @parametrizacao.prazo_entrega_premio.to_i %>
+</p>
+
+<p>
+  <strong>Valor cartão:</strong>
+  <%= Dinheiro.new(@parametrizacao.valor_cartao.to_f).real_formatado %>
+</p>
+
+<%= link_to "Auditoria", auditorium_path("Parametrizacao", codigo: @parametrizacao.id, descricao: "Parametrizações") %> |
+<%= link_to 'Editar', edit_parametrizacao_path(@parametrizacao) %>
