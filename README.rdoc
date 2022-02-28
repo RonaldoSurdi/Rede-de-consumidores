@@ -1,7 +1,5 @@
-# CONSUMERCARD sistema para fidelização de clientes
-
-Video apresentação:
-https://www.youtube.com/watch?v=AjN5t09Prfs
+# Rede de consumidores
+# sistema para fidelização de clientes
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
